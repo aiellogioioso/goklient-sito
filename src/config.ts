@@ -44,7 +44,7 @@ export const config = {
     mensile: { imponibile: '9,75', ivato: '11,90' },
     annuale: { imponibile: '98,28', ivato: '119,90' },
     giorniProva: 30,
-    apparecchi: 10,
+    apparecchi: 4, // decisione del 10/11/2026: fino a 4 apparecchi, sostituibili dall'app
   },
 
   /** Dati della societa': goKlient s.r.l. in costituzione. null = mostra il segnaposto. */
