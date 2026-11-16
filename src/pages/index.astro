@@ -1,0 +1,644 @@
+---
+// Home (brief: struttura sez. 5, 1.1-1.9; testi B1; testimonianze sez. 11; titolo e descrizione dalla sez. 10).
+// Telefono prima di tutto: in ogni sezione il testo Breve in alto; il Completo sta in un <details class="more">
+// che sul telefono resta chiuso e sul computer si apre da solo (classe e script comuni: global.css e Base.astro).
+import Base from '../layouts/Base.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import DownloadButtons from '../components/DownloadButtons.astro';
+import Icon from '../components/Icon.astro';
+import Testimonianze from '../components/Testimonianze.astro';
+import { config, testoWindows } from '../config';
+import { mestieri } from '../data/mestieri';
+import { trovaFaq, faqHome, type Faq } from '../data/faq';
+
+const title = 'goKlient - Clienti, ordini e preventivi per chi lavora in proprio';
+const description =
+  "L'app per artigiani, produttori, commercianti e professionisti: clienti, scadenze, listino, ordini, preventivi in PDF ed email. Prova gratis 30 giorni.";
+
+const w = config.windowsDisponibile;
+const apparecchi = w ? 'telefono, tablet e computer' : 'telefono e tablet';
+
+// 1.2 Ti riconosci?
+const situazioni = [
+  { icon: 'ordini', testo: "Il numero è in rubrica, l'ordine su un foglio, l'accordo... a memoria." },
+  { icon: 'scadenze', testo: 'Ti sei ricordato del controllo della caldaia quando il cliente ti ha chiamato lui.' },
+  { icon: 'email', testo: 'Volevi mandare le offerte di Natale a tutti, ma copiare gli indirizzi uno per uno ti ha fermato.' },
+];
+
+// 1.3 Cinque cose che goKlient fa per te. "img: null" = ritaglio della Home sulla striscia delle scadenze.
+const cinque = [
+  {
+    icon: 'clienti',
+    titolo: 'I tuoi clienti in una lista sola',
+    breve: 'Cerca per nome, azienda, città o note. Un pallino colorato ti dice chi richiamare prima.',
+    completo:
+      'Ogni cliente ha la sua scheda: nome, telefono, indirizzo, tipo di cliente, note. La lista si cerca con poche lettere e si raggruppa per tipo o per zona. Accanto a ogni cliente un pallino: rosso se una scadenza è già passata, arancione se è vicina, verde se è lontana.',
+    img: {
+      src: '/img/schermate/p6-contatti-badge.webp',
+      h: 771,
+      alt: "La lista dei contatti sul telefono: in alto la casella Cerca e i filtri per tipo (Tutti, Cliente, Fornitore, Grossista), sotto i clienti con l'iniziale del nome e un'etichetta viola P1 o P2 per i preventivi.",
+    },
+  },
+  {
+    icon: 'scadenze',
+    titolo: 'Le scadenze, prima che scadano',
+    breve: 'Metti una data al richiamo o alla consegna: la Home ti avvisa per tempo.',
+    completo:
+      "Ogni cosa da fare per un cliente diventa un evento. Se le dai una scadenza, entra nello Scadenziario. Decidi tu con quanti giorni di anticipo essere avvisato, da 1 a 30. In Home una striscia ti dice quante scadenze sono passate e quante stanno arrivando.",
+    img: null,
+  },
+  {
+    icon: 'ordini',
+    titolo: 'Gli ordini dal tuo listino',
+    breve: 'Scegli il prodotto dal listino, metti quantità e sconto: il totale si fa da solo.',
+    completo:
+      'Il listino è il tuo catalogo: codice, descrizione, categoria, prezzo. Quando un cliente ordina, scegli dal listino invece di riscrivere. Quantità, sconto e spunta "Consegnato"; l\'app calcola il totale. Per ogni prodotto vedi chi l\'ha ordinato e quando.',
+    img: {
+      src: '/img/schermate/p2-evento-preventivo.webp',
+      h: 1407,
+      alt: "La scheda di un evento sul telefono: data, scadenza e tipo di evento, i pulsanti Prodotto + e Preventivo e, sotto, i prodotti scelti dal listino con il numero di articoli e l'importo.",
+    },
+  },
+  {
+    icon: 'email',
+    titolo: 'Le email a tutti, una per uno',
+    breve: 'Scrivi una volta, parte una email per ciascun cliente, con il suo nome.',
+    completo:
+      'Usi la tua casella di posta di sempre. Scegli i destinatari (un gruppo, i clienti di una zona, uno per uno) e un testo già pronto. goKlient spedisce una email separata a ciascuno, con il suo nome al posto giusto. Nessuno vede gli indirizzi degli altri.',
+    img: {
+      src: '/img/schermate/f12-destinatari.webp',
+      h: 1488,
+      alt: 'Il primo passo per inviare una email sul telefono: il menu "A chi inviare la email" con Lista destinatari, Gruppi da email inviate, Selezione diretta e A me per test.',
+    },
+  },
+  {
+    icon: 'preventivi',
+    titolo: "Il preventivo, dalla proposta d'ordine al PDF",
+    breve:
+      "Dalla proposta d'ordine del cliente nasce il preventivo: lo correggi, diventa un PDF numerato e lo mandi per email.",
+    completo:
+      "Inserisci una volta i dati della tua azienda. Poi, dalla scheda di un evento con un ordine, tocchi Preventivo: il foglio è già composto, con la tua intestazione, il cliente, i prodotti, l'imponibile, l'IVA e il totale. Lo correggi come vuoi, poi lo trasformi in un PDF con il suo numero, per esempio 2026/011, e lo mandi per email. Se il cliente chiede una modifica, fai una nuova revisione: tiene lo stesso numero con una lettera, per esempio 2026/011 a, e lo storico resta nella scheda dell'evento.",
+    img: {
+      src: '/img/schermate/p4-preventivo-numerato.webp',
+      h: 1407,
+      alt: "Un preventivo sul telefono con l'intestazione di un'acetaia inventata, il cliente Ristorante La Quercia e il titolo Preventivo n. 2026/021 del 02/11/2026; in basso i pulsanti Revisione e Invia.",
+    },
+  },
+];
+
+// 1.6 I dati dei tuoi clienti restano tuoi: punti del Completo, parola per parola.
+// ATTENZIONE (brief, riga 456): sul cloud si dice solo cio' che sta nell'ultimo punto, niente "cifrati con la tua chiave".
+const puntiDati = [
+  'Il tuo archivio vive sul tuo apparecchio. Se attivi il cloud, è separato da quello di ogni altro utente: nessuno vede i tuoi clienti.',
+  'La copia di sicurezza su file è cifrata: si apre solo con goKlient, anche se perdi la chiavetta.',
+  'La password della tua casella di posta non viaggia mai nel cloud.',
+  'Chi non vuole più ricevere email viene escluso da solo dagli invii di gruppo.',
+  'Prima di cancellare un archivio, goKlient fa da sola una copia di sicurezza.',
+  'Le copie finiscono nella cartella Download/goKlient e goKlient ti ricorda di portarle anche fuori dal telefono: su una chiavetta, sul computer, in una email a te stesso.',
+  'Nel cloud il tuo archivio sta su server Microsoft Azure in Italia, con il disco cifrato, e viaggia su una connessione protetta. Lo apriamo solo per la manutenzione del servizio: non consultiamo i tuoi dati e non li trasmettiamo a nessuno.',
+];
+
+// 1.8 Le quattro domande della Home, con i pezzi di risposta che diventano link.
+// I link interni alla pagina delle domande (#domanda-23) qui puntano a /domande-frequenti#domanda-23.
+type Pezzo = { t: string; href?: string };
+function pezzi(f: Faq): Pezzo[] {
+  let out: Pezzo[] = [{ t: f.risposta }];
+  for (const l of f.link ?? []) {
+    const href = l.href.startsWith('#') ? `/domande-frequenti${l.href}` : l.href;
+    out = out.flatMap((p) => {
+      if (p.href) return [p];
+      const i = p.t.indexOf(l.testo);
+      if (i < 0) return [p];
+      return [{ t: p.t.slice(0, i) }, { t: l.testo, href }, { t: p.t.slice(i + l.testo.length) }];
+    });
+  }
+  return out.filter((p) => p.t);
+}
+const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(f));
+---
+<Base title={title} description={description}>
+  <!-- 1.1 Apertura -->
+  <section class="section section--brand hero" aria-labelledby="hero-title">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <span class="badge hero__badge">Prova gratis per {config.prezzi.giorniProva} giorni</span>
+        <h1 id="hero-title">I tuoi clienti, sempre a portata di mano.</h1>
+        <p class="lead hero__sub">
+          Contatti, scadenze, ordini, preventivi ed email in un posto solo.{' '}
+          {w ?'Sul telefono, sul tablet e sul computer.' : 'Sul telefono e sul tablet.'}
+        </p>
+        <p class="hero__breve">
+          goKlient è l'app per chi lavora in proprio. Tieni la scheda di ogni cliente, ricordi le scadenze, segni gli
+          ordini, prepari i preventivi e mandi le email. Anche senza rete.
+        </p>
+        <details class="more hero__more">
+          <summary>Leggi di più</summary>
+          <div>
+            <p>
+              goKlient nasce per una cosa sola: tenerti vicino ai tuoi clienti. Raccogli i loro contatti, ricordi cosa
+              avete concordato, prepari gli ordini e i preventivi e mandi le email, tutto da un unico posto. È fatta per
+              artigiani, piccoli produttori, negozi e agenti. Funziona su telefono e tablet Android. {testoWindows} Non ti
+              lascia a piedi quando manca la rete.
+            </p>
+          </div>
+        </details>
+        <DownloadButtons secondary={{ href: '/come-funziona', label: 'Guarda come funziona' }} />
+      </div>
+
+      <div class="hero__visual">
+        {/* Home PROVVISORIA (versione di prova con la R, numeri di prova): da sostituire con la cattura della versione
+            pubblicata. La riga della versione in alto e' nascosta dal ritaglio in CSS (.hero__main). */}
+        <div class="hero__main">
+          <PhoneFrame
+            src="/img/schermate/h1-home-provvisoria.webp"
+            alt="La Home di goKlient sul telefono: i contatori di contatti, eventi e prodotti, la striscia rossa delle scadenze e i riquadri I tuoi contatti, I tuoi prodotti e Le tue email."
+            width={720}
+            height={1488}
+            eager
+          />
+        </div>
+        <div class="hero__back">
+          <PhoneFrame
+            src="/img/schermate/p2-evento-preventivo.webp"
+            alt="La scheda di un evento con due prodotti ordinati e i pulsanti Prodotto + e Preventivo."
+            width={720}
+            height={1407}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.2 Ti riconosci? -->
+  <section class="section" aria-labelledby="tr-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2 id="tr-title">Ti riconosci?</h2>
+        <p class="lead">Tre situazioni che conosci bene.</p>
+      </div>
+      <ul class="grid grid-3 tr-list">
+        {situazioni.map((s) => (
+          <li class="card tr-card">
+            <span class="icon-dot"><Icon name={s.icon} /></span>
+            <p class="tr-card__text">{s.testo}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="tr-after">
+        Lavori tanto fuori: in cantiere, in fiera, al mercato, in cantina. Le informazioni sui clienti finiscono in dieci
+        posti diversi e, quando servono, non le trovi. <strong>goKlient le mette tutte sulla scheda del cliente e te le
+        ricorda al momento giusto.</strong>
+      </p>
+    </div>
+  </section>
+
+  <!-- 1.3 Cinque cose che goKlient fa per te -->
+  <section class="section section--alt" aria-labelledby="cinque-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <h2 id="cinque-title">Cinque cose che goKlient fa per te</h2>
+        <p class="lead">Semplici, ogni giorno.</p>
+      </div>
+
+      <ol class="feats">
+        {cinque.map((f, i) => (
+          <li class:list={['feat', { 'feat--rev': i % 2 === 1 }]}>
+            <div class="feat__head">
+              <div class="feat__num">
+                <span class="icon-dot feat__icon"><Icon name={f.icon} /></span>
+                <span class="feat__n">{i + 1} di 5</span>
+              </div>
+              <h3>{f.titolo}</h3>
+              <p class="lead feat__breve">{f.breve}</p>
+            </div>
+
+            <div class="feat__fig">
+              {f.img ? (
+                <div class="feat__panel">
+                  <div class="feat__phone">
+                    <PhoneFrame src={f.img.src} alt={f.img.alt} width={720} height={f.img.h} />
+                  </div>
+                </div>
+              ) : (
+                <div class="feat__panel feat__panel--strip">
+                  {/* Ritaglio della Home provvisoria sulla striscia delle scadenze (riga della versione esclusa). */}
+                  <div class="strip">
+                    <img
+                      src="/img/schermate/h1-home-provvisoria.webp"
+                      alt="La parte alta della Home di goKlient: i contatori di contatti, eventi e prodotti e, sotto, la striscia rossa che dice quante scadenze sono passate e quante stanno arrivando."
+                      width={720}
+                      height={1488}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <p class="strip__cap"><Icon name="scadenze" size={20} /> Avviso da 1 a 30 giorni prima, decidi tu.</p>
+                </div>
+              )}
+            </div>
+
+            <details class="more feat__more">
+              <summary>Leggi di più</summary>
+              <div><p>{f.completo}</p></div>
+            </details>
+          </li>
+        ))}
+      </ol>
+
+      <p class="feats__link">
+        <a class="btn btn--ghost" href="/come-funziona">Guarda come funziona <Icon name="freccia" /></a>
+      </p>
+    </div>
+  </section>
+
+  {/*
+    Testimonianze (sez. 11): il blocco compare solo quando config.testimonianze contiene almeno una voce
+    (Eugenio ne sta raccogliendo due, con liberatoria). Finche' l'elenco e' vuoto in Home non si mostra nulla.
+  */}
+  {config.testimonianze.length > 0 && (
+    <section class="section section--tight" aria-labelledby="test-title">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <h2 id="test-title">Dicono di goKlient</h2>
+        </div>
+        <Testimonianze voci={config.testimonianze} />
+      </div>
+    </section>
+  )}
+
+  <!-- 1.4 Gia' pronta per il tuo mestiere -->
+  <section class="section" aria-labelledby="mest-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">25 mestieri, ognuno con le sue parole</span>
+        <h2 id="mest-title">Già pronta per il tuo mestiere</h2>
+        <p class="lead">Artigiano, produttore, commerciante o professionista: goKlient parla la tua lingua.</p>
+        <p class="mest-breve">
+          Scegli il tuo lavoro: goKlient crea i tipi di cliente, le scadenze e le categorie del listino che usi davvero.
+        </p>
+      </div>
+
+      <ul class="tiles">
+        {mestieri.map((m) => (
+          <li>
+            <a class="tile" href={`/mestieri/${m.slug}`}>
+              <img src={`/img/mestieri/${m.key}.svg`} alt="" width="64" height="64" loading="lazy" decoding="async" />
+              <span class="tile__name">{m.tessera}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <details class="more mest-more">
+        <summary>Leggi di più</summary>
+        <div>
+          <p>
+            La prima volta che inserisci un cliente, goKlient ti chiede che lavoro fai. Un tocco, e trovi già pronti i
+            tipi di cliente (per l'idraulico: Privato, Condominio, Impresa edile...), i tipi di evento (Manutenzione
+            caldaia, Controllo dei fumi...) e le categorie del listino. Se nessun mestiere ti somiglia, scegli le
+            tipologie standard e le adatti tu.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 1.5 Telefono e tablet (computer quando Windows sara' disponibile: config.windowsDisponibile) -->
+  <section class="section section--alt" aria-labelledby="dev-title">
+    <div class="container split">
+      <div>
+        <h2 id="dev-title">{w ? 'In giro col telefono, in ufficio col computer' : 'In giro col telefono, a casa col tablet'}</h2>
+        <p class="lead">Lo stesso archivio su tutti i tuoi apparecchi. Anche senza rete.</p>
+        <p>
+          Prendi il contatto al volo sul telefono, completi la scheda la sera {w ? 'sul tablet o sul computer' : 'sul tablet'}.
+          Senza rete lavori lo stesso: i dati si rimettono in pari quando torna la connessione e apri goKlient.
+        </p>
+        <details class="more">
+          <summary>Leggi di più</summary>
+          <div>
+            <p>
+              Con il tuo accesso goKlient colleghi {apparecchi} allo stesso archivio: registri un cliente in fiera e la
+              sera lo ritrovi {w ? 'sugli altri apparecchi' : 'sul tablet'}, senza fare nulla. In cantina o in galleria il
+              telefono non prende? Inserisci, modifichi, prendi ordini: tutto resta salvato e si allinea quando torna la
+              rete, mentre goKlient è aperta sullo schermo.
+            </p>
+            <p>
+              Il collegamento tra apparecchi è facoltativo: con un solo apparecchio goKlient funziona benissimo anche
+              senza.{!w && ` ${testoWindows}`}
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="card devices">
+        <ul class="devices__row">
+          <li class="device-tile">
+            <span class="icon-dot"><Icon name="telefono" /></span>
+            <span>Telefono</span>
+          </li>
+          <li class="devices__sync" aria-hidden="true"><Icon name="sync" size={28} /></li>
+          <li class="device-tile">
+            <span class="icon-dot"><Icon name="tablet" /></span>
+            <span>Tablet</span>
+          </li>
+          <li class="devices__sync" aria-hidden="true"><Icon name="sync" size={28} /></li>
+          <li class:list={['device-tile', { 'device-tile--soon': !w }]}>
+            <span class="icon-dot"><Icon name="computer" /></span>
+            <span>{w ? 'Computer' : 'Windows'}</span>
+          </li>
+        </ul>
+        {!w && <p class="small devices__soon">{testoWindows}</p>}
+        <ul class="devices__points">
+          <li><Icon name="sync" size={22} /> Lo stesso archivio su tutti i tuoi apparecchi.</li>
+          <li><Icon name="offline" size={22} /> Senza rete lavori lo stesso.</li>
+        </ul>
+        <p class="note devices__note">Il cloud è facoltativo. Con un solo apparecchio goKlient funziona anche senza.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.6 I dati dei tuoi clienti restano tuoi -->
+  <section class="section" aria-labelledby="dati-title">
+    <div class="container">
+      <div class="dati">
+        <div class="dati__intro">
+          <span class="icon-dot dati__icon"><Icon name="lucchetto" /></span>
+          <h2 id="dati-title">I dati dei tuoi clienti restano tuoi</h2>
+          <p class="lead">Sul tuo apparecchio, nel tuo archivio, con le copie di sicurezza.</p>
+          <p>
+            L'archivio sta sul tuo apparecchio. Il cloud è una scelta e il tuo archivio è separato da quello di chiunque
+            altro. La copia di sicurezza su file è protetta e si apre solo con goKlient.
+          </p>
+          <p class="dati__link">
+            <a href="/privacy">Leggi come trattiamo i dati <Icon name="freccia" size={20} /></a>
+          </p>
+        </div>
+        <details class="more dati__more">
+          <summary>Leggi di più</summary>
+          <div>
+            <ul class="checks">
+              {puntiDati.map((p) => <li>{p}</li>)}
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.7 Provala prima, con i dati di prova -->
+  <section class="section section--brand" aria-labelledby="demo-title">
+    <div class="container split split--reverse">
+      <div>
+        <span class="eyebrow">Dimostrazione</span>
+        <h2 id="demo-title">Provala prima, con i dati di prova</h2>
+        <p class="lead">Clienti, prodotti, scadenze e lettere d'esempio del tuo mestiere, in un tocco.</p>
+        <p>
+          Al primo avvio goKlient ti propone una dimostrazione: scegli fino a tre mestieri e trovi l'app già piena di
+          esempi. Quando hai finito, la svuoti con un pulsante.
+        </p>
+        <p class="demo-tile">
+          <span class="icon-dot"><Icon name="demo" /></span>
+          <span>Dati di prova: nomi inventati, indirizzi @demo.it. Li togli con un pulsante.</span>
+        </p>
+        <details class="more">
+          <summary>Leggi di più</summary>
+          <div>
+            <p>
+              Quando apri goKlient la prima volta, l'archivio è vuoto e l'app ti chiede se vuoi provarla con dei dati
+              d'esempio. Scegli il tuo mestiere (anche due o tre insieme) e trovi clienti, prodotti, eventi, scadenze e
+              tre lettere già scritte per il tuo lavoro. I nomi sono inventati e gli indirizzi finiscono con @demo.it.
+            </p>
+            <p>
+              Quando sei pronto a inserire i tuoi clienti veri, il pulsante "Azzera gli archivi dimostrativi" in Home
+              toglie tutto, e puoi tenere le lettere da adattare alla tua attività.
+            </p>
+          </div>
+        </details>
+        <div class="btn-row demo-btn">
+          <a class="btn btn--primary" href="/scarica"><Icon name="scarica" /> Scarica e prova la demo</a>
+        </div>
+      </div>
+      <div class="demo-fig">
+        <PhoneFrame
+          src="/img/schermate/h12-demo-due-mestieri.webp"
+          alt="La dimostrazione sul telefono: fra i mestieri sono scelti Idraulici ed Elettricisti; sotto, i tipi di cliente e le scadenze che verranno preparati e il pulsante Avvia demo."
+          width={720}
+          height={1488}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 1.8 Le domande che ci fanno di piu' -->
+  <section class="section" aria-labelledby="faq-title">
+    <div class="container container--narrow">
+      <div class="section-head section-head--center">
+        <h2 id="faq-title">Le domande che ci fanno di più</h2>
+      </div>
+      <div class="faq">
+        {domande.map((f) => (
+          <details>
+            <summary>{f.domanda}</summary>
+            <div>
+              <p>{pezzi(f).map((p) => (p.href ? <a href={p.href}>{p.t}</a> : p.t))}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+      <p class="faq-all">
+        <a class="btn btn--ghost" href="/domande-frequenti">Tutte le domande <Icon name="freccia" /></a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 1.9 Chiusura -->
+  <section class="section section--tight" aria-labelledby="close-title">
+    <div class="container">
+      <div class="close">
+        <h2 id="close-title">Vicino ai tuoi clienti.</h2>
+        <p class="lead close__sub">Scarica goKlient e prova la dimostrazione del tuo mestiere.</p>
+        <div class="close__row">
+          <DownloadButtons showNote={false} />
+          <p class="close__win"><Icon name="computer" size={22} /> {testoWindows}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ---------- 1.1 Apertura ---------- */
+  .hero { padding-block: clamp(32px, 6vw, 88px) 0; overflow: hidden; }
+  .hero__grid { display: grid; gap: 40px; align-items: center; }
+  .hero__badge { margin-bottom: 18px; background: var(--surface); border: 1px solid var(--line); }
+  .hero h1 { max-width: 14ch; }
+  .hero__sub { margin-bottom: 0.8em; }
+  .hero__breve { max-width: 34em; margin-bottom: 0.6em; }
+  .hero__more { max-width: 34em; margin: 0 0 1.6em; }
+
+  .hero__visual {
+    position: relative; width: 100%; max-width: 360px; margin-inline: auto;
+    padding: 0 24px; max-height: 420px; overflow: hidden; /* sul telefono il telefono "esce" dal fondo della sezione */
+  }
+  .hero__main { position: relative; z-index: 2; width: 66%; margin-left: auto; }
+  .hero__back { position: absolute; z-index: 1; left: 24px; top: 70px; width: 46%; transform: rotate(-5deg); }
+  .hero__main :global(.device--phone),
+  .hero__back :global(.device--phone) { max-width: none; }
+  .hero__back :global(.device--phone) { border-radius: 26px; padding: 7px; }
+  .hero__back :global(.device--phone::before) { display: none; }
+  .hero__back :global(.device__screen) { border-radius: 20px; padding-top: 0; }
+  /* Nasconde la riga della versione di prova in cima alla Home provvisoria. */
+  .hero__main :global(.device__screen img) { margin-top: calc(-8.5% - 22px); }
+
+  @media (min-width: 900px) {
+    .hero { padding-bottom: clamp(56px, 8vw, 96px); }
+    .hero__grid { grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 72px); }
+    .hero__visual { max-width: 460px; max-height: none; overflow: visible; padding: 0; }
+    .hero__main { width: 64%; margin-right: 4%; }
+    .hero__back { left: 0; top: auto; bottom: 10%; width: 44%; }
+  }
+
+  /* ---------- 1.2 Ti riconosci? ---------- */
+  .tr-list { list-style: none; padding: 0; margin: 0; }
+  .tr-list li { margin: 0; }
+  .tr-card { position: relative; }
+  .tr-card__text { font-size: 1.15rem; font-weight: 600; line-height: 1.5; }
+  .tr-after {
+    max-width: 760px; margin: clamp(28px, 4vw, 44px) auto 0; text-align: center; color: var(--ink-2);
+  }
+  .tr-after strong { color: var(--ink); }
+
+  /* ---------- 1.3 Cinque cose ---------- */
+  .feats { list-style: none; padding: 0; margin: 0; display: grid; gap: clamp(56px, 8vw, 96px); }
+  .feat {
+    margin: 0; display: grid; gap: 20px; grid-template-columns: 1fr;
+    grid-template-areas: 'head' 'fig' 'more';
+  }
+  .feat__head { grid-area: head; }
+  .feat__fig { grid-area: fig; }
+  .feat__more { grid-area: more; margin-top: 0; }
+  .feat__num { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .feat__icon { margin: 0; }
+  .feat__n { font-weight: 800; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+  .feat__breve { margin-bottom: 0; }
+
+  .feat__panel {
+    position: relative; overflow: hidden; height: 300px; border-radius: var(--radius);
+    background: linear-gradient(160deg, var(--mint), var(--sand)); border: 1px solid var(--line);
+    padding: 28px 24px 0;
+  }
+  .feat__phone { width: min(220px, 72%); margin-inline: auto; }
+  .feat__phone :global(.device--phone) { max-width: none; }
+
+  .feat__panel--strip {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    padding: 24px;
+  }
+  .strip {
+    width: min(400px, 100%); aspect-ratio: 720 / 420; overflow: hidden; border-radius: 22px;
+    background: var(--mint); box-shadow: var(--shadow-lg); border: 8px solid #12302e;
+  }
+  @media (prefers-color-scheme: dark) { .strip { outline: 1px solid var(--line); } }
+  .strip img { width: 100%; height: auto; margin-top: -12.5%; }
+  .strip__cap {
+    display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 8px 16px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line); font-weight: 700; font-size: 0.98rem; color: var(--ink-2);
+    text-align: center;
+  }
+  .strip__cap :global(svg) { color: var(--brand); flex: none; }
+
+  @media (min-width: 900px) {
+    .feat {
+      grid-template-columns: 1fr 1fr; column-gap: clamp(40px, 6vw, 80px); row-gap: 20px;
+      grid-template-rows: auto 1fr; grid-template-areas: 'head fig' 'more fig'; align-items: start;
+    }
+    .feat--rev { grid-template-areas: 'fig head' 'fig more'; }
+    .feat__head { align-self: end; }
+    .feat__panel { height: 440px; padding-top: 40px; }
+    .feat__phone { width: min(270px, 70%); }
+  }
+
+  .feats__link { text-align: center; margin: clamp(48px, 6vw, 72px) 0 0; }
+
+  /* ---------- 1.4 Mestieri ---------- */
+  .mest-breve { color: var(--ink-2); margin: 0; }
+  .tiles {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.5rem), 1fr));
+  }
+  .tiles li { margin: 0; }
+  .tile {
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 8px; height: 100%;
+    padding: 14px 6px 12px; border-radius: var(--radius-sm); background: var(--surface); border: 1px solid var(--line);
+    box-shadow: var(--shadow); text-decoration: none; color: var(--ink); text-align: center;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .tile:hover { transform: translateY(-2px); border-color: var(--brand-strong); color: var(--brand-ink); }
+  .tile img { width: 52px; height: 52px; }
+  .tile__name {
+    font-weight: 700; font-size: 0.95rem; line-height: 1.25; overflow-wrap: break-word; hyphens: auto; max-width: 100%;
+  }
+  @media (min-width: 560px) { .tiles { gap: 14px; } }
+  @media (min-width: 900px) {
+    .tiles { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .tile { padding: 20px 10px 16px; }
+    .tile img { width: 64px; height: 64px; }
+    .tile__name { font-size: 1rem; }
+  }
+  .mest-more { max-width: 760px; margin: clamp(28px, 4vw, 40px) auto 0; }
+
+  /* ---------- 1.5 Apparecchi ---------- */
+  .devices { display: grid; gap: 20px; }
+  .devices__row {
+    list-style: none; padding: 0; margin: 0; display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .devices__row li { margin: 0; }
+  .device-tile { display: flex; flex-direction: column; align-items: center; gap: 4px; font-weight: 700; font-size: 0.98rem; }
+  .device-tile .icon-dot { margin: 0; width: 64px; height: 64px; border-radius: 20px; }
+  .device-tile .icon-dot :global(svg) { width: 32px; height: 32px; }
+  .device-tile--soon { color: var(--ink-3); }
+  .device-tile--soon .icon-dot { background: var(--surface-2); color: var(--ink-3); border: 2px dashed var(--line); }
+  .devices__sync { color: var(--brand); padding-bottom: 24px; }
+  .devices__soon { text-align: center; margin: -8px 0 0; }
+  .devices__points { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .devices__points li { display: flex; align-items: center; gap: 12px; margin: 0; font-weight: 600; }
+  .devices__points :global(svg) { color: var(--brand-strong); flex: none; }
+  .devices__note { margin: 0; }
+
+  /* ---------- 1.6 Dati ---------- */
+  .dati { display: grid; gap: 16px; }
+  .dati__icon { width: 60px; height: 60px; }
+  .dati__link { margin: 0; }
+  .dati__link a { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; min-height: 44px; }
+  .dati__more .checks { margin: 8px 0 0; }
+  .dati__more .checks li { color: var(--ink); }
+  @media (min-width: 900px) {
+    .dati { grid-template-columns: 0.85fr 1.15fr; gap: clamp(40px, 6vw, 80px); align-items: start; }
+    .dati__more { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 8px 28px; box-shadow: var(--shadow); }
+  }
+
+  /* ---------- 1.7 Demo ---------- */
+  .demo-tile {
+    display: flex; align-items: center; gap: 14px; padding: 14px 18px; border-radius: var(--radius-sm);
+    background: var(--surface); border: 1px solid var(--line); font-weight: 600; box-shadow: var(--shadow);
+  }
+  .demo-tile .icon-dot { margin: 0; flex: none; width: 44px; height: 44px; border-radius: 14px; }
+  .demo-btn { margin-top: 24px; }
+  .demo-fig { max-width: 240px; width: 100%; margin-inline: auto; }
+
+  /* ---------- 1.8 Domande ---------- */
+  .faq-all { text-align: center; margin: 28px 0 0; }
+
+  /* ---------- 1.9 Chiusura ---------- */
+  .close {
+    text-align: center; padding: clamp(36px, 6vw, 64px) clamp(20px, 5vw, 56px); border-radius: calc(var(--radius) + 8px);
+    background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .close h2 { color: var(--brand-ink); }
+  .close__sub { margin-inline: auto; max-width: 32em; }
+  .close__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px 24px; margin-top: 8px; }
+  .close__row :global(.btn-row) { justify-content: center; }
+  .close__win { display: inline-flex; align-items: center; gap: 8px; margin: 0; color: var(--ink-2); font-weight: 600; }
+  .close__win :global(svg) { color: var(--ink-3); flex: none; }
+</style>

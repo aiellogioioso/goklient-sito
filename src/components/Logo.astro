@@ -1,0 +1,40 @@
+---
+// Logo orizzontale provvisorio: icona dell'app (K su squircle turchese) + scritta "goKlient".
+// Ricavato da goklient_icon_master.svg. Da rifinire con Claude Design (L2 del brief).
+interface Props { size?: number; motto?: boolean; class?: string }
+import { config } from '../config';
+const { size = 40, motto = false, class: cls = '' } = Astro.props;
+const uid = 'lg' + Math.round(size * 7);
+---
+<span class:list={['logo', cls]} style={`--logo-size:${size}px`}>
+  <svg class="logo__icon" viewBox="0 0 1024 1024" width={size} height={size} aria-hidden="true">
+    <defs>
+      <linearGradient id={`${uid}t`} x1="0.2" y1="0" x2="0.8" y2="1">
+        <stop offset="0" stop-color="#5fded0" /><stop offset="0.58" stop-color="#0f9e97" /><stop offset="1" stop-color="#075f5b" />
+      </linearGradient>
+      <linearGradient id={`${uid}s`} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff" stop-opacity="0.38" /><stop offset="0.4" stop-color="#fff" stop-opacity="0.04" /><stop offset="1" stop-color="#fff" stop-opacity="0" />
+      </linearGradient>
+    </defs>
+    <rect x="32" y="32" width="960" height="960" rx="230" fill={`url(#${uid}t)`} />
+    <rect x="32" y="32" width="960" height="960" rx="230" fill={`url(#${uid}s)`} />
+    <g transform="translate(330.5,259) scale(11)">
+      <rect x="0" y="0" width="8.4" height="46" rx="4.2" fill="#fff" />
+      <rect x="6.2" y="-4.6" width="7.9" height="27.6" rx="3.95" fill="#fff" transform="rotate(42 6.2 23)" />
+      <rect x="6.2" y="23" width="7.9" height="27.6" rx="3.95" fill="#fff" fill-opacity="0.92" transform="rotate(-42 6.2 23)" />
+    </g>
+  </svg>
+  <span class="logo__text">
+    <span class="logo__word">go<span>Klient</span></span>
+    {motto && <span class="logo__motto">{config.motto}</span>}
+  </span>
+</span>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: calc(var(--logo-size) * 0.28); color: var(--ink); }
+  .logo__icon { flex: none; filter: drop-shadow(0 2px 4px rgb(7 95 91 / 25%)); }
+  .logo__text { display: flex; flex-direction: column; line-height: 1; }
+  .logo__word { font-weight: 800; font-size: calc(var(--logo-size) * 0.66); letter-spacing: -0.03em; }
+  .logo__word span { color: var(--brand); }
+  .logo__motto { font-size: calc(var(--logo-size) * 0.3); font-weight: 600; color: var(--ink-2); margin-top: 0.35em; letter-spacing: 0; }
+</style>

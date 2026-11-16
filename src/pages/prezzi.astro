@@ -1,0 +1,171 @@
+---
+// Pagina Prezzi (brief: sez. 5 punto 10, testi B10, cosa NON e' dalla sez. 4).
+// Un solo piano. Prezzi e numeri da config.prezzi.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { config } from '../config';
+
+const p = config.prezzi;
+const title = `Prezzi di goKlient: ${p.mensile.imponibile} euro + IVA al mese, prova gratis`;
+const description = `goKlient Professional: ${p.mensile.imponibile} euro + IVA al mese o ${p.annuale.imponibile} euro + IVA all'anno, due mesi gratis. Tutte le funzioni, fino a ${p.apparecchi} apparecchi. Prova ${p.giorniProva} giorni.`;
+
+const fraseWindows = config.windowsDisponibile
+  ? 'La versione per Windows è compresa nell\'abbonamento.'
+  : 'La versione per Windows arriverà presto ed è già compresa nell\'abbonamento.';
+---
+<Base title={title} description={description}>
+  <section class="section section--brand price-hero" aria-labelledby="piano-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">Prezzi</span>
+        <h1 id="piano-title">goKlient Professional</h1>
+        <p class="lead">Un solo piano, con tutto dentro. Provalo gratis per {p.giorniProva} giorni.</p>
+      </div>
+
+      <div class="card plan">
+        <p class="plan__intro">
+          Clienti, scadenze, listino, ordini, preventivi in PDF ed email ai clienti. Prova gratis per {p.giorniProva} giorni,
+          poi {p.mensile.imponibile} euro + IVA al mese, oppure {p.annuale.imponibile} euro + IVA all'anno con due mesi gratis.
+        </p>
+
+        <!-- Mensile / Annuale: due colonne su computer, una sotto l'altra sul telefono (senza JavaScript) -->
+        <div class="plan__options" role="list">
+          <div class="option" role="listitem">
+            <p class="option__tab">Mensile</p>
+            <p class="option__price">
+              <span class="option__num">{p.mensile.imponibile} euro</span>
+              <span class="option__unit">+ IVA al mese</span>
+            </p>
+            <p class="option__vat">{p.mensile.ivato} euro IVA inclusa al mese</p>
+          </div>
+
+          <div class="option option--year" role="listitem">
+            <p class="option__tab">Annuale <span class="badge option__badge">Due mesi gratis</span></p>
+            <p class="option__price">
+              <span class="option__num">{p.annuale.imponibile} euro</span>
+              <span class="option__unit">+ IVA all'anno</span>
+            </p>
+            <p class="option__vat">{p.annuale.ivato} euro IVA inclusa all'anno</p>
+            <p class="small option__extra">Due mesi gratis rispetto al mensile</p>
+          </div>
+        </div>
+
+        <p class="small plan__note">
+          Tutti i prezzi sono indicati IVA esclusa, con il totale IVA inclusa accanto. Quando confronti più offerte,
+          controlla che i prezzi siano sullo stesso piano. Su Google Play il prezzo è mostrato IVA inclusa e la prova
+          segue le regole di Google Play.
+        </p>
+
+        <div class="plan__cta">
+          <a class="btn btn--primary plan__btn" href="/scarica"><Icon name="scarica" /> Prova gratis per {p.giorniProva} giorni</a>
+          <p class="small">Dal sito la prova non chiede la carta.</p>
+        </div>
+
+        <hr class="plan__rule" />
+
+        <h2 class="plan__h">Che cosa comprende</h2>
+        <ul class="checks plan__list">
+          <li>
+            <strong>{p.giorniProva} giorni di prova gratuita</strong>, con tutte le funzioni. Dal sito la prova non chiede la carta:
+            prima della fine ti avvisiamo, e se non ti abboni la prova finisce senza addebiti.
+          </li>
+          <li>
+            <strong>Tutte le funzioni:</strong> clienti, scadenze, listino, proposte d'ordine, preventivi in PDF, email ai clienti,
+            lettura del biglietto da visita, 25 mestieri pronti. Nessuna funzione a pagamento a parte.
+          </li>
+          <li>
+            <strong>Fino a {p.apparecchi} apparecchi:</strong> la licenza è personale e vale su telefoni e tablet Android e sui
+            computer Windows, fino a {p.apparecchi} apparecchi in tutto, con lo stesso account goKlient. {fraseWindows}
+          </li>
+          <li>
+            <strong>Cloud incluso:</strong> i tuoi dati allineati su tutti i tuoi apparecchi, su server in Italia.
+          </li>
+          <li>
+            <strong>Disdici quando vuoi:</strong> resti abbonato fino alla fine del periodo già pagato.
+          </li>
+          <li>
+            <strong>I tuoi dati restano tuoi:</strong> se non rinnovi, goKlient ti lascia sempre esportare tutti i tuoi dati.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="nonfa-title">
+    <div class="container container--narrow">
+      <div class="card nonfa">
+        <h2 id="nonfa-title" class="plan__h">Che cosa goKlient non fa</h2>
+        <p class="muted">Per sapere subito se fa per te.</p>
+        <ul class="crosses">
+          <li>Non fa le fatture e non incassa i pagamenti dei clienti.</li>
+          <li>Non è per squadre: una persona, più apparecchi.</li>
+          <li>Non è un negozio online.</li>
+          <li>Non c'è per iPhone, iPad e Mac.</li>
+          <li>Non si usa dal browser.</li>
+          <li>Non telefona, non manda SMS o WhatsApp, non fa statistiche o grafici.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight section--alt" aria-labelledby="costi-title">
+    <div class="container container--narrow costi">
+      <span class="icon-dot"><Icon name="aiuto" /></span>
+      <div>
+        <h2 id="costi-title" class="plan__h">Domande sui costi</h2>
+        <p class="muted">Le risposte alle domande più comuni sui costi sono nelle domande frequenti.</p>
+        <a class="btn btn--ghost" href="/domande-frequenti#costi">Tutte le domande <Icon name="freccia" /></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .plan { max-width: 920px; margin-inline: auto; padding: clamp(22px, 4vw, 44px); box-shadow: var(--shadow-lg); }
+  .plan__intro { font-size: 1.15rem; color: var(--ink-2); margin-bottom: 1.4em; }
+
+  .plan__options { display: grid; gap: 16px; }
+  @media (min-width: 760px) { .plan__options { grid-template-columns: 1fr 1fr; } }
+
+  .option {
+    border: 2px solid var(--line); border-radius: var(--radius-sm); padding: 22px 22px 20px;
+    background: var(--surface);
+  }
+  .option p { margin: 0; }
+  .option--year { border-color: var(--brand-strong); background: color-mix(in srgb, var(--brand-soft) 45%, var(--surface)); }
+
+  /* Linguetta a pillola: richiama l'interruttore Mensile / Annuale */
+  .option__tab {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-weight: 800; font-size: 1.05rem;
+    margin-bottom: 14px !important;
+  }
+  .option__tab::before {
+    content: ''; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--brand-strong); flex: none;
+  }
+  .option--year .option__tab::before { background: var(--brand-strong); box-shadow: inset 0 0 0 2px var(--surface); }
+  .option__badge { background: var(--brand-strong); color: var(--on-brand); }
+
+  .option__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; line-height: 1.1; }
+  .option__num { font-size: clamp(2.2rem, 6vw, 3rem); font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
+  .option__unit { font-size: 1.15rem; font-weight: 700; color: var(--ink-2); }
+  .option__vat { margin-top: 10px !important; font-size: 1.05rem; color: var(--ink-2); }
+  .option__extra { margin-top: 6px !important; font-weight: 700; color: var(--brand-ink); }
+
+  .plan__note { margin: 16px 0 0; }
+
+  .plan__cta { text-align: center; margin-top: clamp(24px, 4vw, 36px); }
+  .plan__btn { min-height: 64px; font-size: 1.15rem; padding-inline: 36px; }
+  @media (max-width: 520px) { .plan__btn { width: 100%; } }
+  .plan__cta .small { margin: 10px 0 0; }
+
+  .plan__rule { border: 0; border-top: 1px solid var(--line); margin: clamp(28px, 4vw, 40px) 0; }
+  .plan__h { font-size: clamp(1.4rem, 2.6vw, 1.8rem); }
+  .plan__list { margin: 0; }
+  @media (min-width: 900px) { .plan__list { columns: 2; column-gap: 40px; } .plan__list li { break-inside: avoid; } }
+
+  .nonfa .crosses { margin: 0; }
+  .nonfa .crosses li { font-size: 1.1rem; }
+
+  .costi { display: grid; gap: 4px 20px; align-items: start; }
+  @media (min-width: 640px) { .costi { grid-template-columns: auto 1fr; } }
+</style>

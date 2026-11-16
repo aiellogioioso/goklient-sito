@@ -1,0 +1,110 @@
+---
+// Informativa sulla privacy. Indirizzo fisso gia' dato a Google Play: /privacy (non cambiare).
+// Il testo definitivo e' in revisione (brief, sez. 8). Il riassunto usa solo frasi gia' presenti nel brief
+// (1.6 "I tuoi dati restano tuoi" e domande frequenti 7-10).
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base
+  title="Informativa sulla privacy - goKlient"
+  description="Come goKlient tratta i dati: archivio sul tuo apparecchio, cloud su server in Italia, email dalla tua casella, nessuna pubblicità."
+>
+  <section class="section section--brand lg-hero">
+    <div class="container container--narrow">
+      <span class="eyebrow">I tuoi dati</span>
+      <h1>Informativa sulla privacy</h1>
+      <p class="lead">Il testo definitivo è in revisione e sarà pubblicato su questa pagina.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="breve-title">
+    <div class="container container--narrow">
+      <h2 id="breve-title">In breve, come goKlient tratta i dati</h2>
+      <p class="muted">Un riassunto, in attesa del testo completo.</p>
+
+      <ul class="lg-points">
+        <li class="card">
+          <span class="icon-dot"><Icon name="telefono" /></span>
+          <div>
+            <h3>L'archivio sta sul tuo apparecchio</h3>
+            <p>I dati dei tuoi clienti stanno sul tuo apparecchio, nell'archivio di goKlient.</p>
+          </div>
+        </li>
+        <li class="card">
+          <span class="icon-dot"><Icon name="sync" /></span>
+          <div>
+            <h3>Il cloud è facoltativo</h3>
+            <p>
+              Se lo attivi, il tuo archivio sta su server Microsoft Azure in Italia, con il disco cifrato, e viaggia su
+              una connessione protetta. È separato da quello di ogni altro utente: nessuno vede i tuoi clienti.
+              Lo apriamo solo per la manutenzione del servizio: non consultiamo i tuoi dati e non li trasmettiamo a nessuno.
+            </p>
+          </div>
+        </li>
+        <li class="card">
+          <span class="icon-dot"><Icon name="email" /></span>
+          <div>
+            <h3>Le email partono dalla tua casella</h3>
+            <p>Scrivi ai clienti dalla tua casella di posta. La password della tua casella non viaggia mai nel cloud.</p>
+          </div>
+        </li>
+        <li class="card">
+          <span class="icon-dot"><Icon name="aiuto" /></span>
+          <div>
+            <h3>Segnalazioni tecniche</h3>
+            <p>
+              Quando l'app si blocca, ci arriva in automatico una segnalazione tecnica (che cosa si è bloccato, versione
+              dell'app, modello dell'apparecchio), senza dati personali e senza dati dei tuoi clienti. Se usi
+              "Segnala via email", sei tu a mandarci il messaggio.
+            </p>
+          </div>
+        </li>
+        <li class="card">
+          <span class="icon-dot"><Icon name="spunta" /></span>
+          <div>
+            <h3>Nessuna pubblicità</h3>
+            <p>goKlient non mostra pubblicità.</p>
+          </div>
+        </li>
+        <li class="card">
+          <span class="icon-dot"><Icon name="persona" /></span>
+          <div>
+            <h3>I dati dei tuoi clienti</h3>
+            <p>Verso i tuoi clienti il titolare del trattamento sei tu.</p>
+          </div>
+        </li>
+        <li class="card">
+          <span class="icon-dot"><Icon name="cestino" /></span>
+          <div>
+            <h3>Eliminare l'account e i dati</h3>
+            <p>Puoi eliminare il tuo account goKlient e i dati nel cloud dall'app, oppure chiedercelo per email.</p>
+            <p><a href="/elimina-account">Come eliminare l'account</a></p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight section--alt" aria-labelledby="testo-title">
+    <div class="container container--narrow">
+      <h2 id="testo-title">Il testo completo</h2>
+      <div class="placeholder lg-placeholder">
+        [Testo dell'informativa sulla privacy: in revisione, da pubblicare prima del lancio]
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lg-hero h1 { margin-bottom: 0.3em; }
+  .lg-hero .lead { margin: 0; }
+
+  .lg-points { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 16px; }
+  .lg-points li { margin: 0; display: grid; gap: 4px 20px; }
+  .lg-points .icon-dot { margin-bottom: 6px; }
+  .lg-points h3 { font-size: 1.2rem; }
+  .lg-points p { margin-bottom: 0.5em; }
+  .lg-points p:last-child { margin-bottom: 0; }
+  @media (min-width: 640px) { .lg-points li { grid-template-columns: auto 1fr; } }
+
+</style>

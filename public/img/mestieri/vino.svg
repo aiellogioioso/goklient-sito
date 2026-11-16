@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="56 70 400 400">
+    <defs><clipPath id="dentro"><path d="M112 430 L112 256 A144 144 0 0 1 400 256 L400 430 Z"/></clipPath></defs>
+    <path d="M112 430 L112 256 A144 144 0 0 1 400 256 L400 430 Z" fill="#FBF4E2"/>
+    <g clip-path="url(#dentro)">
+      <path d="M112 376 C 176 350 208 400 256 386 C 312 370 344 344 400 372 L400 430 L112 430 Z" fill="#7B1FA2" opacity="0.9"/>
+      
+    <path d="M256 300 C 232 268 226 246 234 232 C 246 212 266 212 278 232 C 286 246 280 268 256 300 Z" fill="#4C7A1E" transform="translate(-46,-70)"/>
+    <circle cx="286" cy="214" r="20" fill="#7B1FA2"/>
+    <circle cx="322" cy="238" r="20" fill="#7B1FA2"/>
+    <circle cx="250" cy="238" r="20" fill="#7B1FA2"/>
+    <circle cx="286" cy="262" r="20" fill="#7B1FA2"/>
+    <circle cx="322" cy="286" r="20" fill="#7B1FA2"/>
+    <circle cx="250" cy="286" r="20" fill="#7B1FA2"/>
+    <circle cx="286" cy="310" r="20" fill="#7B1FA2"/>
+    <rect x="280" y="160" width="10" height="42" rx="5" fill="#7A4B23"/>
+    </g>
+    <path d="M112 430 L112 256 A144 144 0 0 1 400 256 L400 430 Z" fill="none" stroke="#7B1FA2" stroke-width="16" stroke-linejoin="round"/>
+</svg>

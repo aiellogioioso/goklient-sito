@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- goKlient - icona master "Liquid Glass" (handoff Claude Design 2026-08-14).
+     Squircle con gradiente teal 158deg (#5fded0 -> #0f9e97 58% -> #075f5b),
+     luce radiale in alto a sinistra, sheen superiore, K a barre stondate bianche.
+     Geometria K dal design: stem 8.4x46; bracci 7.9x27.6 ruotati +/-42deg sul giunto (6.2,23). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="teal" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#5fded0"/>
+      <stop offset="0.58" stop-color="#0f9e97"/>
+      <stop offset="1" stop-color="#075f5b"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.24" cy="0.18" r="0.5">
+      <stop offset="0" stop-color="#60ded0" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#60ded0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="sheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.42"/>
+      <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="32" y="32" width="960" height="960" rx="230" fill="url(#teal)"/>
+  <rect x="32" y="32" width="960" height="960" rx="230" fill="url(#glow)"/>
+  <rect x="32" y="32" width="960" height="960" rx="230" fill="url(#sheen)"/>
+  <rect x="40" y="40" width="944" height="944" rx="224" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="10"/>
+  <!-- K: box 33x46 scalato x11 e centrato (512-181.5, 512-253) -->
+  <g transform="translate(330.5,259) scale(11)">
+    <rect x="0" y="0" width="8.4" height="46" rx="4.2" fill="#ffffff"/>
+    <rect x="6.2" y="-4.6" width="7.9" height="27.6" rx="3.95" fill="#ffffff" transform="rotate(42 6.2 23)"/>
+    <rect x="6.2" y="23" width="7.9" height="27.6" rx="3.95" fill="#ffffff" fill-opacity="0.92" transform="rotate(-42 6.2 23)"/>
+  </g>
+</svg>

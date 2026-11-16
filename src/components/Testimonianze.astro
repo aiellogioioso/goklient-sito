@@ -1,0 +1,29 @@
+---
+// Testimonianze (brief, sez. 11): nome, mestiere e zona, la frase; se la persona ha avuto l'app in anteprima, una riga
+// che lo dice. Le voci stanno in config.testimonianze: finche' l'elenco e' vuoto non si mostra nulla.
+import { config } from '../config';
+type Voce = (typeof config.testimonianze)[number];
+interface Props { voci: readonly Voce[] }
+const { voci } = Astro.props;
+---
+{voci.length > 0 && (
+  <div class:list={['grid', voci.length > 1 ? 'grid-2' : 'testi-one']}>
+    {voci.map((t) => (
+      <figure class="card testi">
+        <blockquote class="testi__frase"><p>“{t.frase}”</p></blockquote>
+        <figcaption>
+          <strong>{t.nome}</strong>
+          <span class="muted"> · {t.mestiere}, {t.zona}</span>
+          {t.anteprima && <span class="small testi__ante">Ha usato goKlient in anteprima.</span>}
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+)}
+<style>
+  .testi-one { max-width: 760px; margin-inline: auto; }
+  .testi { margin: 0; }
+  .testi__frase { margin: 0 0 16px; font-size: 1.2rem; font-weight: 600; }
+  .testi__frase p { margin: 0; }
+  .testi__ante { display: block; margin-top: 4px; }
+</style>

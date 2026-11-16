@@ -1,0 +1,31 @@
+---
+// Blocco finale uguale su tutte le pagine (B9 del brief).
+import Icon from './Icon.astro';
+---
+<section class="section section--tight final" aria-labelledby="final-title">
+  <div class="container">
+    <div class="final__box">
+      <div>
+        <h2 id="final-title">Hai una domanda?</h2>
+        <p class="lead">Guarda le domande frequenti o scrivici.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="/domande-frequenti">Domande frequenti</a>
+        <a class="btn btn--ghost" href="/assistenza">Scrivici</a>
+        <a class="btn btn--primary" href="/scarica"><Icon name="scarica" /> Scarica goKlient</a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .final__box {
+    display: grid; gap: 24px; align-items: center; padding: clamp(28px, 5vw, 48px);
+    border-radius: calc(var(--radius) + 8px); background: linear-gradient(150deg, var(--mint), var(--sand));
+    border: 1px solid var(--line);
+  }
+  .final__box h2 { margin-bottom: 0.2em; }
+  .final__box .lead { margin: 0; }
+  @media (min-width: 900px) { .final__box { grid-template-columns: 1fr auto; } }
+  /* Sul telefono i pulsanti vanno in colonna: Scarica, l'azione principale, sta in cima */
+  @media (max-width: 520px) { .final__box .btn--primary { order: -1; } }
+</style>

@@ -1,0 +1,138 @@
+---
+// Per il tuo mestiere (indice). Struttura: sez. 5 del brief (3.1-3.3), testi: parte B3.
+import Base from '../layouts/Base.astro';
+import DownloadButtons from '../components/DownloadButtons.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import { famiglie, mestieri } from '../data/mestieri';
+
+const perFamiglia = famiglie.map((f) => ({ ...f, elenco: mestieri.filter((m) => m.famiglia === f.id) }));
+const tipologieStandard = ['Cliente', 'Fornitore', 'Rivenditore', 'Grossista'];
+---
+<Base
+  title="goKlient per il tuo mestiere: 25 attività già pronte"
+  description="Vino, formaggi, olio, idraulici, officine e altri: tipi di cliente, scadenze e listino già pronti con le parole del tuo lavoro. Scegli il tuo."
+>
+  <!-- 3.1 Apertura -->
+  <section class="section section--brand idx-hero">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">25 mestieri già pronti</span>
+        <h1>Artigiano, produttore, commerciante o professionista: goKlient parla la tua lingua.</h1>
+        <p class="lead">
+          Scegli il tuo mestiere fra 25, oppure parti dalle tipologie standard e cambia i nomi quando vuoi: tipi di
+          cliente, scadenze e categorie del listino diventano i tuoi.
+        </p>
+        <DownloadButtons />
+      </div>
+      <div class="solo-computer">
+        <PhoneFrame
+          src="/img/schermate/h8-demo-25-mestieri.webp"
+          alt="La griglia dei 25 mestieri nella dimostrazione di goKlient, sul telefono: ogni mestiere ha la sua tessera con lo stemma"
+          width={720}
+          height={1488}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.2 Griglia per famiglie -->
+  <section class="section" id="elenco" aria-labelledby="elenco-titolo">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="elenco-titolo">Già pronta per il tuo mestiere</h2>
+        <p class="lead">25 mestieri, ognuno con i suoi clienti, le sue scadenze e il suo listino.</p>
+        <p><strong>Scegli il tuo lavoro e guarda come goKlient lo conosce già.</strong></p>
+        <details class="more">
+          <summary>Leggi di più</summary>
+          <div>
+            <p>
+              Un idraulico non lavora come una cantina, e una tipografia non come un frantoio. Per questo goKlient
+              conosce 25 mestieri: per ognuno ha i tipi di cliente, i promemoria e le categorie del listino con le
+              parole di quel lavoro. Scegli il tuo e guarda gli esempi presi direttamente dall'app.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="famiglie">
+        {perFamiglia.map((f) => (
+          <section class="famiglia" aria-labelledby={`fam-${f.id}`}>
+            <div class="famiglia__head">
+              <h3 id={`fam-${f.id}`}>{f.nome}</h3>
+              <span class="badge">{f.elenco.length} {f.elenco.length === 1 ? 'mestiere' : 'mestieri'}</span>
+            </div>
+            <ul class="tessere">
+              {f.elenco.map((m) => (
+                <li>
+                  <a class="tessera" href={`/mestieri/${m.slug}`}>
+                    <img src={`/img/mestieri/${m.key}.svg`} alt="" width="72" height="72" loading="lazy" decoding="async" />
+                    <span>{m.tessera}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3.3 Il tuo mestiere non c'e'? -->
+  <section class="section section--alt" aria-labelledby="manca-titolo">
+    <div class="container split">
+      <div>
+        <h2 id="manca-titolo">Il tuo mestiere non c'è?</h2>
+        <p class="lead">Parti dalle tipologie standard e scrivi tu le parole del tuo lavoro.</p>
+        <ol class="passi">
+          <li>
+            Scegli <strong>"Tipologie standard"</strong> oppure il mestiere più vicino al tuo.
+            <span class="passi__badges">
+              <span class="visually-hidden">Le tipologie standard:</span>
+              {tipologieStandard.map((t) => <span class="badge">{t}</span>)}
+            </span>
+          </li>
+          <li>
+            Poi da <strong>Altro, Parametri della App</strong>, aggiungi, rinomini o togli i tipi di cliente, i tipi di
+            evento e le categorie del listino.
+          </li>
+          <li>
+            Rinominare si può sempre, anche quando un tipo è già in uso: i clienti che lo usano prendono subito il nome
+            nuovo.
+          </li>
+        </ol>
+        <DownloadButtons />
+      </div>
+      <div class="manca__img">
+        <PhoneFrame
+          src="/img/schermate/f1-scelta-tipologia.webp"
+          alt="La schermata «Scegli i tuoi tipi» di goKlient sul telefono, dove si sceglie se partire dalle tipologie standard o da un mestiere"
+          width={720}
+          height={1488}
+        />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .idx-hero h1 { font-size: clamp(1.7rem, 4.6vw, 3.2rem); }
+  .idx-hero .lead { margin-bottom: 28px; }
+
+  .famiglie { display: grid; gap: clamp(36px, 5vw, 56px); }
+  .famiglia__head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin-bottom: 18px; }
+  .famiglia__head h3 { margin: 0; }
+
+  /* .tessere / .tessera: global.css */
+
+  .passi { list-style: none; padding: 0; margin: 0 0 32px; counter-reset: passo; }
+  .passi li {
+    counter-increment: passo; position: relative; padding: 0 0 0 52px; margin-bottom: 1.1em; color: var(--ink-2);
+  }
+  .passi li::before {
+    content: counter(passo); position: absolute; left: 0; top: -2px; width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--brand-strong); color: var(--on-brand); font-weight: 800;
+  }
+  .passi strong { color: var(--ink); }
+  .passi__badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .manca__img :global(.device) { max-width: min(280px, 62vw); }
+</style>

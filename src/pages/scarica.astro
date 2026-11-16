@@ -1,0 +1,285 @@
+---
+// Pagina Scarica (brief: sez. 5 punto 4, testi B4, Parte D).
+// Oggi: pulsante del file APK con i passi di installazione. Con config.googlePlay = true: badge di Google Play.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import { config, testoWindows, rigaRequisiti } from '../config';
+
+const title = 'Scarica goKlient per Android';
+const description = `Scarica goKlient per telefono e tablet Android 11 o successivo e provalo gratis per 30 giorni. ${testoWindows}`;
+
+const { apk } = config;
+// Indirizzo da scrivere nel browser del telefono: viene dal dominio del sito (astro.config.mjs), non scritto a mano.
+const indirizzoScarica = Astro.site ? `${Astro.site.host.replace(/^www\./, '')}/scarica` : '/scarica';
+const haDatiFile = Boolean(apk.versione || apk.data || apk.sha256);
+
+const passi = [
+  {
+    testo: 'Tocca <strong>Scarica goKlient per Android</strong> dal telefono o dal tablet. Al termine tocca il file scaricato: lo trovi anche nella cartella <strong>Download</strong>.',
+    alt: 'scaricamento del file',
+  },
+  {
+    testo: 'La prima volta Android chiede il permesso di installare app dal browser che stai usando: tocca <strong>Impostazioni</strong>, attiva <strong>Consenti da questa fonte</strong> e torna indietro.',
+    alt: 'permesso Consenti da questa fonte',
+  },
+  {
+    testo: 'Tocca <strong>Installa</strong>. Se compare un avviso di protezione di Google, scegli di installare comunque: l\'app è firmata da goKlient.',
+    alt: 'pulsante Installa',
+  },
+  {
+    testo: 'Apri <strong>goKlient</strong>: ti propone la dimostrazione, oppure parti subito con i tuoi clienti.',
+    alt: 'primo avvio',
+  },
+];
+---
+<Base title={title} description={description}>
+  <!-- 4.1 Apertura + 4.2 Android -->
+  <section class="section section--brand dl-hero">
+    <div class="container dl-hero__grid">
+      <div>
+        <span class="eyebrow">Scarica</span>
+        <h1>Scarica goKlient</h1>
+        <p class="lead">Per telefono e tablet Android. {testoWindows}</p>
+
+        <div class="card dl-card" id="android">
+          <div class="dl-card__head">
+            <span class="icon-dot"><Icon name="telefono" /></span>
+            <span class="icon-dot"><Icon name="tablet" /></span>
+          </div>
+          <h2 class="dl-card__title">Telefono e tablet Android</h2>
+
+          {config.googlePlay ? (
+            <>
+              <p>Scaricala da Google Play.</p>
+              <a class="dl-badge" href={config.googlePlayUrl}>
+                <span class="placeholder">[badge ufficiale "Disponibile su Google Play": da inserire (D1)]</span>
+              </a>
+            </>
+          ) : (
+            <>
+              <p>Scarica il file di installazione e segui i passi qui sotto.</p>
+              <a class="btn btn--primary dl-card__btn" href={apk.url} download="goKlient.apk" type="application/vnd.android.package-archive">
+                <Icon name="scarica" /> Scarica goKlient per Android
+              </a>
+              <p class="small dl-card__file">File di installazione goKlient.apk</p>
+              {haDatiFile ? (
+                <ul class="small dl-card__meta">
+                  {apk.versione && <li>Versione {apk.versione}</li>}
+                  {apk.data && <li>Pubblicata il {apk.data}</li>}
+                  {apk.sha256 && <li>Impronta SHA-256: <code>{apk.sha256}</code></li>}
+                </ul>
+              ) : (
+                <p class="placeholder dl-card__ph">[versione, data e impronta SHA-256 del file: da inserire]</p>
+              )}
+            </>
+          )}
+
+          <p class="small dl-card__req">{rigaRequisiti}</p>
+          <p class="muted dl-card__more">
+            Puoi provarla gratis per {config.prezzi.giorniProva} giorni con tutte le funzioni:
+            i prezzi sono nella pagina <a href="/prezzi">Prezzi</a>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Solo per chi visita dal computer (mouse): sul telefono non si vede -->
+      <aside class="card pc-box" aria-labelledby="pc-title">
+        <span class="icon-dot"><Icon name="computer" /></span>
+        <h2 id="pc-title" class="pc-box__title">Sei al computer?</h2>
+        <p>Apri questa pagina dal telefono o dal tablet Android su cui vuoi installare goKlient. Scrivi nel browser:</p>
+        <p class="pc-box__url">{indirizzoScarica}</p>
+        <p class="small">Il file si installa sul telefono e sul tablet, non sul computer. {testoWindows}</p>
+      </aside>
+    </div>
+  </section>
+
+  {!config.googlePlay && (
+    <section class="section" aria-labelledby="passi-title">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Come si installa</span>
+          <h2 id="passi-title">Quattro passi, dal telefono</h2>
+        </div>
+
+        <ol class="steps">
+          {passi.map((p) => (
+            <li class="card step">
+              <p class="step__text" set:html={p.testo} />
+              <div class="placeholder step__shot">[schermata del passo: da catturare (D5) · {p.alt}]</div>
+            </li>
+          ))}
+        </ol>
+
+        <div class="grid grid-2 after-steps">
+          <p class="note">
+            I nomi esatti delle voci cambiano un po' da una marca di telefono all'altra.
+            Se qualcosa non torna, <a href="/assistenza">scrivici</a>: ti guidiamo noi.
+          </p>
+          <div>
+            <h3>Gli aggiornamenti</h3>
+            <p class="placeholder">
+              [DA DECIDERE con Eugenio: come avvisare i clienti delle nuove versioni (email a chi ha l'abbonamento,
+              avviso nell'app). Oggi l'app non controlla da sola se c'è una versione nuova: per aggiornare si scarica
+              di nuovo il file dal sito e si installa sopra, senza perdere i dati.]
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 4.3 Windows -->
+  <section class="section section--tight section--alt" id="windows" aria-labelledby="win-title">
+    <div class="container container--narrow">
+      <div class="card win">
+        <span class="icon-dot"><Icon name="computer" /></span>
+        <div>
+          <h2 id="win-title" class="win__title">Computer Windows</h2>
+          {config.windowsDisponibile ? (
+            <>
+              <p>{testoWindows} Sul computer ritroverai gli stessi clienti, ordini e scadenze del telefono.</p>
+              <p class="small">Si scarica dal Microsoft Store. Requisiti: Windows 10 versione 1809 o successiva, oppure Windows 11.</p>
+              <p class="placeholder">[collegamento al Microsoft Store: da inserire]</p>
+            </>
+          ) : (
+            <>
+              <p><span class="badge">Presto disponibile</span></p>
+              <p class="muted">La versione per computer Windows arriverà presto. Sul computer ritroverai gli stessi clienti, ordini e scadenze del telefono.</p>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4.4 Dopo l'installazione -->
+  <section class="section" id="dopo" aria-labelledby="dopo-title">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Dopo l'installazione</span>
+        <h2 id="dopo-title">E adesso?</h2>
+        <p class="lead">Prova la demo, oppure parti subito con i tuoi clienti.</p>
+        <ol class="first-steps">
+          <li>Apri goKlient. Se vuoi provarla, rispondi <strong>Sì</strong> alla proposta della dimostrazione e scegli il tuo mestiere.</li>
+          <li>Quando sei pronto, togli i dati di prova con <strong>Azzera gli archivi dimostrativi</strong>.</li>
+          <li>Configura la tua casella di posta da <strong>Email, Configura casella</strong>.</li>
+          <li>Se usi più apparecchi, attiva il cloud da <strong>Altro, Sincronizzazione cloud</strong>.</li>
+          <li>Porta dentro i clienti che hai già.</li>
+        </ol>
+        <p class="small">Dati di prova: nomi inventati, indirizzi @demo.it. Li togli con un pulsante.</p>
+        <div class="btn-row">
+          <a class="btn btn--ghost" href="/come-funziona">Leggi "Come funziona" <Icon name="freccia" /></a>
+        </div>
+      </div>
+      <PhoneFrame
+        src="/img/schermate/h8-demo-25-mestieri.webp"
+        alt="La dimostrazione di goKlient sul telefono: la griglia dei mestieri fra cui scegliere il tuo."
+        width={720}
+        height={1488}
+      />
+    </div>
+  </section>
+
+  <!-- 4.5 Più apparecchi -->
+  <section class="section section--alt" id="apparecchi" aria-labelledby="app-title">
+    <div class="container container--narrow">
+      <div class="section-head">
+        <span class="eyebrow">Più apparecchi</span>
+        <h2 id="app-title">Telefono e tablet insieme</h2>
+        <p class="lead">
+          Crei il tuo accesso goKlient sul primo apparecchio. Sugli altri entri con la stessa email e la stessa password.
+        </p>
+      </div>
+
+      <div class="faq">
+        <details>
+          <summary>Come si collegano, passo per passo</summary>
+          <div>
+            <ol class="link-steps">
+              <li>Parti dall'apparecchio con i tuoi dati veri e scegli <strong>Unisci</strong>: i dati salgono nel cloud.</li>
+              <li>Sugli altri apparecchi entra con lo stesso accesso: se sono vuoti scaricano tutto da soli.</li>
+            </ol>
+            <p>
+              Un consiglio: prova la demo prima di collegare il cloud, perché i dati di prova non possono finire nel cloud.
+            </p>
+            <p>
+              L'allineamento avviene mentre goKlient è aperta sullo schermo: se un apparecchio è rimasto chiuso a lungo,
+              aprilo e aspetta un momento.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <p class="note app-note">Il cloud è facoltativo. Con un solo apparecchio goKlient funziona anche senza.</p>
+
+      <div class="btn-row">
+        <a class="btn btn--ghost" href="/domande-frequenti#piu-apparecchi">Leggi le domande sul cloud <Icon name="freccia" /></a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .dl-hero__grid { display: grid; gap: clamp(28px, 5vw, 56px); align-items: start; }
+  @media (min-width: 900px) { .dl-hero__grid { grid-template-columns: 1.2fr 0.8fr; } }
+  .dl-hero h1 { margin-bottom: 0.3em; }
+
+  .dl-card { margin-top: clamp(24px, 4vw, 36px); }
+  .dl-card__head { display: flex; gap: 10px; }
+  .dl-card__head .icon-dot { margin-bottom: 14px; }
+  .dl-card__title { font-size: clamp(1.4rem, 2.6vw, 1.8rem); margin-bottom: 0.35em; }
+  .dl-card__btn { min-height: 64px; font-size: 1.15rem; padding-inline: 32px; }
+  @media (max-width: 520px) { .dl-card__btn { width: 100%; } }
+  .dl-card__file { margin: 10px 0 0; }
+  .dl-card__meta { list-style: none; padding: 0; margin: 6px 0 0; }
+  .dl-card__meta li { margin: 0; }
+  .dl-card__meta code { word-break: break-all; font-size: 0.85rem; }
+  .dl-card__ph { margin: 12px 0 0; }
+  .dl-card__req { margin: 16px 0 0; font-weight: 700; color: var(--ink-2); }
+  .dl-card__more { margin: 12px 0 0; }
+  .dl-badge { display: inline-block; text-decoration: none; }
+
+  /* Riquadro per chi visita dal computer: visibile solo con mouse o trackpad */
+  .pc-box { display: none; text-align: center; }
+  .pc-box .icon-dot { margin-inline: auto; }
+  .pc-box__title { font-size: clamp(1.3rem, 2.4vw, 1.6rem); }
+  .pc-box__url {
+    font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; color: var(--brand-ink);
+    background: var(--brand-soft); border-radius: var(--radius-sm); padding: 16px 12px; margin: 8px 0 16px;
+    word-break: break-word;
+  }
+  @media (hover: hover) and (pointer: fine) and (min-width: 900px) {
+    .pc-box { display: block; position: sticky; top: 96px; margin-top: 48px; }
+  }
+
+  /* Passi di installazione */
+  .steps {
+    list-style: none; padding: 0; margin: 0; counter-reset: passo; display: grid; gap: clamp(16px, 2.5vw, 24px);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  }
+  .step { counter-increment: passo; display: flex; flex-direction: column; gap: 18px; margin: 0; }
+  .step::before {
+    content: counter(passo); display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%;
+    background: var(--brand-strong); color: var(--on-brand); font-weight: 800; font-size: 1.6rem; flex: none;
+  }
+  .step__text { font-size: 1.15rem; margin: 0; }
+  .step__shot {
+    margin-top: auto; min-height: 220px; display: grid; place-items: center; text-align: center;
+  }
+  .after-steps { margin-top: clamp(28px, 4vw, 44px); align-items: start; }
+  .after-steps .note { margin: 0; }
+
+  /* Windows */
+  .win { display: grid; gap: 4px 20px; align-items: start; }
+  @media (min-width: 640px) { .win { grid-template-columns: auto 1fr; } }
+  .win__title { font-size: clamp(1.4rem, 2.6vw, 1.8rem); margin-bottom: 0.35em; }
+  .win p:last-child { margin-bottom: 0; }
+
+  /* E adesso? */
+  .first-steps, .link-steps { padding-left: 1.5em; }
+  .first-steps li { margin-bottom: 0.7em; padding-left: 4px; }
+  .first-steps li::marker, .link-steps li::marker { font-weight: 800; color: var(--brand-strong); }
+
+  .app-note { margin: 24px 0; }
+</style>

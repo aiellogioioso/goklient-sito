@@ -1,0 +1,30 @@
+---
+// Pagina non trovata (Parte D del brief). Non indicizzata.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base
+  title="Pagina non trovata - goKlient"
+  description="Questa pagina non c'è. Torna alla pagina iniziale o scrivici se cercavi qualcosa."
+  noindex
+>
+  <section class="section section--brand nf">
+    <div class="container container--narrow nf__box">
+      <div class="icon-dot nf__icon"><Icon name="aiuto" size={36} /></div>
+      <h1>Pagina non trovata</h1>
+      <p class="lead">Questa pagina non c'è. Torna alla pagina iniziale o scrivici se cercavi qualcosa.</p>
+      <div class="btn-row nf__btns">
+        <a class="btn btn--ghost nf__back" href="/"><Icon name="freccia" /> Torna alla pagina iniziale</a>
+        <a class="btn btn--ghost" href="/assistenza">Scrivici</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf__box { text-align: center; }
+  .nf__icon { width: 72px; height: 72px; border-radius: 22px; margin: 0 auto 24px; background: var(--surface); }
+  .nf__icon :global(svg) { width: 36px; height: 36px; }
+  .nf__btns { justify-content: center; margin-top: 28px; }
+  .nf__back :global(svg) { transform: scaleX(-1); } /* freccia verso sinistra: si torna indietro */
+</style>

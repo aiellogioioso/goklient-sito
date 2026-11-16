@@ -1,0 +1,11 @@
+# Anteprima del sito goKlient su Netlify.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Finche' config.anteprima e' true: nessuna indicizzazione (oltre a meta noindex e robots.txt).
+# Da togliere al lancio vero.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

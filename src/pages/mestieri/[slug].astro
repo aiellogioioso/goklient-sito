@@ -1,0 +1,342 @@
+---
+// Pagina di settore: una sola pagina modello genera le 25 pagine (struttura a-h, sez. 5 del brief; testi: parte C).
+import Base from '../../layouts/Base.astro';
+import DownloadButtons from '../../components/DownloadButtons.astro';
+import PhoneFrame from '../../components/PhoneFrame.astro';
+import Icon from '../../components/Icon.astro';
+import Testimonianze from '../../components/Testimonianze.astro';
+import { mestieri, perKey, type Mestiere } from '../../data/mestieri';
+import { config, rigaRequisiti } from '../../config';
+
+export function getStaticPaths() {
+  return mestieri.map((m) => ({ params: { slug: m.slug }, props: { m } }));
+}
+
+interface Props { m: Mestiere }
+const { m } = Astro.props;
+
+// Brief, parte C: finche' Windows non e' distribuito "sul tablet" / "su telefono e tablet" (oggi solo C19, agente).
+const adattaWindows = (t: string) =>
+  config.windowsDisponibile
+    ? t.replace('la sera sul tablet', 'la sera sul computer').replace('su telefono e tablet', 'su telefono e computer')
+    : t;
+const completo = adattaWindows(m.completo);
+const inPiu = m.inPiu ? adattaWindows(m.inPiu) : null;
+
+// Gli esempi dei promemoria che nel brief sono solo un complemento ("del giorno") si leggono dopo il nome.
+const frase = (s: { nome: string; esempio?: string }) =>
+  !s.esempio ? null : /^[a-zàèéìòù]/.test(s.esempio) ? `${s.nome} ${s.esempio}` : s.esempio;
+
+// Immagine di apertura: illustrazione 900x620, per il vino una foto 1000x750.
+const isFoto = m.immagine.endsWith('.webp');
+const imgW = isFoto ? 1000 : 900;
+const imgH = isFoto ? 750 : 620;
+
+// Testo alternativo: che cosa si vede in ogni immagine di apertura.
+const altScena: Record<string, string> = {
+  vino: 'Un vigneto in collina in autunno, con i filari e le foglie gialle e rosse',
+  formaggi: 'Illustrazione: forme di formaggio stagionato sugli scaffali di un caseificio, con un coltello e un tagliere',
+  olio: "Illustrazione: una latta e due bottiglie di olio d'oliva, con un ramo di olivo",
+  pesca: 'Illustrazione: il banco di una pescheria con orata, branzino e sogliola sotto il cartello «Pescato del giorno»',
+  birra: 'Illustrazione: i serbatoi di un birrificio, la spina e un boccale di birra sul bancone',
+  salumi: 'Illustrazione: salami e prosciutti appesi sopra il banco di un salumificio',
+  miele: 'Illustrazione: arnie in un prato fiorito, con le api e un favo di miele',
+  caffe: 'Illustrazione: una macchina per il caffè espresso, un tostatore e sacchetti di caffè in grani',
+  conserve: 'Illustrazione: scaffali pieni di vasetti di conserve e marmellate, una pentola sul fuoco e una cassetta di pomodori',
+  distilleria: 'Illustrazione: un alambicco di rame in una distilleria, con le bottiglie sul bancone',
+  dolci: 'Illustrazione: la vetrina di una pasticceria con torte e pasticcini',
+  aceto: "Illustrazione: una fila di botti nel sottotetto di un'acetaia, con il cartello «Batteria»",
+  agente: 'Illustrazione: uno scaffale di prodotti alimentari con bottiglie, vasetti, formaggi e salumi',
+  agri: 'Illustrazione: campi coltivati in collina, un trattore e cassette di verdura appena raccolta',
+  fiori: 'Illustrazione: il banco di un fioraio con vasi di fiori e una composizione pronta',
+  vivai: 'Illustrazione: una serra con file di piante fiorite in vaso e alberelli',
+  impianti: 'Illustrazione: una caldaia con il manometro, un termosifone e una cassetta degli attrezzi',
+  elettricisti: 'Illustrazione: un quadro elettrico, una lampadina accesa, un tester e una bobina di cavo',
+  legno: 'Illustrazione: un banco da falegname con assi di legno e gli attrezzi appesi al muro',
+  auto: "Illustrazione: un'auto sul ponte sollevatore di un'officina, con le gomme e gli attrezzi",
+  verde: 'Illustrazione: un giardino con una siepe tagliata, un tosaerba rosso, un albero e un’aiuola fiorita',
+  stampa: 'Illustrazione: una macchina da stampa con fogli stampati e barattoli di inchiostro',
+  erbe: 'Illustrazione: erbe appese a seccare, barattoli di tisane, un mortaio e piantine in vaso',
+  ceramica: 'Illustrazione: scaffali con vasi di ceramica colorati, un tornio e un forno',
+  sport: 'Illustrazione: palloni appesi alla parete di un negozio di articoli sportivi, una bicicletta, pesi e scarpe da corsa',
+};
+const alt = altScena[m.key] ?? `Illustrazione del lavoro: ${m.nome}`;
+
+const vicini = m.vicini.map(perKey);
+
+// Testimonianze (sez. 11): solo quelle del mestiere di questa pagina.
+const norm = (t: string) => t.trim().toLowerCase();
+const testimonianze = config.testimonianze.filter((t) =>
+  t.chiave ? t.chiave === m.key : [m.nome, m.tessera].map(norm).includes(norm(t.mestiere)),
+);
+---
+<Base title={m.seoTitle} description={m.seoDescription}>
+  <!-- a. Apertura -->
+  <section class="section section--brand s-hero">
+    <div class="container">
+      <div class="split">
+        <div>
+          <span class="eyebrow">{m.nome}</span>
+          <h1>{m.titolo}</h1>
+          <p class="lead">{m.sottotitolo}</p>
+          <p class="s-breve">{m.breve}</p>
+          <details class="more s-more">
+            <summary>Leggi di più</summary>
+            <div><p>{completo}</p></div>
+          </details>
+          <DownloadButtons />
+        </div>
+        <figure class="scena">
+          <div class="scena__card">
+            <img src={m.immagine} alt={alt} width={imgW} height={imgH} loading="eager" decoding="async" />
+          </div>
+          <span class="scena__stemma">
+            <img src={`/img/mestieri/${m.key}.svg`} alt="" width="64" height="64" />
+          </span>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- b. I tuoi clienti -->
+  <section class="section section--tight" aria-labelledby="clienti-titolo">
+    <div class="container">
+      <div class="card s-clienti">
+        <div class="icon-dot"><Icon name="clienti" /></div>
+        <div>
+          <h2 id="clienti-titolo">I tuoi clienti</h2>
+          <p class="muted">I tipi di cliente già pronti quando scegli questo mestiere. Puoi rinominarli quando vuoi.</p>
+          <ul class="pillole">
+            {m.clienti.map((c) => <li class="badge">{c}</li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- c. Le scadenze -->
+  <section class="section section--alt" aria-labelledby="scadenze-titolo">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="scadenze-titolo">Le scadenze che non ti sfuggono più</h2>
+        <p class="lead">I promemoria del mestiere, ognuno con la sua data.</p>
+      </div>
+      <ul class="grid grid-3 scadenze">
+        {m.scadenze.map((s) => {
+          const f = frase(s);
+          return (
+            <li class="card scadenza">
+              <span class="scadenza__icon"><Icon name="scadenze" size={22} /></span>
+              <div>
+                <h3>{s.nome}</h3>
+                {f && <p class="scadenza__frase">“{f}”</p>}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <!-- d. Il listino  +  e. Come arrivano gli ordini / i lavori -->
+  <section class="section" aria-label="Listino e ordini">
+    <div class="container">
+      <div class="grid grid-2">
+        <div class="card">
+          <div class="icon-dot"><Icon name="preventivi" /></div>
+          <h2 class="h-card">Il tuo listino</h2>
+          <p class="etichetta">Categorie già pronte</p>
+          <ul class="pillole">
+            {m.listinoCategorie.map((c) => <li class="badge">{c}</li>)}
+          </ul>
+          <p class="etichetta">Esempi</p>
+          <ul class="esempi">
+            {m.listinoEsempi.map((e) => <li>{e}</li>)}
+          </ul>
+        </div>
+        <div class="card">
+          <div class="icon-dot"><Icon name="ordini" /></div>
+          <h2 class="h-card">{m.ordiniEtichetta}</h2>
+          <ul class="checks">
+            {m.ordini.map((o) => <li>{o}</li>)}
+          </ul>
+        </div>
+      </div>
+      <p class="small s-fonte">Esempi presi dall'app: con i tuoi dati il listino lo scrivi tu.</p>
+    </div>
+  </section>
+
+  <!-- f. Lettere pronte -->
+  <section class="section section--alt" aria-labelledby="lettere-titolo">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="lettere-titolo">Lettere pronte</h2>
+        <p class="lead">Tre lettere d'esempio, già scritte per il tuo mestiere.</p>
+      </div>
+      <ul class="fogli">
+        {m.lettere.map((l) => (
+          <li class="foglio">
+            <span class="foglio__testata"><Icon name="email" size={18} /> Lettera pronta · {m.tessera}</span>
+            <h3>{l}</h3>
+            <span class="foglio__righe" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+          </li>
+        ))}
+      </ul>
+      {inPiu && (
+        <p class="note s-inpiu"><strong>In più:</strong> {inPiu}</p>
+      )}
+    </div>
+  </section>
+
+  {testimonianze.length > 0 && (
+    <section class="section section--tight" aria-labelledby="testi-titolo">
+      <div class="container">
+        <h2 id="testi-titolo" class="s-testi__h">Dicono di goKlient</h2>
+        <Testimonianze voci={testimonianze} />
+      </div>
+    </section>
+  )}
+
+  <!-- g. Prova la demo di questo mestiere -->
+  <section class="section section--brand" id="demo" aria-labelledby="demo-titolo">
+    <div class="container split">
+      <div>
+        <span class="eyebrow">Demo</span>
+        <h2 id="demo-titolo">Prova la demo di questo mestiere</h2>
+        <p class="lead">
+          Installa goKlient, rispondi Sì alla proposta della dimostrazione e scegli “{m.tessera}”. Trovi clienti,
+          prodotti, scadenze e le tre lettere d'esempio. Puoi combinarlo con altri due mestieri.
+        </p>
+        <p class="small">Dati di prova: nomi inventati, indirizzi @demo.it. Li togli con un pulsante.</p>
+        <div class="btn-row s-demo-btn">
+          <a class="btn btn--primary" href="/scarica"><Icon name="demo" /> Prova la demo per {m.tessera}</a>
+        </div>
+        <p class="small">{rigaRequisiti}</p>
+      </div>
+      <div class="demo__img">
+        <PhoneFrame
+          src="/img/schermate/h12-demo-due-mestieri.webp"
+          alt="La scelta dei mestieri nella dimostrazione di goKlient sul telefono, con due mestieri selezionati"
+          width={720}
+          height={1488}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- h. Altri mestieri vicini -->
+  <section class="section section--tight" aria-labelledby="vicini-titolo">
+    <div class="container">
+      <div class="vicini__head">
+        <h2 id="vicini-titolo">Altri mestieri vicini</h2>
+        <a class="vicini__tutti" href="/mestieri">Tutti i 25 mestieri <Icon name="freccia" size={20} /></a>
+      </div>
+      <ul class="tessere">
+        {vicini.map((v) => (
+          <li>
+            <a class="tessera" href={`/mestieri/${v.slug}`}>
+              <img src={`/img/mestieri/${v.key}.svg`} alt="" width="72" height="72" loading="lazy" decoding="async" />
+              <span>{v.tessera}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* a. Apertura */
+  .s-hero h1 { font-size: clamp(2rem, 4.4vw, 3.1rem); }
+  .s-breve { font-size: 1.2rem; font-weight: 700; color: var(--ink); }
+  .s-more { margin: 0 0 28px; }
+  .s-testi__h { text-align: center; }
+  .scena { margin: 0; position: relative; padding-bottom: 28px; }
+  .scena__card {
+    border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 6px solid var(--surface);
+    box-shadow: var(--shadow-lg);
+  }
+  .scena__card img { width: 100%; height: auto; border-radius: calc(var(--radius) - 6px); }
+  .scena__stemma {
+    position: absolute; left: 24px; bottom: 0; width: 84px; height: 84px; border-radius: 50%; display: grid;
+    place-items: center; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  .scena__stemma img { width: 60px; height: 60px; }
+
+  /* b. Clienti */
+  .s-clienti { display: grid; gap: 4px 24px; }
+  .s-clienti h2 { margin-bottom: 0.25em; }
+  @media (min-width: 700px) {
+    .s-clienti { grid-template-columns: auto 1fr; align-items: start; }
+    .s-clienti .icon-dot { margin: 4px 0 0; }
+  }
+  .pillole { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .pillole .badge { margin: 0; font-size: 1rem; padding: 8px 16px; }
+
+  /* c. Scadenze */
+  .scadenze { list-style: none; padding: 0; margin: 0; }
+  .scadenza { margin: 0; display: flex; gap: 14px; align-items: flex-start; padding: 20px 22px; }
+  .scadenza h3 { font-size: 1.15rem; margin: 2px 0 0.3em; }
+  .scadenza__icon {
+    flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--brand-soft); color: var(--brand-strong);
+  }
+  .scadenza__frase { margin: 0; color: var(--ink-2); font-style: italic; }
+
+  /* d-e. Listino e ordini */
+  .h-card { font-size: clamp(1.4rem, 2.6vw, 1.8rem); }
+  .etichetta {
+    margin: 18px 0 10px; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .esempi { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .esempi li {
+    margin: 0; padding: 6px 14px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--line);
+    font-size: 0.98rem; font-weight: 600;
+  }
+  .s-fonte { margin: 20px 0 0; }
+
+  /* f. Lettere: tre fogli di carta */
+  .fogli {
+    list-style: none; padding: 0; margin: 0; display: grid; gap: clamp(20px, 3vw, 32px);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+  .foglio {
+    margin: 0; position: relative; min-height: 240px; padding: 26px 26px 30px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--shadow);
+  }
+  .foglio::after {
+    content: ''; position: absolute; top: -1px; right: -1px; width: 30px; height: 30px;
+    background: linear-gradient(225deg, var(--surface-2) 50%, var(--line) 50%); border-bottom-left-radius: 6px;
+  }
+  @media (min-width: 900px) {
+    .foglio:nth-child(1) { transform: rotate(-1.2deg); }
+    .foglio:nth-child(3) { transform: rotate(1deg); }
+  }
+  .foglio__testata {
+    display: flex; align-items: center; gap: 8px; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--brand-strong); padding-bottom: 14px; margin-bottom: 18px;
+    border-bottom: 2px solid var(--brand-soft);
+  }
+  .foglio h3 { font-size: 1.25rem; margin-bottom: 18px; }
+  .foglio__righe { display: grid; gap: 10px; }
+  .foglio__righe span { display: block; height: 8px; border-radius: 4px; background: var(--surface-2); border: 1px solid var(--line); }
+  .foglio__righe span:nth-child(2) { width: 92%; }
+  .foglio__righe span:nth-child(4) { width: 85%; }
+  .foglio__righe span:nth-child(5) { width: 55%; }
+  .s-inpiu { margin: clamp(28px, 4vw, 40px) 0 0; max-width: 760px; }
+
+  /* g. Demo */
+  .s-demo-btn { margin: 24px 0 14px; }
+  .demo__img :global(.device) { max-width: min(260px, 62vw); }
+
+  /* h. Vicini */
+  .vicini__head {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px;
+    margin-bottom: 22px;
+  }
+  .vicini__head h2 { margin: 0; }
+  .vicini__tutti { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; min-height: 44px; }
+  .vicini__tutti :global(svg) { display: inline; }
+  /* .tessere / .tessera: global.css */
+</style>

@@ -1,0 +1,557 @@
+---
+// Pagina "Come funziona" (brief: sez. 5, 2.1-2.9; testi B2; titolo e descrizione dalla sez. 10).
+// Ogni passo: numero, titolo, testo Breve in alto, schermata, dettagli (Completo) in un <details>
+// che sul telefono resta chiuso e sul computer si apre da solo.
+import Base from '../layouts/Base.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import DownloadButtons from '../components/DownloadButtons.astro';
+import Icon from '../components/Icon.astro';
+import { config, testoWindows } from '../config';
+
+const title = 'Come funziona goKlient: il CRM semplice per il tuo lavoro';
+const description =
+  'Scegli il tuo mestiere, porta dentro i clienti, segna eventi e scadenze, fai i preventivi in PDF e scrivi ai clienti. Anche senza rete.';
+
+const indice = [
+  { href: '#passo-1', n: '1', label: 'Scegli il tuo mestiere', icon: 'mestiere' },
+  { href: '#passo-2', n: '2', label: 'Porta dentro i clienti', icon: 'clienti' },
+  { href: '#passo-3', n: '3', label: 'Segna quello che succede', icon: 'scadenze' },
+  { href: '#preventivo', n: '', label: 'Dalla proposta d’ordine al preventivo', icon: 'preventivi' },
+  { href: '#passo-4', n: '4', label: 'Scrivi ai tuoi clienti', icon: 'email' },
+  { href: '#passo-5', n: '5', label: 'Tieni tutto al sicuro', icon: 'lucchetto' },
+];
+
+const sequenzaPreventivo = [
+  {
+    src: '/img/schermate/p3-foglio-bozza.webp',
+    h: 1407,
+    cap: 'Il foglio è già pronto, ancora in bozza.',
+    alt: 'Un preventivo in bozza sul telefono: in alto il logo e i dati di un’acetaia inventata, sotto il cliente Ristorante La Quercia e la scritta “Preventivo n. (bozza)”, in basso il pulsante Preventivo PDF.',
+  },
+  {
+    src: '/img/schermate/p4-preventivo-numerato.webp',
+    h: 1407,
+    cap: 'Con Preventivo PDF prende il suo numero.',
+    alt: 'Lo stesso preventivo con il numero 2026/021 del 02/11/2026 e, in basso, i pulsanti Revisione e Invia.',
+  },
+  {
+    src: '/img/schermate/p4b-revisione.webp',
+    h: 1407,
+    cap: 'Una modifica? Nuova revisione, con la lettera.',
+    alt: 'La scheda di un evento con la riga “Preventivo n. 2026/017a, sostituisce il n. 2026/017” e l’indicazione che non è ancora stato inviato per email.',
+  },
+  {
+    src: '/img/schermate/p6-contatti-badge.webp',
+    h: 771,
+    cap: 'Nei contatti la “P” ti dice a che punto sei.',
+    alt: 'La lista dei contatti sul telefono, con una piccola etichetta viola “P1” o “P2” accanto a ogni cliente che ha un preventivo.',
+  },
+];
+
+const passiPreventivo = [
+  {
+    t: 'Una volta sola',
+    d: 'In Altro, La mia azienda, scrivi ragione sociale, indirizzo, partita IVA, aliquota IVA, frase di apertura e condizioni. Valgono su tutti i tuoi apparecchi.',
+  },
+  {
+    t: 'Il foglio è già pronto',
+    d: 'Dalla scheda di un evento con una proposta d’ordine tocchi Preventivo: trovi la tua intestazione, il cliente, i prodotti, imponibile, IVA e totale. Lo correggi liberamente.',
+  },
+  {
+    t: 'Il numero',
+    d: 'Con Preventivo PDF il foglio prende un numero dell’anno, per esempio 2026/011, e non si modifica più. Il numero lo dà il cloud, uguale per tutti i tuoi apparecchi: se manca la rete, il preventivo resta una bozza e riprovi più tardi.',
+  },
+  {
+    t: 'Lo mandi',
+    d: 'Invia per email, con il PDF allegato. goKlient segna quando e a chi l’hai mandato.',
+  },
+  {
+    t: 'Il cliente chiede una modifica?',
+    d: 'Nuova revisione: stesso numero con una lettera (2026/014, poi 2026/014 a) e la versione precedente risulta sostituita. Nella scheda dell’evento vedi lo storico delle revisioni, con data, totale e invio.',
+  },
+  {
+    t: 'Li ritrovi tutti',
+    d: 'In Altro, Preventivi. Nella lista dei contatti una “P” colorata ti dice a chi devi ancora mandarlo e a chi l’hai già mandato.',
+  },
+];
+
+const confronto = [
+  { cosa: 'Clienti, eventi, ordini, listino, email, scadenze', tel: 'Sì', pc: 'Sì' },
+  { cosa: 'Foto del biglietto da visita', tel: 'Scatto dal vivo e lettura', pc: 'Lettura da una foto già fatta' },
+  { cosa: 'Importare dalla rubrica', tel: 'Sì', pc: 'No (il computer non ha una rubrica)' },
+  { cosa: 'Importare da Excel, CSV, testo', tel: 'Sì', pc: 'Sì' },
+  { cosa: 'Firma del cliente sullo schermo', tel: 'A dito o con il pennino', pc: 'Sì' },
+  { cosa: 'Barra delle sezioni', tel: 'In basso', pc: 'In alto' },
+];
+---
+<Base title={title} description={description}>
+  <!-- 2.1 Apertura -->
+  <section class="section section--brand cf-hero" aria-labelledby="cf-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Come funziona</span>
+        <h1 id="cf-title">Come funziona goKlient</h1>
+        <p class="lead">Quattro minuti per partire col piede giusto.</p>
+        <p>
+          Scegli il tuo mestiere, inserisci i clienti, segna eventi e ordini, scrivi a chi vuoi. Il resto lo fa
+          goKlient.
+        </p>
+        <p class="small">
+          Prima di riempire l’app di contatti conviene sistemare poche cose: costano pochi minuti adesso e ti
+          evitano di tornare indietro dopo. Ecco i passi, nell’ordine giusto.
+        </p>
+      </div>
+
+      <nav aria-label="I passi">
+        <ol class="cf-index">
+          {indice.map((p) => (
+            <li>
+              <a href={p.href} class:list={['cf-index__link', { 'cf-index__link--new': !p.n }]}>
+                <span class="cf-index__num" aria-hidden="true">
+                  {p.n ? p.n : <Icon name={p.icon} size={20} />}
+                </span>
+                <span>{p.label}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- 2.2 Passo 1 -->
+  <section id="passo-1" class="section cf-step-section" aria-labelledby="passo-1-title">
+    <div class="container step">
+      <header class="step__head">
+        <span class="step__num" aria-hidden="true">1</span>
+        <h2 id="passo-1-title"><span class="visually-hidden">Passo 1: </span>Scegli il tuo mestiere</h2>
+        <p class="lead">Un tocco e hai i tipi di cliente, di evento e le categorie del listino.</p>
+      </header>
+      <div class="step__fig">
+        <PhoneFrame
+          src="/img/schermate/f1-scelta-mestieri.webp"
+          alt="La pagina “Scegli i tuoi tipi” sul telefono: un elenco di settori, come Idraulici, Elettricisti, Officina e Manutenzione del verde, ognuno con sotto i tipi di cliente che verranno creati."
+          width={720}
+          height={1488}
+        />
+      </div>
+      <details class="more more--box step__more">
+        <summary>Leggi di più</summary>
+        <div>
+          <p>
+            La prima volta che inserisci un cliente, goKlient apre la pagina “Scegli i tuoi tipi”. Puoi scegliere
+            le tipologie standard (Cliente, Fornitore, Rivenditore, Grossista) oppure il tuo settore.
+          </p>
+          <p>
+            Sotto ogni settore vedi i tipi di cliente che verranno creati. Poi li cambi quando vuoi: aggiungi,
+            rinomini, cancelli.
+          </p>
+          <p><a href="/mestieri">Guarda i 25 mestieri già pronti <Icon name="freccia" size={18} /></a></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 2.3 Passo 2 -->
+  <section id="passo-2" class="section section--alt cf-step-section" aria-labelledby="passo-2-title">
+    <div class="container step step--rev">
+      <header class="step__head">
+        <span class="step__num" aria-hidden="true">2</span>
+        <h2 id="passo-2-title"><span class="visually-hidden">Passo 2: </span>Porta dentro i tuoi clienti</h2>
+        <p class="lead">A mano, dalla rubrica del telefono, da un file Excel o fotografando il biglietto da visita.</p>
+      </header>
+      <div class="step__fig">
+        <PhoneFrame
+          src="/img/schermate/f6-importazione.webp"
+          alt="Il menu Importazione sul telefono, con le voci per importare i contatti da un file di testo, da un file Excel o CSV, dal biglietto da visita fotografato e dalla rubrica."
+          width={720}
+          height={1488}
+        />
+      </div>
+      <details class="more more--box step__more">
+        <summary>Leggi di più</summary>
+        <div>
+          <ul class="checks">
+            <li>
+              <strong>A mano:</strong> basta l’email, il resto lo aggiungi dopo. Appena scrivi la @ l’app ti propone
+              i finali più comuni (@gmail.com, @libero.it…).
+            </li>
+            <li>
+              <strong>La città si compila da sola:</strong> oltre 40.000 città in otto paesi europei; scegli la città
+              e provincia, regione e nazione si scrivono da sole.
+            </li>
+            <li><strong>Dalla rubrica</strong> del telefono (Android).</li>
+            <li><strong>Da un file Excel, CSV o di testo</strong>, per esempio esportato da un altro programma.</li>
+            <li>
+              <strong>Dal biglietto da visita:</strong> lo fotografi e l’app legge nome, azienda, telefono ed email;
+              tu controlli e confermi. In fiera puoi anche solo scattare la foto e inserire i dati con calma dopo.
+            </li>
+          </ul>
+          <p class="note">Due clienti non possono avere la stessa email: così non crei doppioni.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 2.4 Passo 3 -->
+  <section id="passo-3" class="section cf-step-section" aria-labelledby="passo-3-title">
+    <div class="container step">
+      <header class="step__head">
+        <span class="step__num" aria-hidden="true">3</span>
+        <h2 id="passo-3-title"><span class="visually-hidden">Passo 3: </span>Segna quello che succede</h2>
+        <p class="lead">
+          Una telefonata, una visita, un ordine: diventa un evento sulla scheda del cliente. Con una data di
+          scadenza, goKlient te lo ricorda.
+        </p>
+      </header>
+      <div class="step__fig">
+        <PhoneFrame
+          src="/img/schermate/p2-evento-preventivo.webp"
+          alt="La scheda di un evento sul telefono: data, scadenza, tipo “Telefonare”, i pulsanti Prodotto + e Preventivo e sotto due aceti ordinati con il totale degli articoli e dell’importo."
+          width={720}
+          height={1407}
+        />
+      </div>
+      <details class="more more--box step__more">
+        <summary>Leggi di più</summary>
+        <div>
+          <p>
+            Ogni cosa che riguarda un cliente è un evento: un appuntamento, una telefonata, una consegna.
+            Nell’evento scrivi una nota, metti una scadenza se c’è un seguito da non dimenticare, e aggiungi i
+            prodotti ordinati scegliendoli dal listino.
+          </p>
+          <p>
+            Lo Scadenziario raccoglie tutte le scadenze in ordine di data, con il pallino
+            <span class="dot dot--red" aria-hidden="true"></span> rosso,
+            <span class="dot dot--orange" aria-hidden="true"></span> arancione o
+            <span class="dot dot--green" aria-hidden="true"></span> verde. Puoi vederle per mese o per settimana e
+            salvarle in un file Excel.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 2.4b Dall'ordine al preventivo -->
+  <section id="preventivo" class="section section--brand cf-quote" aria-labelledby="preventivo-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="badge"><Icon name="preventivi" size={18} /> Novità</span>
+        <h2 id="preventivo-title">Dalla proposta d’ordine al preventivo</h2>
+        <p class="lead">
+          La proposta d’ordine del cliente diventa un preventivo in PDF, con il suo numero, pronto da mandare per
+          email.
+        </p>
+      </div>
+
+      <ol class="seq" aria-label="Il preventivo, schermata per schermata">
+        {sequenzaPreventivo.map((s, i) => (
+          <li class="seq__item">
+            <PhoneFrame src={s.src} alt={s.alt} width={720} height={s.h} />
+            <p class="seq__cap"><span class="seq__n" aria-hidden="true">{i + 1}</span>{s.cap}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div class="grid grid-3 cf-quote__cards">
+        {passiPreventivo.map((p) => (
+          <div class="card cf-quote__card">
+            <h3>{p.t}</h3>
+            <p class="muted">{p.d}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="cf-quote__notes">
+        <p class="note"><Icon name="sync" size={20} /> Il numero del preventivo lo assegna il cloud: per numerarlo serve la rete.</p>
+        <p class="small">
+          Da sapere: il logo si inserisce su ogni apparecchio; il preventivo non diventa ordine da solo, e il suo
+          esito (accettato, rifiutato) non si registra: è allo studio.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2.5 Passo 4 -->
+  <section id="passo-4" class="section cf-step-section" aria-labelledby="passo-4-title">
+    <div class="container step step--rev">
+      <header class="step__head">
+        <span class="step__num" aria-hidden="true">4</span>
+        <h2 id="passo-4-title"><span class="visually-hidden">Passo 4: </span>Scrivi ai tuoi clienti</h2>
+        <p class="lead">Configuri la tua casella una volta. Poi scegli a chi, che cosa, e parti.</p>
+      </header>
+      <div class="step__fig">
+        <PhoneFrame
+          src="/img/schermate/f12-destinatari.webp"
+          alt="La pagina “Invia una email”, passo 1 “A chi inviare la email”, con il menu aperto sui quattro modi: Lista destinatari, Gruppi da email inviate, Selezione diretta, A me per test."
+          width={720}
+          height={1488}
+        />
+      </div>
+      <details class="more more--box step__more">
+        <summary>Leggi di più</summary>
+        <div>
+          <ul class="checks">
+            <li>
+              <strong>La tua casella di sempre:</strong> Outlook e Hotmail con l’accesso Microsoft; Gmail con
+              l’accesso Google per inviare (e con la password per le app di Google se vuoi anche leggere la posta da
+              goKlient); Aruba, Libero, TIM, Tiscali e molti altri con la password; anche l’indirizzo della tua
+              azienda.
+            </li>
+            <li>
+              <strong>A chi:</strong> un gruppo che hai preparato, i destinatari di un invio precedente, oppure uno per
+              uno. Prima puoi mandarla a te stesso per vedere come arriva.
+            </li>
+            <li>
+              <strong>Che cosa:</strong> testi pronti, modelli impaginati, oppure il Word Processor interno con
+              grassetto, colori, immagini e il tuo logo in testa.
+            </li>
+            <li><strong>Personale:</strong> scrivi “Gentile %USER/Cliente%” e ogni cliente riceve il suo nome.</li>
+            <li><strong>Una per uno:</strong> parte una email separata per ogni destinatario; nessuno vede gli altri.</li>
+            <li>
+              <strong>Chi non vuole, si toglie:</strong> in fondo a ogni email c’è “Cancella iscrizione alle email”;
+              chi lo usa non riceve più le email di gruppo.
+            </li>
+          </ul>
+          <p class="small">
+            Serve una casella di posta tua (Gmail, Outlook, Aruba, Libero, quella della tua azienda…).
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 2.6 Passo 5 -->
+  <section id="passo-5" class="section section--alt cf-step-section" aria-labelledby="passo-5-title">
+    <div class="container step">
+      <header class="step__head">
+        <span class="step__num" aria-hidden="true">5</span>
+        <h2 id="passo-5-title"><span class="visually-hidden">Passo 5: </span>Tieni tutto al sicuro</h2>
+        <p class="lead">
+          Copia di sicurezza su file quando vuoi; con il cloud, una copia sempre aggiornata su internet.
+        </p>
+      </header>
+      <div class="step__fig pair">
+        <PhoneFrame
+          src="/img/schermate/f16-esportazione.webp"
+          alt="Il menu Esportazione in Gestione archivi, con la prima voce “Data Base + foto + firme” per fare la copia di sicurezza."
+          width={720}
+          height={1407}
+        />
+        <PhoneFrame
+          src="/img/schermate/f16b-avviso-copia.webp"
+          alt="L’avviso che compare dopo la copia: la copia è in Download/goKlient, dentro il telefono, e conviene portarla anche fuori, su una chiavetta, sul computer o in una email a te stesso."
+          width={720}
+          height={1407}
+        />
+      </div>
+      <details class="more more--box step__more">
+        <summary>Leggi di più</summary>
+        <div>
+          <h3 class="more__h"><Icon name="copia" size={22} /> La copia su file</h3>
+          <p>
+            Si fa da Altro, Gestione archivi: un file unico con clienti, eventi, ordini, listino, email, foto e firme.
+            Va nella cartella Download/goKlient del telefono, e goKlient ti ricorda di portarlo anche fuori: su una
+            chiavetta, sul computer, in una email a te stesso.
+          </p>
+          <p>Quando devi rimetterla, in Importazione trovi l’elenco delle copie con data, ora e peso.</p>
+          <h3 class="more__h"><Icon name="sync" size={22} /> Con il cloud</h3>
+          <p>
+            Ogni sincronizzazione porta una copia aggiornata dei tuoi dati fuori dal telefono: se lo perdi, accedi da
+            un altro apparecchio e ritrovi tutto. Con il cloud attivo goKlient ti ricorda anche quando è ora di rifare
+            la copia su file.
+          </p>
+          <p class="note">Il cloud è facoltativo. Con un solo apparecchio goKlient funziona anche senza.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- 2.7 Telefono e computer -->
+  {config.windowsDisponibile ? (
+    <section class="section" aria-labelledby="dispositivi-title">
+      <div class="container container--narrow">
+        <div class="section-head">
+          <h2 id="dispositivi-title">Telefono, tablet o computer?</h2>
+          <p class="lead">
+            Le funzioni sono le stesse. Cambiano solo le cose che il computer non ha: fotocamera e rubrica.
+          </p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col"><span class="visually-hidden">Funzione</span></th>
+                <th scope="col">Telefono e tablet Android</th>
+                <th scope="col">Computer Windows</th>
+              </tr>
+            </thead>
+            <tbody>
+              {confronto.map((r) => (
+                <tr>
+                  <th scope="row">{r.cosa}</th>
+                  <td>{r.tel}</td>
+                  <td>{r.pc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="section section--tight" aria-label="Sul computer">
+      <div class="container container--narrow">
+        <p class="cf-soon">
+          <span class="icon-dot" aria-hidden="true"><Icon name="computer" /></span>
+          <span>{testoWindows}</span>
+        </p>
+      </div>
+    </section>
+  )}
+
+  <!-- 2.8 Facile da leggere -->
+  <section class="section section--alt" aria-labelledby="leggere-title">
+    <div class="container split split--reverse">
+      <div>
+        <span class="eyebrow">Facile da leggere</span>
+        <h2 id="leggere-title">Fatta per leggere bene</h2>
+        <p class="lead">Caratteri grandi se ti servono, tema chiaro o scuro, e l’aiuto sempre a un tocco.</p>
+        <ul class="checks">
+          <li>
+            Rispetta la dimensione dei caratteri che hai scelto {config.windowsDisponibile ? 'nel telefono o in Windows' : 'nel telefono'}
+            e ridisegna le schermate senza tagliare le scritte.
+          </li>
+          <li>In ogni lista lunga c’è un cursore per ingrandire il testo fino al 160%.</li>
+          <li>Tema chiaro e scuro seguono le impostazioni del telefono.</li>
+          <li>Tre colori a scelta: Turchese, Blu Cobalto e Verde Vigna.</li>
+          <li>Su molte pagine il pulsante “?” spiega in breve che cosa puoi fare.</li>
+          <li>Il manuale completo è dentro l’app.</li>
+        </ul>
+      </div>
+      <div>
+        <PhoneFrame
+          src="/img/schermate/f20-aspetto.webp"
+          alt="Il menu “Aspetto della app” sul telefono, con le tre tinte Blu Cobalto, Turchese (scelta) e Verde Vigna."
+          width={720}
+          height={1488}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- 2.9 Chiusura -->
+  <section class="section cf-close" aria-labelledby="chiusura-title">
+    <div class="container container--narrow">
+      <div class="section-head section-head--center">
+        <h2 id="chiusura-title">Pronto a provarla?</h2>
+      </div>
+      <DownloadButtons
+        secondary={config.manualePubblicato ? { href: config.manualeUrl, label: 'Scarica il manuale (PDF)' } : null}
+      />
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  /* ---------- Apertura: indice dei passi ---------- */
+  .cf-index {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  }
+  .cf-index li { margin: 0; }
+  .cf-index__link {
+    display: flex; align-items: center; gap: 12px; min-height: 60px; padding: 10px 16px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+    color: var(--ink); font-weight: 700; text-decoration: none; box-shadow: var(--shadow);
+  }
+  .cf-index__link:hover { border-color: var(--brand-strong); color: var(--brand-ink); }
+  .cf-index__num {
+    flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--brand-soft); color: var(--brand-strong); font-weight: 800;
+  }
+  .cf-index__link--new .cf-index__num { background: var(--brand-strong); color: var(--on-brand); }
+
+  /* ---------- Passo: titolo, schermata, dettagli ---------- */
+  .cf-step-section { scroll-margin-top: 80px; }
+  #preventivo { scroll-margin-top: 80px; }
+
+  .step {
+    display: grid; gap: 28px;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'head' 'fig' 'more';
+  }
+  .step__head { grid-area: head; }
+  .step__fig { grid-area: fig; }
+  .step__more { grid-area: more; }
+  .step__head .lead { margin-bottom: 0; }
+
+  @media (min-width: 900px) {
+    .step {
+      grid-template-columns: 1.1fr 0.9fr; column-gap: clamp(40px, 6vw, 80px); row-gap: 24px;
+      grid-template-rows: auto 1fr; grid-template-areas: 'head fig' 'more fig'; align-items: start;
+    }
+    .step--rev { grid-template-columns: 0.9fr 1.1fr; grid-template-areas: 'fig head' 'fig more'; }
+  }
+
+  .step__num {
+    display: inline-grid; place-items: center; width: 60px; height: 60px; border-radius: 50%;
+    background: var(--brand-strong); color: var(--on-brand); font-size: 1.7rem; font-weight: 800; margin-bottom: 16px;
+    box-shadow: 0 6px 18px rgb(10 124 118 / 25%);
+  }
+
+  /* Due schermate affiancate (passo 5) */
+  /* Sul telefono una sotto l'altra, altrimenti sono troppo piccole per leggerle */
+  .pair { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+  @media (min-width: 600px) { .pair { grid-template-columns: 1fr 1fr; gap: 16px; } }
+  .pair :global(.device--phone) { max-width: min(260px, 62vw); border-radius: 28px; padding: 7px; }
+  .pair :global(.device__screen) { border-radius: 22px; }
+
+  /* Dettagli apribili: classe comune .more .more--box (global.css) */
+  .more__h {
+    display: flex; align-items: center; gap: 8px; font-size: 1.1rem; margin-top: 0.8em; color: var(--brand-ink);
+  }
+  .more__h:first-child { margin-top: 0; }
+  .more__h :global(svg) { color: var(--brand); }
+  .more a { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; }
+
+  .dot { display: inline-block; width: 0.75em; height: 0.75em; border-radius: 50%; vertical-align: baseline; }
+  .dot--red { background: var(--red); }
+  .dot--orange { background: var(--orange); }
+  .dot--green { background: var(--green); }
+
+  /* ---------- Preventivo: sequenza di schermate ---------- */
+  .cf-quote .badge { margin-bottom: 14px; }
+  /* Sul telefono griglia 2 x 2 (niente scorrimento di lato nascosto), dal computer una fila da 4 */
+  .seq {
+    list-style: none; padding: 0; margin: 0 0 clamp(32px, 5vw, 56px);
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px;
+  }
+  .seq__item { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+  .seq__item :global(.device--phone) { max-width: 250px; width: 100%; border-radius: 30px; padding: 8px; }
+  .seq__item :global(.device__screen) { border-radius: 24px; }
+  .seq__cap { display: flex; gap: 8px; align-items: flex-start; margin: 0; font-weight: 700; max-width: 260px; margin-inline: auto; font-size: 1rem; }
+  .seq__n {
+    flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--brand-strong); color: var(--on-brand); font-size: 0.9rem; font-weight: 800;
+  }
+  @media (min-width: 1000px) { .seq { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; } .seq__cap { font-size: inherit; } }
+
+  .cf-quote__card h3 { font-size: 1.15rem; }
+  .cf-quote__notes { max-width: 760px; margin: clamp(28px, 4vw, 40px) auto 0; }
+  .cf-quote__notes .note { display: flex; gap: 10px; align-items: flex-start; }
+  .cf-quote__notes .note :global(svg) { flex: none; margin-top: 4px; color: var(--brand-strong); }
+
+  /* ---------- Computer: presto ---------- */
+  .cf-soon {
+    display: flex; align-items: center; gap: 16px; margin: 0; padding: 18px 22px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); font-weight: 700;
+  }
+  .cf-soon .icon-dot { margin: 0; flex: none; }
+
+  /* ---------- Chiusura ---------- */
+  .cf-close .section-head { margin-bottom: 24px; }
+  .cf-close :global(.dl) { text-align: center; }
+  .cf-close :global(.btn-row) { justify-content: center; }
+</style>

@@ -1,0 +1,29 @@
+---
+// Cornice neutra (senza marchi di produttori) attorno a una schermata dell'app.
+// variant: "phone" (verticale) o "tablet". La schermata deve gia' essere senza barra di stato.
+interface Props { src: string; alt: string; variant?: 'phone' | 'tablet'; width?: number; height?: number; class?: string; eager?: boolean }
+const { src, alt, variant = 'phone', width, height, class: cls = '', eager = false } = Astro.props;
+---
+<figure class:list={['device', `device--${variant}`, cls]}>
+  <div class="device__screen">
+    <img src={src} alt={alt} width={width} height={height} loading={eager ? 'eager' : 'lazy'} decoding="async" />
+  </div>
+</figure>
+
+<style>
+  .device { margin: 0; width: 100%; background: #12302e; padding: 10px; box-shadow: var(--shadow-lg); position: relative; }
+  /* Sul telefono la cornice resta piu' piccola dello schermo: pagine meno lunghe */
+  .device--phone { border-radius: 38px; max-width: min(320px, 62vw); margin-inline: auto; }
+  @media (min-width: 900px) { .device--phone { max-width: 320px; } }
+  /* Tema scuro: un filo chiaro attorno alla cornice, altrimenti si confonde con lo sfondo */
+  @media (prefers-color-scheme: dark) { .device { border: 1px solid var(--line); } }
+  .device--tablet { border-radius: 28px; padding: 14px; max-width: 520px; margin-inline: auto; }
+  .device--phone::before {
+    content: ''; position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    width: 64px; height: 6px; border-radius: 6px; background: rgb(255 255 255 / 18%); z-index: 2;
+  }
+  .device__screen { border-radius: 30px; overflow: hidden; background: #e3f3ef; }
+  .device--phone .device__screen { padding-top: 22px; }
+  .device--tablet .device__screen { border-radius: 16px; }
+  .device img { width: 100%; height: auto; }
+</style>

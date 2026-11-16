@@ -1,0 +1,208 @@
+---
+// Pagina "Domande frequenti" (sez. 5.5 e sez. 7 del brief). Testi in src/data/faq.ts.
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import { sezioniFaq, tutteLeFaq, type Faq } from '../data/faq';
+
+const title = 'Domande frequenti su goKlient';
+const description =
+  'Funziona senza internet? Dove stanno i dati? Come si fanno i preventivi? Quanto costa? Le risposte alle domande più comuni su goKlient.';
+
+/** Icona di ogni sezione (solo decorativa). */
+const icone: Record<string, string> = {
+  'per-iniziare': 'demo',
+  'dati-e-riservatezza': 'lucchetto',
+  'senza-rete': 'offline',
+  'copie-di-sicurezza': 'copia',
+  'piu-apparecchi': 'sync',
+  posta: 'email',
+  preventivi: 'preventivi',
+  'eliminare-account': 'cestino',
+  costi: 'spunta',
+  'quando-qualcosa-non-va': 'aiuto',
+};
+
+/** Schermate facoltative accanto ad alcune risposte (sez. 9, punto 5, e README). */
+const schermate: Record<string, { src: string; alt: string; width: number; height: number; cornice?: boolean }> = {
+  '4': {
+    src: '/img/schermate/h8-demo-25-mestieri.webp', width: 720, height: 1488,
+    alt: 'La dimostrazione di goKlient: la griglia dei mestieri, tra cui sceglierne fino a tre',
+  },
+  '5': {
+    src: '/img/schermate/f6-importazione.webp', width: 720, height: 1488,
+    alt: "La schermata di importazione di goKlient: clienti dalla rubrica, da un file Excel o da un biglietto da visita",
+  },
+  '13': {
+    src: '/img/schermate/f16-esportazione.webp', width: 720, height: 1407,
+    alt: 'La schermata Esportazione di Gestione archivi, da cui si crea la copia di sicurezza',
+  },
+  '25': {
+    src: '/img/schermate/f12-destinatari.webp', width: 720, height: 1488,
+    alt: "Il primo passo dell'invio di email: i quattro modi di scegliere i clienti a cui scrivere",
+  },
+  '27': {
+    src: '/img/schermate/p4-preventivo-numerato.webp', width: 720, height: 1407,
+    alt: 'Un preventivo di goKlient con il numero 2026/021, pronto da mandare in PDF',
+  },
+  '29': {
+    src: '/img/schermate/p4b-revisione.webp', width: 720, height: 1407,
+    alt: 'La revisione di un preventivo: stesso numero con una lettera in più, 2026/017a',
+  },
+  '32': {
+    src: '/img/schermate/e1-elimina-account.webp', width: 720, height: 528, cornice: false,
+    alt: "Il comando Elimina account goKlient nella pagina Sincronizzazione cloud dell'app",
+  },
+};
+
+const esc = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** La risposta e' testo semplice: qui si protegge e si rendono cliccabili i pezzi indicati in `link`. */
+function rispostaHtml(f: Faq): string {
+  let html = esc(f.risposta);
+  for (const l of f.link ?? []) {
+    html = html.replace(esc(l.testo), `<a href="${esc(l.href)}">${esc(l.testo)}</a>`);
+  }
+  return html;
+}
+
+// Dati strutturati per Google (FAQPage): domande e risposte in testo semplice.
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  inLanguage: 'it-IT',
+  mainEntity: tutteLeFaq.map((f) => ({
+    '@type': 'Question',
+    name: f.domanda,
+    acceptedAnswer: { '@type': 'Answer', text: f.risposta },
+  })),
+}).replace(/</g, '\\u003c');
+---
+<Base title={title} description={description}>
+  <script is:inline slot="head" type="application/ld+json" set:html={jsonLd} />
+
+  <section class="section section--tight section--brand faq-hero" aria-labelledby="faq-title">
+    <div class="container container--narrow">
+      <span class="eyebrow">Domande frequenti</span>
+      <h1 id="faq-title">Le risposte alle domande più comuni</h1>
+      <p class="lead">Tocca una domanda per leggere la risposta.</p>
+
+      <nav class="faq-index" id="indice" aria-label="Argomenti delle domande">
+        <ul>
+          {sezioniFaq.map((s) => (
+            <li>
+              <a href={`#${s.id}`}>
+                <Icon name={icone[s.id] ?? 'aiuto'} size={20} />
+                {s.titolo}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container container--narrow">
+      {sezioniFaq.map((s) => (
+        <section class="faq-group" id={s.id} aria-labelledby={`${s.id}-titolo`}>
+          <div class="faq-group__head">
+            <span class="icon-dot"><Icon name={icone[s.id] ?? 'aiuto'} /></span>
+            <h2 id={`${s.id}-titolo`}>{s.titolo}</h2>
+          </div>
+          <div class="faq">
+            {s.domande.map((f) => {
+              const img = schermate[f.numero];
+              return (
+                <details id={f.id}>
+                  <summary>{f.domanda}</summary>
+                  <div class:list={['faq-answer', { 'faq-answer--img': img }]}>
+                    <p set:html={rispostaHtml(f)} />
+                    {img && (img.cornice === false
+                      ? <img class="faq-shot--flat" src={img.src} alt={img.alt} width={img.width} height={img.height} loading="lazy" decoding="async" />
+                      : <PhoneFrame class="faq-shot" src={img.src} alt={img.alt} width={img.width} height={img.height} />)}
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+          <p class="faq-group__top small"><a href="#indice">Torna all'inizio</a></p>
+        </section>
+      ))}
+
+      <div class="card faq-more">
+        <span class="icon-dot"><Icon name="email" /></span>
+        <h2>Non hai trovato la risposta?</h2>
+        <a class="btn btn--ghost" href="/assistenza">Scrivici</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Se si arriva con un link a una domanda (es. dalla Home: #domanda-11), la si apre subito.
+  function apriDaIndirizzo() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el instanceof HTMLDetailsElement) {
+      el.open = true;
+      el.scrollIntoView({ block: 'start' });
+    }
+  }
+  apriDaIndirizzo();
+  window.addEventListener('hashchange', apriDaIndirizzo);
+</script>
+
+<style>
+  .faq-hero h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  .faq-hero .lead { margin-bottom: 1.5em; }
+
+  /* Indice: pillole cliccabili, larghe abbastanza per il dito */
+  .faq-index ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .faq-index li { margin: 0; }
+  .faq-index a {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px;
+    border-radius: 999px; background: var(--surface); border: 1px solid var(--line);
+    color: var(--ink); font-weight: 700; font-size: 1rem; text-decoration: none; box-shadow: var(--shadow);
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+  .faq-index a :global(svg) { color: var(--brand-strong); flex: none; }
+  .faq-index a:hover { background: var(--brand-soft); border-color: var(--brand-strong); color: var(--brand-ink); }
+
+  /* Gruppi di domande */
+  .faq-group { scroll-margin-top: 96px; }
+  .faq-group + .faq-group { margin-top: clamp(40px, 6vw, 64px); }
+  .faq-group__head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+  .faq-group__head .icon-dot { margin: 0; width: 44px; height: 44px; border-radius: 14px; flex: none; }
+  .faq-group__head .icon-dot :global(svg) { width: 24px; height: 24px; }
+  .faq-group__head h2 { margin: 0; font-size: clamp(1.4rem, 3vw, 1.8rem); }
+  .faq-group__top { margin: 14px 0 0; text-align: right; }
+  .faq-group__top a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 999px; font-weight: 700;
+  }
+
+  .faq details { scroll-margin-top: 96px; }
+  .faq-answer p { margin: 0; }
+  .faq-answer--img { display: grid; gap: 20px; }
+  .faq-answer :global(.faq-shot) { width: 100%; max-width: 230px; margin: 0 auto; }
+  .faq-shot--flat {
+    width: 100%; max-width: 320px; margin: 0 auto; border-radius: var(--radius-sm); border: 1px solid var(--line); box-shadow: var(--shadow);
+  }
+  @media (min-width: 720px) {
+    .faq-answer--img { grid-template-columns: 1fr 210px; align-items: start; }
+    .faq-answer--img :global(.faq-shot) { margin: 0; }
+    .faq-answer--img .faq-shot--flat { grid-column: 1 / -1; margin: 0; }
+  }
+
+  /* Chiusura: "Non hai trovato la risposta? Scrivici" */
+  .faq-more {
+    margin-top: clamp(48px, 7vw, 72px); display: grid; gap: 16px; align-items: center;
+    background: linear-gradient(150deg, var(--mint), var(--sand));
+  }
+  .faq-more .icon-dot { margin: 0; }
+  .faq-more h2 { font-size: clamp(1.4rem, 3vw, 1.8rem); margin: 0; }
+  @media (min-width: 720px) { .faq-more { grid-template-columns: auto 1fr auto; } }
+  @media (max-width: 520px) { .faq-more .btn { width: 100%; } }
+</style>

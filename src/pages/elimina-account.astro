@@ -1,0 +1,215 @@
+---
+// Eliminare l'account e i dati (obbligatoria per Google Play). Brief: sez. 5, punto 9; testi B6.
+// Indirizzo fisso gia' dato a Google Play: /elimina-account (non cambiare).
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import PhoneFrame from '../components/PhoneFrame.astro';
+import { config } from '../config';
+
+const email = config.emailInfo;
+const oggetto = 'Eliminazione account goKlient';
+---
+<Base
+  title="Eliminare l'account goKlient e i dati"
+  description="Come eliminare il tuo account goKlient e i dati nel cloud, dall'app o per email, anche senza l'app installata. Tempi e che cosa resta."
+>
+  <section class="section section--brand ea-hero">
+    <div class="container container--narrow">
+      <p class="placeholder ea-draft">[Bozza con le decisioni del titolare: da far rivedere a un legale]</p>
+      <span class="eyebrow">I tuoi dati</span>
+      <h1>Eliminare il tuo account goKlient e i tuoi dati</h1>
+      <p class="lead">
+        Puoi eliminare il tuo account goKlient e i dati salvati nel cloud dall'app, oppure chiedercelo per email.
+        I dati sul tuo apparecchio li cancelli tu.
+      </p>
+      <div class="grid grid-2 ea-ways">
+        <a class="card ea-way" href="#dall-app">
+          <span class="icon-dot"><Icon name="telefono" /></span>
+          <strong>Dall'app</strong>
+          <span class="muted">Altro, Sincronizzazione cloud, "Elimina account goKlient"</span>
+        </a>
+        <a class="card ea-way" href="#senza-app">
+          <span class="icon-dot"><Icon name="email" /></span>
+          <strong>Senza l'app</strong>
+          <span class="muted">Con un'email a {email}</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container container--narrow ea-body">
+    <section aria-labelledby="account-title">
+      <h2 id="account-title">Che cosa è l'account goKlient</h2>
+      <p>
+        È l'accesso (email e password) che crei in Altro, Sincronizzazione cloud, per collegare i tuoi apparecchi
+        allo stesso archivio.
+      </p>
+      <p class="note">
+        Se non hai mai attivato il cloud, non hai un account goKlient e i tuoi dati stanno solo sul tuo apparecchio.
+      </p>
+    </section>
+
+    <section aria-labelledby="app-dati-title" class="ea-device">
+      <div class="split">
+        <div>
+          <h2 id="app-dati-title">I dati sul tuo apparecchio</h2>
+          <p>Li cancelli tu, quando vuoi:</p>
+          <ul class="ea-list">
+            <li>da <strong>Altro, Azzera archivi</strong>: clienti con eventi, listino, email predefinite, storico degli invii, gruppi;</li>
+            <li>da <strong>Gestione archivi, Pulizia foto e firme</strong>;</li>
+            <li>disinstallando goKlient dall'apparecchio.</li>
+          </ul>
+          <p>
+            Le copie di sicurezza che hai fatto restano nella cartella Download/goKlient: se vuoi, cancellale tu.
+          </p>
+          <p class="note">
+            <strong>Attenzione:</strong> se il cloud è acceso, azzerare un archivio lo cancella anche nel cloud e sugli
+            altri tuoi apparecchi.
+          </p>
+        </div>
+        <PhoneFrame
+          src="/img/schermate/azzera-archivi.webp"
+          alt="La finestra «Cosa vuoi cancellare?» di Azzera archivi, con cinque scelte: archivio contatti con eventi, listino dei prodotti, email predefinite, liste delle email inviate, gruppi di destinatari; in basso il pulsante Annulla."
+          width={720}
+          height={1488}
+        />
+      </div>
+    </section>
+
+    <section aria-labelledby="prima-title" class="card ea-before">
+      <div class="icon-dot"><Icon name="copia" /></div>
+      <div>
+        <h2 id="prima-title" class="ea-h-card">Prima di eliminare</h2>
+        <p>
+          Fai una copia di sicurezza da Altro, Gestione archivi, Esportazione, <strong>"Data Base + foto + firme"</strong>:
+          dopo l'eliminazione, il cloud non potrà restituirti niente.
+        </p>
+      </div>
+    </section>
+
+    <section id="dall-app" aria-labelledby="app-title">
+      <h2 id="app-title">Dall'app</h2>
+      <ol class="ea-steps">
+        <li>Apri <strong>Altro</strong>, poi <strong>Sincronizzazione cloud</strong>.</li>
+        <li>Tocca <strong>"Elimina account goKlient"</strong>.</li>
+        <li>Si fa in due tempi: prima la richiesta, poi la conferma, tra 4 e 48 ore dopo. Così nessuno lo fa per sbaglio.</li>
+      </ol>
+      <figure class="card ea-shot">
+        <img
+          src="/img/schermate/e1-elimina-account.webp"
+          width="720"
+          height="528"
+          loading="lazy"
+          decoding="async"
+          alt="La scheda dell'app intitolata «Eliminare l'account goKlient»: spiega che si eliminano l'account e i dati nel cloud, che si fa in due tempi e che serve la password dell'account; sotto, il pulsante rosso «Elimina account goKlient»."
+        />
+      </figure>
+    </section>
+
+    <section id="senza-app" aria-labelledby="senza-title">
+      <h2 id="senza-title">Senza l'app</h2>
+      <p>Scrivi dall'indirizzo email del tuo account goKlient, con questo oggetto:</p>
+      <div class="card ea-mailbox">
+        <div class="ea-field">
+          <span class="small">A</span>
+          <a class="ea-mail" href={`mailto:${email}?subject=${encodeURIComponent(oggetto)}`}>{email}</a>
+        </div>
+        <div class="ea-field">
+          <span class="small">Oggetto</span>
+          <strong>{oggetto}</strong>
+        </div>
+      </div>
+      <p>Ti mandiamo una conferma a quello stesso indirizzo e ti rispondiamo entro 5 giorni lavorativi.</p>
+    </section>
+
+    <section aria-labelledby="cosa-title">
+      <h2 id="cosa-title">Che cosa eliminiamo</h2>
+      <p>L'account goKlient e tutti i dati del tuo archivio nel cloud:</p>
+      <ul class="checks ea-list">
+        <li>clienti, eventi, ordini, preventivi e dati della tua azienda</li>
+        <li>listino e gruppi</li>
+        <li>email inviate e modelli</li>
+        <li>città aggiunte e testi della privacy</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="tempo-title">
+      <h2 id="tempo-title">In quanto tempo</h2>
+      <p>
+        Dopo la conferma nessun apparecchio sincronizza più e i dati vengono cancellati dal cloud
+        <strong>entro 30 giorni</strong>.
+      </p>
+      <p class="note">
+        Fino ad allora puoi ripensarci: scrivi a <a href={`mailto:${email}`}>{email}</a> dall'indirizzo del tuo account.
+      </p>
+    </section>
+
+    <section aria-labelledby="resta-title">
+      <h2 id="resta-title">Che cosa resta e per quanto</h2>
+      <div class="grid ea-rest">
+        <div class="card">
+          <h3>I dati sui tuoi apparecchi</h3>
+          <p>Finché non li cancelli tu.</p>
+        </div>
+        <div class="card">
+          <h3>Un registro tecnico</h3>
+          <p>Con le sole date, senza dati personali leggibili, per 12 mesi.</p>
+        </div>
+        <div class="card">
+          <h3>Le copie automatiche del cloud</h3>
+          <p>Le copie di sicurezza automatiche del servizio cloud scadono da sole entro 35 giorni.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</Base>
+
+<style>
+  .ea-draft { font-size: 0.85rem; padding: 8px 14px; margin-bottom: 24px; display: inline-block; }
+  .ea-hero h1 { font-size: clamp(1.9rem, 5vw, 3rem); }
+
+  .ea-ways { margin-top: 28px; }
+  .ea-way {
+    display: grid; gap: 4px; text-decoration: none; color: var(--ink);
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+  .ea-way .icon-dot { margin-bottom: 10px; }
+  .ea-way strong { font-size: 1.25rem; }
+  .ea-way:hover { transform: translateY(-2px); border-color: var(--brand-strong); color: var(--ink); }
+
+  .ea-body { padding-block: clamp(40px, 6vw, 72px); }
+  .ea-body > section + section { margin-top: clamp(40px, 6vw, 64px); }
+  .ea-body section[id] { scroll-margin-top: 96px; }
+  .ea-body h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+
+  .ea-before { display: grid; gap: 4px 20px; background: var(--brand-soft); border-color: transparent; }
+  .ea-before .icon-dot { background: var(--surface); margin-bottom: 8px; }
+  .ea-before p { margin: 0; }
+  @media (min-width: 640px) { .ea-before { grid-template-columns: auto 1fr; } }
+  .ea-h-card { font-size: clamp(1.3rem, 2.6vw, 1.6rem) !important; }
+
+  .ea-steps { padding: 0; list-style: none; counter-reset: passo; margin-bottom: 24px; }
+  .ea-steps li { counter-increment: passo; position: relative; padding-left: 52px; margin-bottom: 16px; min-height: 36px; }
+  .ea-steps li::before {
+    content: counter(passo); position: absolute; left: 0; top: -2px; width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--brand-strong); color: var(--on-brand); font-weight: 800;
+  }
+
+  .ea-shot { margin: 0; padding: 12px; max-width: 480px; }
+  .ea-shot img { width: 100%; border-radius: var(--radius-sm); }
+
+  .ea-mailbox { display: grid; gap: 14px; margin-bottom: 16px; }
+  .ea-field { display: grid; gap: 2px; }
+  .ea-field .small { font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.8rem; }
+  .ea-field strong { font-size: 1.15rem; }
+  .ea-mail { font-weight: 800; font-size: clamp(1.25rem, 4vw, 1.6rem); overflow-wrap: anywhere; }
+
+  .ea-list li { margin-bottom: 0.5em; }
+
+  .ea-rest { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+  .ea-rest h3 { font-size: 1.15rem; }
+
+  .ea-device .split { align-items: start; }
+  .ea-device :global(.device--phone) { max-width: min(280px, 62vw); }
+</style>

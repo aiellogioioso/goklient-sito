@@ -1,0 +1,19 @@
+---
+// Pulsanti di scaricamento: oggi il file APK, domani il badge di Google Play (interruttore in config.ts).
+import Icon from './Icon.astro';
+import { config, rigaRequisiti } from '../config';
+interface Props { secondary?: { href: string; label: string } | null; showNote?: boolean }
+const { secondary = null, showNote = true } = Astro.props;
+---
+<div class="dl">
+  <div class="btn-row">
+    {config.googlePlay
+      ? <a class="btn btn--primary" href={config.googlePlayUrl}>Disponibile su Google Play</a>
+      : <a class="btn btn--primary" href="/scarica"><Icon name="scarica" /> Scarica goKlient</a>}
+    {secondary && <a class="btn btn--ghost" href={secondary.href}>{secondary.label}</a>}
+  </div>
+  {showNote && <p class="small dl__note">{rigaRequisiti}</p>}
+</div>
+<style>
+  .dl__note { margin: 14px 0 0; }
+</style>

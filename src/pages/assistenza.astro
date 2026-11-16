@@ -1,0 +1,200 @@
+---
+// Assistenza e contatti (brief: sez. 5, punto 6; testi B5).
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { config } from '../config';
+
+const s = config.societa;
+const email = config.emailAssistenza;
+---
+<Base
+  title="Assistenza goKlient: aiuto, manuale e contatti"
+  description="Il manuale d'uso da scaricare, l'aiuto dentro l'app e come scriverci: rispondiamo alle email entro 2 giorni lavorativi."
+>
+  <!-- 5.1 Prima di scriverci: testo Breve in alto -->
+  <section class="section section--brand as-hero">
+    <div class="container container--narrow">
+      <span class="eyebrow">Assistenza</span>
+      <h1>Ti aiutiamo</h1>
+      <p class="lead">La risposta spesso è già nell'app.</p>
+      <p>
+        Tocca il "?" in alto a destra: spiega la pagina in cui sei e i problemi tipici.{' '}
+        {config.manualePubblicato
+          ? 'Il manuale completo è dentro l\'app e qui sotto.'
+          : 'Il manuale completo è dentro l\'app.'}
+      </p>
+      <nav class="as-jump" aria-label="In questa pagina">
+        <a href="#prima">Prima di scriverci</a>
+        <a href="#tre-cose">Cosa scriverci</a>
+        <a href="#scrivici">Scrivici</a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- 5.1 Completo: il "?" e il manuale -->
+  <section class="section section--tight" id="prima" aria-labelledby="prima-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="prima-title">Prima di scriverci</h2>
+      </div>
+      <div class="grid grid-2">
+        <article class="card">
+          <div class="icon-dot"><Icon name="aiuto" /></div>
+          <h3>Il pulsante "?"</h3>
+          <p>
+            Su molte pagine di goKlient c'è un piccolo pulsante tondo con il punto interrogativo:
+            apre l'aiuto di quella pagina, con le funzioni e i problemi noti.
+          </p>
+        </article>
+        <article class="card">
+          <div class="icon-dot"><Icon name="libro" /></div>
+          <h3>Il manuale d'uso</h3>
+          {config.manualePubblicato ? (
+            <>
+              <p>Il manuale d'uso, con le schermate, si apre dall'app (il pulsante con il libro) e si scarica anche da qui.</p>
+              <div class="btn-row">
+                <a class="btn btn--ghost" href={config.manualeUrl}><Icon name="scarica" /> Scarica il manuale (PDF)</a>
+              </div>
+            </>
+          ) : (
+            <p>Il manuale d'uso completo, con le schermate, si apre dall'app con il pulsante con il libro.</p>
+          )}
+        </article>
+      </div>
+
+      {/* 6.1b Video: il posto c'e', i video arriveranno nel tempo */}
+      {!config.videoDisponibili && (
+        <div class="placeholder as-video">
+          <Icon name="video" size={28} />
+          <p>[Video dimostrativi e di istruzione: arriveranno nel tempo. Qui il pulsante "Guarda il video".]</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- 5.2 Per aiutarti subito -->
+  <section class="section section--tight section--alt" id="tre-cose" aria-labelledby="tre-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="tre-title">Quando ci scrivi, dicci queste tre cose</h2>
+      </div>
+      <ol class="grid grid-3 as-steps">
+        <li class="card">
+          <span class="as-num" aria-hidden="true">1</span>
+          <h3>La riga della versione</h3>
+          <p>È in alto a sinistra nella Home, per esempio <span class="as-code">"Release 4.3.53 - 03/10/26 (14:50)"</span>.</p>
+        </li>
+        <li class="card">
+          <span class="as-num" aria-hidden="true">2</span>
+          <h3>L'apparecchio</h3>
+          <p>Telefono, tablet o computer, e la marca.</p>
+        </li>
+        <li class="card">
+          <span class="as-num" aria-hidden="true">3</span>
+          <h3>Cosa stavi facendo</h3>
+          <p>E cosa è comparso a video.</p>
+          <p class="small">
+            Se è un avviso del cloud, nella pagina Sincronizzazione cloud tocca la scritta dello stato:
+            si copia e la incolli nel messaggio.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5.3 Segnalare dall'app -->
+  <section class="section section--tight" aria-labelledby="chiusa-title">
+    <div class="container container--narrow">
+      <div class="card as-crash">
+        <div class="icon-dot"><Icon name="email" /></div>
+        <div>
+          <h2 id="chiusa-title" class="as-h-card">Se l'app si è chiusa da sola</h2>
+          <p>
+            Alla riapertura goKlient ti avvisa e ti propone <strong>"Segnala via email"</strong>: prepara un messaggio
+            con quello che è successo, da inviare a noi.
+          </p>
+          <p class="as-calm"><Icon name="spunta" size={20} /> I tuoi dati non sono stati toccati.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5.4 Recapiti -->
+  <section class="section section--tight section--brand" id="scrivici" aria-labelledby="scrivici-title">
+    <div class="container container--narrow as-contact">
+      <h2 id="scrivici-title">Scrivici</h2>
+      <a class="as-mail" href={`mailto:${email}`}>
+        <Icon name="email" size={32} />
+        <span>{email}</span>
+      </a>
+      <p class="lead">Rispondiamo alle email entro 2 giorni lavorativi.</p>
+    </div>
+  </section>
+
+  <!-- 5.5 La societa' -->
+  <section class="section section--tight" aria-labelledby="societa-title">
+    <div class="container container--narrow">
+      <h2 id="societa-title">La società</h2>
+      {s ? (
+        <dl class="card as-company">
+          <div><dt>Ragione sociale</dt><dd>{s.ragioneSociale}</dd></div>
+          <div><dt>Sede</dt><dd>{s.sede}</dd></div>
+          <div><dt>Partita IVA</dt><dd>{s.partitaIva}</dd></div>
+          <div><dt>Codice fiscale</dt><dd>{s.codiceFiscale}</dd></div>
+          <div><dt>REA</dt><dd>{s.rea}</dd></div>
+          <div><dt>Capitale sociale</dt><dd>{s.capitale}</dd></div>
+          <div><dt>PEC</dt><dd>{s.pec}</dd></div>
+        </dl>
+      ) : (
+        <p class="placeholder">[Ragione sociale, sede, partita IVA, codice fiscale, REA, capitale, PEC: società in costituzione, dati da inserire appena disponibili.]</p>
+      )}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .as-hero h1 { margin-bottom: 0.25em; }
+  .as-jump { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .as-jump a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px;
+    background: var(--surface); border: 1px solid var(--line); font-weight: 700; text-decoration: none; color: var(--ink);
+  }
+  .as-jump a:hover { border-color: var(--brand-strong); color: var(--brand-ink); }
+
+  .as-video { display: flex; align-items: center; gap: 14px; margin-top: clamp(16px, 2.5vw, 28px); }
+  .as-video p { margin: 0; }
+  .as-video :global(svg) { flex: none; }
+
+  .as-steps { list-style: none; padding: 0; margin: 0; }
+  .as-steps li { margin: 0; }
+  .as-num {
+    display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%;
+    background: var(--brand-strong); color: var(--on-brand); font-weight: 800; font-size: 1.35rem; margin-bottom: 16px;
+  }
+  .as-code { font-weight: 700; color: var(--ink); overflow-wrap: anywhere; }
+
+  .as-crash { display: grid; gap: 4px 20px; }
+  .as-crash .icon-dot { margin-bottom: 8px; }
+  @media (min-width: 640px) { .as-crash { grid-template-columns: auto 1fr; } }
+  .as-h-card { font-size: clamp(1.35rem, 2.6vw, 1.75rem); }
+  .as-calm { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--brand-ink); }
+  .as-calm :global(svg) { flex: none; color: var(--brand-strong); }
+
+  .as-contact { text-align: center; }
+  .as-mail {
+    display: inline-flex; align-items: center; justify-content: center; gap: 14px; max-width: 100%;
+    padding: 18px 28px; margin: 8px 0 20px; border-radius: var(--radius); background: var(--surface);
+    border: 2px solid var(--brand-strong); box-shadow: var(--shadow); text-decoration: none;
+    font-weight: 800; font-size: clamp(1.3rem, 4.5vw, 2rem); color: var(--brand-strong);
+  }
+  .as-mail span { overflow-wrap: anywhere; }
+  .as-mail :global(svg) { flex: none; }
+  .as-mail:hover { background: var(--brand-soft); color: var(--brand-ink); }
+  .as-contact .lead { margin: 0; }
+
+  .as-company { margin: 0; display: grid; gap: 12px; }
+  .as-company div { display: grid; gap: 2px; }
+  .as-company dt { font-size: 0.9rem; font-weight: 700; color: var(--ink-3); }
+  .as-company dd { margin: 0; }
+  @media (min-width: 640px) { .as-company div { grid-template-columns: 180px 1fr; gap: 16px; } }
+</style>

@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620">
+  <rect width="900" height="620" fill="#EAF3F8"/>
+
+  <!-- tenda a strisce -->
+  <path d="M0 0 L900 0 L900 96 L0 96 Z" fill="#FFFFFF"/>
+  <g>
+    <rect x="0"   y="0" width="75" height="96" fill="#0A6EA8"/>
+    <rect x="150" y="0" width="75" height="96" fill="#0A6EA8"/>
+    <rect x="300" y="0" width="75" height="96" fill="#0A6EA8"/>
+    <rect x="450" y="0" width="75" height="96" fill="#0A6EA8"/>
+    <rect x="600" y="0" width="75" height="96" fill="#0A6EA8"/>
+    <rect x="750" y="0" width="75" height="96" fill="#0A6EA8"/>
+  </g>
+  <path d="M0 96 L900 96 L900 120 L0 120 Z" fill="#CFE0EA"/>
+
+  <!-- insegna -->
+  <rect x="250" y="130" width="400" height="62" rx="10" fill="#0A3D5C"/>
+  <text x="450" y="173" text-anchor="middle" font-family="Liberation Sans, Arial, sans-serif"
+        font-size="34" font-weight="bold" fill="#FFFFFF" letter-spacing="3">PESCATO DEL GIORNO</text>
+
+  <!-- vasca di ghiaccio -->
+  <rect x="60" y="250" width="780" height="230" rx="18" fill="#B9C9D2"/>
+  <rect x="76" y="266" width="748" height="198" rx="14" fill="#E4EDF2"/>
+  <g fill="#FFFFFF" opacity="0.85">
+    <circle cx="140" cy="300" r="16"/><circle cx="240" cy="292" r="13"/><circle cx="360" cy="302" r="17"/>
+    <circle cx="520" cy="292" r="14"/><circle cx="660" cy="304" r="16"/><circle cx="770" cy="294" r="12"/>
+  </g>
+
+  <!-- pesci sul ghiaccio -->
+  <g>
+    <path d="M120 372 C 168 330 260 330 306 372 C 260 414 168 414 120 372 Z" fill="#7E96A6"/>
+    <path d="M306 372 L352 344 L352 400 Z" fill="#7E96A6"/>
+    <circle cx="160" cy="366" r="8" fill="#FFFFFF"/><circle cx="160" cy="366" r="4" fill="#20303A"/>
+
+    <path d="M370 400 C 412 364 492 364 534 400 C 492 436 412 436 370 400 Z" fill="#5C7C8C"/>
+    <path d="M534 400 L574 376 L574 424 Z" fill="#5C7C8C"/>
+    <circle cx="406" cy="395" r="7" fill="#FFFFFF"/><circle cx="406" cy="395" r="3.5" fill="#20303A"/>
+
+    <path d="M560 348 C 596 318 664 318 700 348 C 664 378 596 378 560 348 Z" fill="#96A9B6"/>
+    <path d="M700 348 L734 328 L734 368 Z" fill="#96A9B6"/>
+    <circle cx="590" cy="344" r="6" fill="#FFFFFF"/><circle cx="590" cy="344" r="3" fill="#20303A"/>
+  </g>
+
+  <!-- limoni e prezzemolo, fuori dai cartellini -->
+  <circle cx="792" cy="432" r="22" fill="#F2C744"/><circle cx="792" cy="432" r="14" fill="#FCEBA0"/>
+  <circle cx="756" cy="452" r="17" fill="#F2C744"/><circle cx="756" cy="452" r="10" fill="#FCEBA0"/>
+  <circle cx="112" cy="436" r="14" fill="#5C9E3A"/><circle cx="136" cy="446" r="11" fill="#4E8B31"/>
+
+  <!-- cartellini prezzo, tutti dentro la vasca -->
+  <g font-family="Liberation Sans, Arial, sans-serif">
+    <rect x="158" y="418" width="140" height="40" rx="6" fill="#FFFFFF" stroke="#0A3D5C" stroke-width="3"/>
+    <text x="228" y="446" text-anchor="middle" font-size="23" font-weight="bold" fill="#0A3D5C">Branzino</text>
+    <rect x="386" y="288" width="140" height="40" rx="6" fill="#FFFFFF" stroke="#0A3D5C" stroke-width="3"/>
+    <text x="456" y="316" text-anchor="middle" font-size="23" font-weight="bold" fill="#0A3D5C">Orata</text>
+    <rect x="576" y="408" width="140" height="40" rx="6" fill="#FFFFFF" stroke="#0A3D5C" stroke-width="3"/>
+    <text x="646" y="436" text-anchor="middle" font-size="23" font-weight="bold" fill="#0A3D5C">Sogliola</text>
+  </g>
+
+  <!-- cassette -->
+  <rect x="62" y="492" width="200" height="86" rx="8" fill="#C9D6DE"/>
+  <rect x="76" y="506" width="172" height="14" rx="4" fill="#AFC0CA"/>
+  <rect x="76" y="532" width="172" height="14" rx="4" fill="#AFC0CA"/>
+  <rect x="286" y="492" width="200" height="86" rx="8" fill="#C9D6DE"/>
+  <rect x="300" y="506" width="172" height="14" rx="4" fill="#AFC0CA"/>
+  <rect x="300" y="532" width="172" height="14" rx="4" fill="#AFC0CA"/>
+  <rect x="60" y="480" width="780" height="14" rx="6" fill="#9FB3BF"/>
+</svg>

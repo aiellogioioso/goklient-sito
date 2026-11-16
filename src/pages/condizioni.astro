@@ -1,0 +1,43 @@
+---
+// Condizioni d'uso. Indirizzo fisso gia' dato a Google Play: /condizioni (non cambiare).
+// Il testo definitivo e' in revisione (brief, sez. 8: bozza pronta, fase 2).
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Condizioni d'uso - goKlient"
+  description="Le regole per usare goKlient: licenza personale, prova, abbonamento, disdetta, i tuoi dati e quelli dei tuoi clienti."
+>
+  <section class="section section--brand lg-hero">
+    <div class="container container--narrow">
+      <span class="eyebrow">Le regole</span>
+      <h1>Condizioni d'uso</h1>
+      <p class="lead">Il testo definitivo è in revisione e sarà pubblicato su questa pagina.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="argomenti-title">
+    <div class="container container--narrow">
+      <h2 id="argomenti-title">Di che cosa parlano</h2>
+      <ul class="checks lg-topics">
+        <li>La licenza personale</li>
+        <li>La prova</li>
+        <li>L'abbonamento e la disdetta</li>
+        <li>I tuoi dati e quelli dei tuoi clienti</li>
+      </ul>
+      <div class="placeholder lg-placeholder">
+        [Testo delle condizioni d'uso: in revisione, da pubblicare prima del lancio]
+      </div>
+      <p class="muted lg-links">
+        Nel frattempo: <a href="/prezzi">Vedi i prezzi</a> · <a href="/privacy">Leggi come trattiamo i dati</a> ·
+        <a href="/elimina-account">Come eliminare l'account</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lg-hero h1 { margin-bottom: 0.3em; }
+  .lg-hero .lead { margin: 0; }
+  .lg-topics { margin: 20px 0 32px; }
+  .lg-links { margin-top: 28px; }
+</style>

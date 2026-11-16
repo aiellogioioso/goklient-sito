@@ -1,0 +1,80 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import { menu } from '../config';
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+const isActive = (href: string) => path === href || path.startsWith(href + '/');
+---
+<header class="site-header">
+  <div class="container site-header__bar">
+    <a href="/" class="site-header__logo" aria-label="goKlient, pagina iniziale"><Logo size={40} /></a>
+
+    <nav class="nav-desktop" aria-label="Menu principale">
+      <ul>
+        {menu.map((m) => <li><a href={m.href} aria-current={isActive(m.href) ? 'page' : undefined}>{m.label}</a></li>)}
+      </ul>
+      <a class="btn btn--primary btn--small" href="/scarica"><Icon name="scarica" size={20} /> Scarica</a>
+    </nav>
+
+    <details class="nav-mobile">
+      <summary><span class="nav-mobile__label">Menu</span><span class="nav-mobile__bars" aria-hidden="true"></span></summary>
+      <nav aria-label="Menu principale">
+        <ul>
+          <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a></li>
+          {menu.map((m) => <li><a href={m.href} aria-current={isActive(m.href) ? 'page' : undefined}>{m.label}</a></li>)}
+        </ul>
+        <a class="btn btn--primary" href="/scarica"><Icon name="scarica" /> Scarica goKlient</a>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header__bar { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 24px; }
+  .site-header__logo { text-decoration: none; display: inline-flex; }
+
+  .nav-desktop { display: none; align-items: center; gap: 20px; }
+  .nav-desktop ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  .nav-desktop li { margin: 0; }
+  .nav-desktop ul a {
+    display: block; padding: 10px 12px; border-radius: 10px; text-decoration: none; color: var(--ink);
+    font-weight: 700; font-size: 1rem;
+  }
+  .nav-desktop ul a:hover { background: var(--surface-2); color: var(--brand-ink); }
+  .nav-desktop ul a[aria-current='page'] { color: var(--brand-strong); background: var(--brand-soft); }
+
+  .nav-mobile summary {
+    list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
+    min-height: 48px; padding: 0 16px; border-radius: 999px; border: 2px solid var(--line);
+    font-weight: 800; background: var(--surface);
+  }
+  .nav-mobile summary::-webkit-details-marker { display: none; }
+  .nav-mobile__bars, .nav-mobile__bars::before, .nav-mobile__bars::after {
+    display: block; width: 20px; height: 2.5px; border-radius: 2px; background: var(--ink); position: relative;
+  }
+  .nav-mobile__bars::before, .nav-mobile__bars::after { content: ''; position: absolute; left: 0; }
+  .nav-mobile__bars::before { top: -6px; }
+  .nav-mobile__bars::after { top: 6px; }
+  .nav-mobile[open] .nav-mobile__bars { background: transparent; }
+  .nav-mobile[open] .nav-mobile__bars::before { top: 0; transform: rotate(45deg); }
+  .nav-mobile[open] .nav-mobile__bars::after { top: 0; transform: rotate(-45deg); }
+  .nav-mobile nav {
+    position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line);
+    padding: 12px var(--gutter) 24px; box-shadow: var(--shadow-lg);
+  }
+  .nav-mobile ul { list-style: none; padding: 0; margin: 0 0 16px; }
+  .nav-mobile li { margin: 0; border-bottom: 1px solid var(--line); }
+  .nav-mobile li a { display: block; padding: 16px 4px; font-size: 1.2rem; font-weight: 700; text-decoration: none; color: var(--ink); }
+  .nav-mobile li a[aria-current='page'] { color: var(--brand-strong); }
+  .nav-mobile .btn { width: 100%; }
+
+  @media (min-width: 1100px) {
+    .nav-desktop { display: flex; }
+    .nav-mobile { display: none; }
+  }
+</style>
