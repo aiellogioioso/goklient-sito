@@ -392,27 +392,38 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
         <h2 id="demo-title">Provala prima, con i dati di prova</h2>
         <p class="lead">Clienti, prodotti, scadenze e lettere d'esempio del tuo mestiere, in un tocco.</p>
         <p>
-          Al primo avvio goKlient ti propone una dimostrazione: scegli fino a tre mestieri e trovi l'app già piena di
-          esempi. Quando hai finito, la svuoti con un pulsante.
+          Provala subito, anche senza account: scegli fino a tre mestieri e trovi l'app già piena di esempi, con le
+          lettere già scritte per il tuo lavoro. Mandale a te stesso per email e guarda come arrivano ai tuoi clienti.
         </p>
         <p class="demo-tile">
           <span class="icon-dot"><Icon name="demo" /></span>
-          <span>Dati di prova: nomi inventati, indirizzi @demo.it. Li togli con un pulsante.</span>
+          <span>Dati di prova: nomi inventati, indirizzi @demo.it. Le modifiche fatte nella dimostrazione non restano.</span>
         </p>
         <details class="more">
           <summary>Leggi di più</summary>
           <div>
             <p>
-              Quando apri goKlient la prima volta, l'archivio è vuoto e l'app ti chiede se vuoi provarla con dei dati
-              d'esempio. Scegli il tuo mestiere (anche due o tre insieme) e trovi clienti, prodotti, eventi, scadenze e
-              tre lettere già scritte per il tuo lavoro. I nomi sono inventati e gli indirizzi finiscono con @demo.it.
+              La prima volta che apri goKlient scegli: provarla subito con i dati d'esempio, senza account, oppure
+              creare gratuitamente il tuo account e lavorare con i tuoi clienti. Nella dimostrazione scegli il tuo
+              mestiere (anche due o tre insieme) e trovi clienti, prodotti, eventi, scadenze e tre lettere già scritte
+              per il tuo lavoro. I nomi sono inventati e gli indirizzi finiscono con @demo.it.
             </p>
             <p>
-              Quando sei pronto a inserire i tuoi clienti veri, il pulsante "Azzera gli archivi dimostrativi" in Home
-              toglie tutto, e puoi tenere le lettere da adattare alla tua attività.
+              Se configuri la tua casella di posta, puoi mandare a te stesso le lettere e i documenti della
+              dimostrazione, con le foto e la grafica, e vedere come arrivano a un cliente. Le modifiche fatte nella
+              dimostrazione non restano. Quando sei pronto per i tuoi clienti veri, crei gratuitamente il tuo account:
+              da lì parte la prova di {config.prezzi.giorniProva} giorni.
             </p>
           </div>
         </details>
+        <div class="card demo-letters">
+          <h3>Tre lettere pronte per il tuo mestiere</h3>
+          <p>
+            Per ognuno dei 25 mestieri la dimostrazione prepara tre lettere vere, già scritte per quel lavoro: titoli,
+            grassetti e colori, lo stemma del mestiere e una fotografia. Le apri, le modifichi come vuoi e le mandi per
+            email a te stesso: vedi esattamente che cosa riceverebbe un tuo cliente.
+          </p>
+        </div>
         <div class="btn-row demo-btn">
           <a class="btn btn--primary" href="/scarica"><Icon name="scarica" /> Scarica e prova la demo</a>
         </div>
@@ -624,6 +635,9 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
   }
   .demo-tile .icon-dot { margin: 0; flex: none; width: 44px; height: 44px; border-radius: 14px; }
   .demo-btn { margin-top: 24px; }
+  .demo-letters { margin-top: 20px; color: var(--ink); }
+  .demo-letters h3 { margin: 0 0 8px; }
+  .demo-letters p { margin: 0; }
   .demo-fig { max-width: 240px; width: 100%; margin-inline: auto; }
 
   /* ---------- 1.8 Domande ---------- */
