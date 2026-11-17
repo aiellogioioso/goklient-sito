@@ -87,8 +87,11 @@ Schermate (`schermate/`, 720 px di larghezza, barra di stato già tolta):
 | `h8-demo-25-mestieri.webp` | 1488 | Dimostrazione: griglia dei mestieri | provvisoria pulita |
 | `h12-demo-due-mestieri.webp` | 1488 | Dimostrazione: due mestieri scelti | provvisoria pulita |
 
-Mestieri: `mestieri/<chiave>.svg` (stemma del mestiere, 25, per le tessere) e `scene/<chiave>.svg`
-(illustrazione 900×620, 24; per il vino `scene/vino.webp`, foto 1000×750). Chiavi: agente, aceto, agri, auto, birra,
+Mestieri: `mestieri/<chiave>.svg` (stemma del mestiere, 25, per le tessere) e `scene/<chiave>.webp`
+(fotografia 900×620, 24, le stesse delle lettere della demo nell'app; per il vino foto 1000×750). Le 24 foto
+vengono da Unsplash (licenza Unsplash: uso commerciale consentito, attribuzione non obbligatoria), scelte senza
+persone riconoscibili, volti o marchi; autori e pagine di provenienza nel repository dell'app,
+`_docs/_img_settori/CREDITI_FOTO.txt`. Le vecchie illustrazioni `scene/<chiave>.svg` restano come ripiego. Chiavi: agente, aceto, agri, auto, birra,
 caffe, ceramica, conserve, distilleria, dolci, elettricisti, erbe, fiori, formaggi, impianti, legno, miele, olio, pesca,
 salumi, sport, stampa, verde, vino, vivai.
 

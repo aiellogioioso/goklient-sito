@@ -96,7 +96,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino del caseificio", "Presentazione a gastronomie e ristoranti", "Taglieri e confezioni per le feste"],
     seoTitle: "CRM per caseifici e produttori di formaggi - goKlient",
     seoDescription: "Ristoranti, gastronomie e negozi: ordini del fresco, consegne e scadenze in un'app. Listino, preventivi in PDF ed email ai clienti. Prova gratis.",
-    immagine: "/img/scene/formaggi.svg",
+    immagine: "/img/scene/formaggi.webp",
     vicini: ["salumi", "conserve", "agente"],
   },
   {
@@ -126,7 +126,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["È arrivato l'olio nuovo", "Molitura per conto terzi", "Confezioni regalo"],
     seoTitle: "CRM per frantoi e produttori di olio - goKlient",
     seoDescription: "L'olio nuovo, le confezioni regalo, la molitura per conto terzi: clienti, proposte d'ordine e scadenze sul telefono. Preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/olio.svg",
+    immagine: "/img/scene/olio.webp",
     vicini: ["vino", "aceto", "conserve"],
   },
   {
@@ -156,7 +156,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino del pescato", "Presentazione a un nuovo cliente", "Prenotazioni per le feste"],
     seoTitle: "CRM per pesca e prodotti ittici - goKlient",
     seoDescription: "Ristoranti, pescherie e grande distribuzione: il listino del giorno, gli ordini e le consegne del mattino in un'app. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/pesca.svg",
+    immagine: "/img/scene/pesca.webp",
     vicini: ["agente", "salumi", "formaggi"],
   },
   {
@@ -186,7 +186,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino birre e fusti", "Presentazione del birrificio", "Giornata di fine stagione al birrificio"],
     seoTitle: "CRM per birrifici artigianali - goKlient",
     seoDescription: "Fusti, cotte nuove e vuoti da ritirare, locale per locale. Clienti, proposte d'ordine, scadenze e preventivi in PDF sul telefono. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/birra.svg",
+    immagine: "/img/scene/birra.webp",
     vicini: ["distilleria", "vino", "caffe"],
   },
   {
@@ -216,7 +216,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino stagionati per il banco", "Fornitura di salumi per il Suo locale", "Ordini per le Feste"],
     seoTitle: "CRM per salumifici e norcinerie - goKlient",
     seoDescription: "Gastronomie, ristoranti e negozi: il banco della settimana, le stagionature, le confezioni delle feste. Ordini e preventivi in PDF. Prova gratis.",
-    immagine: "/img/scene/salumi.svg",
+    immagine: "/img/scene/salumi.webp",
     vicini: ["formaggi", "agente", "conserve"],
   },
   {
@@ -246,7 +246,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino mieli dell'annata", "Presentazione dell'azienda", "Servizio di impollinazione a noleggio"],
     seoTitle: "CRM per apicoltori - goKlient",
     seoDescription: "I mieli dell'annata, gli assaggi, le confezioni regalo: clienti, proposte d'ordine e scadenze in un'app per il telefono. Preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/miele.svg",
+    immagine: "/img/scene/miele.webp",
     vicini: ["conserve", "dolci", "olio"],
   },
   {
@@ -276,7 +276,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino miscele e assistenza macchina", "Presentazione ai nuovi clienti", "Condizioni riservate ai rivenditori"],
     seoTitle: "CRM per torrefazioni di caffè - goKlient",
     seoDescription: "Bar, ristoranti e uffici con i loro ordini, i chili di caffè e la macinatura giusta. Scadenze, listino e preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/caffe.svg",
+    immagine: "/img/scene/caffe.webp",
     vicini: ["dolci", "birra", "distilleria"],
   },
   {
@@ -306,7 +306,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino vasetti e conserve", "Presentazione del laboratorio", "Cesti natalizi per aziende"],
     seoTitle: "CRM per produttori di conserve e marmellate - goKlient",
     seoDescription: "Gusti che finiscono, produzione di stagione, cesti di Natale: clienti, proposte d'ordine e scadenze in un'app. Preventivi in PDF ed email. Prova gratis.",
-    immagine: "/img/scene/conserve.svg",
+    immagine: "/img/scene/conserve.webp",
     vicini: ["miele", "olio", "aceto"],
   },
   {
@@ -336,7 +336,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino grappe e distillati", "La distilleria si presenta", "Confezioni regalo aziendali"],
     seoTitle: "CRM per distillerie - goKlient",
     seoDescription: "Riserve nuove, assaggi, carte dei distillati e regali aziendali: clienti, proposte d'ordine e scadenze sul telefono. Preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/distilleria.svg",
+    immagine: "/img/scene/distilleria.webp",
     vicini: ["vino", "birra", "aceto"],
   },
   {
@@ -367,7 +367,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino torte e dolci del mese", "La nostra pasticceria si presenta", "Fornitura dolci per bar e ristoranti"],
     seoTitle: "CRM per pasticcerie - goKlient",
     seoDescription: "Bar, catering e hotel: i dolci giusti al mattino giusto. Ordini, consegne, scadenze e preventivi in PDF in un'app. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/dolci.svg",
+    immagine: "/img/scene/dolci.webp",
     vicini: ["caffe", "miele", "conserve"],
   },
   {
@@ -397,7 +397,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino aceti e riserve", "Presentazione dell'acetaia", "Forniture per ristoranti e gastronomie"],
     seoTitle: "CRM per acetaie e acetifici - goKlient",
     seoDescription: "Invecchiamenti, assaggi dalla botte e forniture alla ristorazione: clienti, proposte d'ordine e scadenze in un'app. Preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/aceto.svg",
+    immagine: "/img/scene/aceto.webp",
     vicini: ["olio", "vino", "conserve"],
   },
   {
@@ -428,7 +428,7 @@ export const mestieri: Mestiere[] = [
     inPiu: "lavoro senza rete e stesso archivio su telefono e tablet; dalla proposta d'ordine in visita al preventivo in PDF",
     seoTitle: "CRM per agenti di commercio alimentare - goKlient",
     seoDescription: "Il giro dei clienti, i campioni delle novità, le proposte d'ordine prese in visita anche senza rete. Preventivi in PDF ed email. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/agente.svg",
+    immagine: "/img/scene/agente.webp",
     vicini: ["formaggi", "salumi", "vino"],
   },
   {
@@ -458,7 +458,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino frutta e verdura di stagione", "Presentazione per negozi e gastronomie", "Invito alla raccolta diretta"],
     seoTitle: "CRM per aziende agricole - goKlient",
     seoDescription: "Raccolta, carichi e prezzi di stagione per cooperative, mercati e distribuzione: clienti, proposte d'ordine e scadenze sul telefono. Prova gratis 30 giorni.",
-    immagine: "/img/scene/agri.svg",
+    immagine: "/img/scene/agri.webp",
     vicini: ["vivai", "fiori", "olio"],
   },
   {
@@ -488,7 +488,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino composizioni e allestimenti", "Chi siamo e come lavoriamo", "Tutti i Santi – prenotazioni"],
     seoTitle: "CRM per floricoltori - goKlient",
     seoDescription: "Fioristi, hotel, matrimoni e ricorrenze: ordini e consegne senza perdere una data. Listino, scadenze e preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/fiori.svg",
+    immagine: "/img/scene/fiori.webp",
     vicini: ["vivai", "agri", "verde"],
   },
   {
@@ -518,7 +518,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino autunnale", "Presentazione del vivaio", "Condizioni per rivenditori"],
     seoTitle: "CRM per vivai e piante - goKlient",
     seoDescription: "Garden center, comuni e paesaggisti: forniture, consegne in cantiere e controlli in un'app. Listino, scadenze e preventivi in PDF. Prova gratis.",
-    immagine: "/img/scene/vivai.svg",
+    immagine: "/img/scene/vivai.webp",
     vicini: ["fiori", "agri", "verde"],
   },
   {
@@ -548,7 +548,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Manutenzione caldaia e controllo dei fumi", "Preventivo rifacimento impianto", "Presentazione a condomini e aziende"],
     seoTitle: "CRM per idraulici e termoidraulici - goKlient",
     seoDescription: "Sopralluoghi, preventivi in PDF e manutenzioni delle caldaie, senza dimenticarne una. Clienti e scadenze sul telefono. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/impianti.svg",
+    immagine: "/img/scene/impianti.webp",
     vicini: ["elettricisti", "legno", "verde"],
   },
   {
@@ -578,7 +578,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Verifica periodica dell'impianto e messa a terra", "Preventivo adeguamento impianto elettrico", "Assistenza elettrica per condomini e aziende"],
     seoTitle: "CRM per elettricisti e impianti elettrici - goKlient",
     seoDescription: "Verifiche della messa a terra, fotovoltaico, preventivi in PDF: ogni lavoro con la sua data. Clienti e scadenze sul telefono. Prova gratis 30 giorni.",
-    immagine: "/img/scene/elettricisti.svg",
+    immagine: "/img/scene/elettricisti.webp",
     vicini: ["impianti", "legno", "auto"],
   },
   {
@@ -609,7 +609,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Sopralluogo e preventivo su misura", "Preventivo arredo su misura", "Restauro e manutenzione infissi"],
     seoTitle: "CRM per falegnami e arredi su misura - goKlient",
     seoDescription: "Dalle misure al montaggio, ogni lavoro con i suoi passi. Clienti, scadenze, listino e preventivi in PDF in un'app. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/legno.svg",
+    immagine: "/img/scene/legno.webp",
     vicini: ["impianti", "elettricisti", "stampa"],
   },
   {
@@ -640,7 +640,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Promemoria revisione e tagliando", "Preventivo di riparazione", "Proposta per aziende con parco auto"],
     seoTitle: "CRM per officine e autoriparazione - goKlient",
     seoDescription: "Revisioni, tagliandi e cambi gomme: avvisi il cliente prima che se ne dimentichi. Scadenze, listino e preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/auto.svg",
+    immagine: "/img/scene/auto.webp",
     vicini: ["elettricisti", "impianti", "stampa"],
   },
   {
@@ -671,7 +671,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Contratto di manutenzione stagionale", "Potature e trattamenti", "Preventivo realizzazione giardino"],
     seoTitle: "CRM per giardinieri e manutenzione del verde - goKlient",
     seoDescription: "Tagli, potature e trattamenti, cliente per cliente e stagione per stagione. Scadenze, listino e preventivi in PDF. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/verde.svg",
+    immagine: "/img/scene/verde.webp",
     vicini: ["impianti", "legno", "elettricisti"],
   },
   {
@@ -702,7 +702,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino stampati commerciali", "Ristampa - abbiamo i tuoi file", "Preventivo insegna e vetrina"],
     seoTitle: "CRM per tipografie e serigrafie - goKlient",
     seoDescription: "Preventivi in PDF, bozze da approvare, ristampe: niente si perde per strada. Clienti, scadenze e listino in un'app. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/stampa.svg",
+    immagine: "/img/scene/stampa.webp",
     vicini: ["legno", "elettricisti", "auto"],
   },
   {
@@ -733,7 +733,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino tisane e cosmetici", "Presentazione del laboratorio", "Invito al laboratorio di erbe spontanee"],
     seoTitle: "CRM per erboristerie - goKlient",
     seoDescription: "Clienti abituali, lotti in scadenza e prodotti di stagione, cliente per cliente. Listino, proposte d'ordine e email ai clienti in un'app. Prova gratis 30 giorni.",
-    immagine: "/img/scene/erbe.svg",
+    immagine: "/img/scene/erbe.webp",
     vicini: ["ceramica", "sport", "miele"],
   },
   {
@@ -765,7 +765,7 @@ export const mestieri: Mestiere[] = [
     inPiu: "città di otto paesi europei e caratteri speciali di tedesco, francese, spagnolo, croato/sloveno",
     seoTitle: "CRM per laboratori di ceramica - goKlient",
     seoDescription: "Pezzi su misura, gallerie, export: preventivi in PDF, ordini e ritiri al loro posto. Clienti e scadenze sul telefono. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/ceramica.svg",
+    immagine: "/img/scene/ceramica.webp",
     vicini: ["erbe", "sport", "legno"],
   },
   {
@@ -795,7 +795,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino attrezzatura per palestre e fitness", "Presentazione al nuovo club", "Convenzione per società sportive e scuole"],
     seoTitle: "CRM per negozi di articoli sportivi - goKlient",
     seoDescription: "Taglie da riassortire, divise delle squadre, collezioni nuove: clienti, proposte d'ordine e scadenze in un'app. Email ai clienti. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/sport.svg",
+    immagine: "/img/scene/sport.webp",
     vicini: ["erbe", "ceramica", "stampa"],
   },
 ];

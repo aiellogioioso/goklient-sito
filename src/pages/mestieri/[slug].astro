@@ -27,40 +27,40 @@ const inPiu = m.inPiu ? adattaWindows(m.inPiu) : null;
 const frase = (s: { nome: string; esempio?: string }) =>
   !s.esempio ? null : /^[a-zàèéìòù]/.test(s.esempio) ? `${s.nome} ${s.esempio}` : s.esempio;
 
-// Immagine di apertura: illustrazione 900x620, per il vino una foto 1000x750.
-const isFoto = m.immagine.endsWith('.webp');
-const imgW = isFoto ? 1000 : 900;
-const imgH = isFoto ? 750 : 620;
+// Immagine di apertura: fotografia 900x620 (le stesse delle lettere della demo nell'app), per il vino 1000x750.
+const isVino = m.key === 'vino';
+const imgW = isVino ? 1000 : 900;
+const imgH = isVino ? 750 : 620;
 
 // Testo alternativo: che cosa si vede in ogni immagine di apertura.
 const altScena: Record<string, string> = {
   vino: 'Un vigneto in collina in autunno, con i filari e le foglie gialle e rosse',
-  formaggi: 'Illustrazione: forme di formaggio stagionato sugli scaffali di un caseificio, con un coltello e un tagliere',
-  olio: "Illustrazione: una latta e due bottiglie di olio d'oliva, con un ramo di olivo",
-  pesca: 'Illustrazione: il banco di una pescheria con orata, branzino e sogliola sotto il cartello «Pescato del giorno»',
-  birra: 'Illustrazione: i serbatoi di un birrificio, la spina e un boccale di birra sul bancone',
-  salumi: 'Illustrazione: salami e prosciutti appesi sopra il banco di un salumificio',
-  miele: 'Illustrazione: arnie in un prato fiorito, con le api e un favo di miele',
-  caffe: 'Illustrazione: una macchina per il caffè espresso, un tostatore e sacchetti di caffè in grani',
-  conserve: 'Illustrazione: scaffali pieni di vasetti di conserve e marmellate, una pentola sul fuoco e una cassetta di pomodori',
-  distilleria: 'Illustrazione: un alambicco di rame in una distilleria, con le bottiglie sul bancone',
-  dolci: 'Illustrazione: la vetrina di una pasticceria con torte e pasticcini',
-  aceto: "Illustrazione: una fila di botti nel sottotetto di un'acetaia, con il cartello «Batteria»",
-  agente: 'Illustrazione: uno scaffale di prodotti alimentari con bottiglie, vasetti, formaggi e salumi',
-  agri: 'Illustrazione: campi coltivati in collina, un trattore e cassette di verdura appena raccolta',
-  fiori: 'Illustrazione: il banco di un fioraio con vasi di fiori e una composizione pronta',
-  vivai: 'Illustrazione: una serra con file di piante fiorite in vaso e alberelli',
-  impianti: 'Illustrazione: una caldaia con il manometro, un termosifone e una cassetta degli attrezzi',
-  elettricisti: 'Illustrazione: un quadro elettrico, una lampadina accesa, un tester e una bobina di cavo',
-  legno: 'Illustrazione: un banco da falegname con assi di legno e gli attrezzi appesi al muro',
-  auto: "Illustrazione: un'auto sul ponte sollevatore di un'officina, con le gomme e gli attrezzi",
-  verde: 'Illustrazione: un giardino con una siepe tagliata, un tosaerba rosso, un albero e un’aiuola fiorita',
-  stampa: 'Illustrazione: una macchina da stampa con fogli stampati e barattoli di inchiostro',
-  erbe: 'Illustrazione: erbe appese a seccare, barattoli di tisane, un mortaio e piantine in vaso',
-  ceramica: 'Illustrazione: scaffali con vasi di ceramica colorati, un tornio e un forno',
-  sport: 'Illustrazione: palloni appesi alla parete di un negozio di articoli sportivi, una bicicletta, pesi e scarpe da corsa',
+  formaggi: 'Forme di formaggio a stagionare sugli scaffali di legno di un caseificio',
+  olio: "Olive verdi e nere appena raccolte, una accanto all'altra",
+  pesca: 'Pesci argentati sul ghiaccio, sul banco di una pescheria',
+  birra: "Il lungo corridoio fra i serbatoi d'acciaio di un birrificio",
+  salumi: 'Salami e insaccati appesi a stagionare',
+  miele: 'Un barattolo di miele, un favo e un cucchiaio di legno su un telo di juta',
+  caffe: 'Chicchi di caffè tostato, da vicino',
+  conserve: 'Vasetti di marmellata e conserve su un tavolo di legno',
+  distilleria: 'Gli alambicchi dorati di una distilleria',
+  dolci: 'Crostatine di frutti di bosco e fragole in vetrina, in una pasticceria',
+  aceto: 'Una cantina ad archi di mattoni con le file di botti di legno',
+  agente: 'Cassette di legno piene di verdure fresche esposte sotto un tendone',
+  agri: 'Una cassetta di legno con pomodori, peperoni e verdure appena raccolti',
+  fiori: 'Vasi di fiori in cesti di vimini su due mensole bianche',
+  vivai: 'Piante fiorite in vasi di terracotta dentro una serra',
+  impianti: 'Un termosifone bianco accanto a una poltrona, in una stanza con il muro di pietra',
+  elettricisti: 'Bobine di cavo elettrico colorato su uno scaffale di legno',
+  legno: "Scalpelli da falegname su un'asse di legno",
+  auto: "Chiavi e attrezzi appesi alla parete di un'officina",
+  verde: 'Un lungo prato verde fra siepi potate e alberi, in un giardino',
+  stampa: 'Una rotativa in funzione, con i fogli stampati che escono dai rulli',
+  erbe: 'Mazzi di erbe appesi a seccare a una barra di metallo',
+  ceramica: 'Pile di ciotole di ceramica colorata su una mensola di legno',
+  sport: 'Palline da tennis sparse sul campo, vicino alla rete',
 };
-const alt = altScena[m.key] ?? `Illustrazione del lavoro: ${m.nome}`;
+const alt = altScena[m.key] ?? `Fotografia del lavoro: ${m.nome}`;
 
 const vicini = m.vicini.map(perKey);
 
