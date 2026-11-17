@@ -11,9 +11,9 @@ import { config, testoWindows } from '../config';
 import { mestieri } from '../data/mestieri';
 import { trovaFaq, faqHome, type Faq } from '../data/faq';
 
-const title = 'goKlient - Clienti, ordini e preventivi per chi lavora in proprio';
+const title = "goKlient - Clienti, proposte d'ordine e preventivi per chi lavora in proprio";
 const description =
-  "L'app per artigiani, produttori, commercianti e professionisti: clienti, scadenze, listino, ordini, preventivi in PDF ed email. Prova gratis 30 giorni.";
+  "L'app per artigiani, produttori, commercianti e professionisti: clienti, scadenze, listino, proposte d'ordine, preventivi in PDF ed email. Prova gratis 30 giorni.";
 
 const w = config.windowsDisponibile;
 const apparecchi = w ? 'telefono, tablet e computer' : 'telefono e tablet';
@@ -49,10 +49,10 @@ const cinque = [
   },
   {
     icon: 'ordini',
-    titolo: 'Gli ordini dal tuo listino',
+    titolo: "Le proposte d'ordine dal tuo listino",
     breve: 'Scegli il prodotto dal listino, metti quantità e sconto: il totale si fa da solo.',
     completo:
-      'Il listino è il tuo catalogo: codice, descrizione, categoria, prezzo. Quando un cliente ordina, scegli dal listino invece di riscrivere. Quantità, sconto e spunta "Consegnato"; l\'app calcola il totale. Per ogni prodotto vedi chi l\'ha ordinato e quando.',
+      'Il listino è il tuo catalogo: codice, descrizione, categoria, prezzo. Quando prepari la proposta d\'ordine di un cliente, scegli dal listino invece di riscrivere. Quantità, sconto e spunta "Consegnato"; l\'app calcola il totale. Per ogni prodotto vedi chi l\'ha ordinato e quando.',
     img: {
       src: '/img/schermate/p2-evento-preventivo.webp',
       h: 1407,
@@ -77,7 +77,7 @@ const cinque = [
     breve:
       "Dalla proposta d'ordine del cliente nasce il preventivo: lo correggi, diventa un PDF numerato e lo mandi per email.",
     completo:
-      "Inserisci una volta i dati della tua azienda. Poi, dalla scheda di un evento con un ordine, tocchi Preventivo: il foglio è già composto, con la tua intestazione, il cliente, i prodotti, l'imponibile, l'IVA e il totale. Lo correggi come vuoi, poi lo trasformi in un PDF con il suo numero, per esempio 2026/011, e lo mandi per email. Se il cliente chiede una modifica, fai una nuova revisione: tiene lo stesso numero con una lettera, per esempio 2026/011 a, e lo storico resta nella scheda dell'evento.",
+      "Inserisci una volta i dati della tua azienda. Poi, dalla scheda di un evento con una proposta d'ordine, tocchi Preventivo: il foglio è già composto, con la tua intestazione, il cliente, i prodotti, l'imponibile, l'IVA e il totale. Lo correggi come vuoi, poi lo trasformi in un PDF con il suo numero, per esempio 2026/011, e lo mandi per email. Se il cliente chiede una modifica, fai una nuova revisione: tiene lo stesso numero con una lettera, per esempio 2026/011 a, e lo storico resta nella scheda dell'evento.",
     img: {
       src: '/img/schermate/p4-preventivo-numerato.webp',
       h: 1407,
@@ -124,19 +124,19 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
         <span class="badge hero__badge">Prova gratis per {config.prezzi.giorniProva} giorni</span>
         <h1 id="hero-title">I tuoi clienti, sempre a portata di mano.</h1>
         <p class="lead hero__sub">
-          Contatti, scadenze, ordini, preventivi ed email in un posto solo.{' '}
+          Contatti, scadenze, proposte d'ordine, preventivi ed email in una sola app.{' '}
           {w ?'Sul telefono, sul tablet e sul computer.' : 'Sul telefono e sul tablet.'}
         </p>
         <p class="hero__breve">
-          goKlient è l'app per chi lavora in proprio. Tieni la scheda di ogni cliente, ricordi le scadenze, segni gli
-          ordini, prepari i preventivi e mandi le email. Anche senza rete.
+          goKlient è l'app per chi lavora in proprio. Tieni la scheda di ogni cliente, ricordi le scadenze, prepari
+          le proposte d'ordine e i preventivi e mandi le email. Anche senza rete.
         </p>
         <details class="more hero__more">
           <summary>Leggi di più</summary>
           <div>
             <p>
               goKlient nasce per una cosa sola: tenerti vicino ai tuoi clienti. Raccogli i loro contatti, ricordi cosa
-              avete concordato, prepari gli ordini e i preventivi e mandi le email, tutto da un unico posto. È fatta per
+              avete concordato, prepari le proposte d'ordine e i preventivi e mandi le email, tutto in una sola app. È fatta per
               artigiani, piccoli produttori, negozi e agenti. Funziona su telefono e tablet Android. {testoWindows} Non ti
               lascia a piedi quando manca la rete.
             </p>
@@ -319,7 +319,7 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
             <p>
               Con il tuo accesso goKlient colleghi {apparecchi} allo stesso archivio: registri un cliente in fiera e la
               sera lo ritrovi {w ? 'sugli altri apparecchi' : 'sul tablet'}, senza fare nulla. In cantina o in galleria il
-              telefono non prende? Inserisci, modifichi, prendi ordini: tutto resta salvato e si allinea quando torna la
+              telefono non prende? Inserisci, modifichi, prepari le proposte d'ordine: tutto resta salvato e si allinea quando torna la
               rete, mentre goKlient è aperta sullo schermo.
             </p>
             <p>

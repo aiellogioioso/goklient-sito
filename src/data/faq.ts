@@ -29,7 +29,7 @@ export const sezioniFaq: { id: string; titolo: string; domande: Faq[] }[] = [
     titolo: 'Per iniziare',
     domande: [
       faq('1', `Che cos'è goKlient?`,
-        `È un'app per chi lavora in proprio: artigiani, piccoli produttori, negozi, agenti. Tieni la scheda di ogni cliente, segni eventi e scadenze, prepari gli ordini dal tuo listino, ne fai preventivi in PDF e mandi le email ai clienti, tutto da un posto solo.`),
+        `È un'app per chi lavora in proprio: artigiani, piccoli produttori, negozi, agenti. Tieni la scheda di ogni cliente, segni eventi e scadenze, prepari le proposte d'ordine dal tuo listino, ne fai preventivi in PDF e mandi le email ai clienti, tutto in una sola app.`),
       faq('2', `Su quali apparecchi funziona?`,
         `Su telefoni e tablet Android, con Android 11 o successivo. ${testoWindows} Non c'è per iPhone, iPad e Mac.`),
       faq('2b', `Come installo goKlient sul telefono?`,
