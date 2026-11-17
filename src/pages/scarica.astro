@@ -28,7 +28,7 @@ const passi = [
     alt: 'pulsante Installa',
   },
   {
-    testo: 'Apri <strong>goKlient</strong>: ti propone la dimostrazione, oppure parti subito con i tuoi clienti.',
+    testo: `Apri <strong>goKlient</strong> e scegli: provare subito la dimostrazione, senza account, oppure creare gratuitamente il tuo account (email e password) e partire con i tuoi clienti. Con l'account parte la prova di ${config.prezzi.giorniProva} giorni.`,
     alt: 'primo avvio',
   },
 ];
@@ -77,7 +77,8 @@ const passi = [
 
           <p class="small dl-card__req">{rigaRequisiti}</p>
           <p class="muted dl-card__more">
-            Puoi provarla gratis per {config.prezzi.giorniProva} giorni con tutte le funzioni:
+            Puoi provarla gratis per {config.prezzi.giorniProva} giorni con tutte le funzioni, dalla creazione del tuo
+            account gratuito:
             i prezzi sono nella pagina <a href="/prezzi">Prezzi</a>.
           </p>
         </div>
@@ -161,13 +162,13 @@ const passi = [
         <h2 id="dopo-title">E adesso?</h2>
         <p class="lead">Prova la demo, oppure parti subito con i tuoi clienti.</p>
         <ol class="first-steps">
-          <li>Apri goKlient. Se vuoi provarla, rispondi <strong>Sì</strong> alla proposta della dimostrazione e scegli il tuo mestiere.</li>
-          <li>Quando sei pronto, togli i dati di prova con <strong>Azzera gli archivi dimostrativi</strong>.</li>
+          <li>Apri goKlient. Se vuoi provarla, scegli la dimostrazione, anche senza account, e il tuo mestiere.</li>
+          <li>Quando sei pronto per i tuoi clienti, crei gratuitamente il tuo account.</li>
           <li>Configura la tua casella di posta da <strong>Email, Configura casella</strong>.</li>
           <li>Se usi più apparecchi, attiva il cloud da <strong>Altro, Sincronizzazione cloud</strong>.</li>
           <li>Porta dentro i clienti che hai già.</li>
         </ol>
-        <p class="small">Dati di prova: nomi inventati, indirizzi @demo.it. Li togli con un pulsante.</p>
+        <p class="small">Dati di prova: nomi inventati, indirizzi @demo.it. Le modifiche fatte nella dimostrazione non restano.</p>
         <div class="btn-row">
           <a class="btn btn--ghost" href="/come-funziona">Leggi "Come funziona" <Icon name="freccia" /></a>
         </div>
