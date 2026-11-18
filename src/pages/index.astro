@@ -197,6 +197,17 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
         </p>
       </div>
 
+      {/* Richiesta di Eugenio del 18/11/2026: deve essere chiaro che le tessere si aprono */}
+      <p class="mest-invito">
+        <Icon name="freccia" size={22} />
+        <span>
+          <strong><span class="solo-touch">Tocca</span><span class="solo-mouse">Clicca</span> il tuo mestiere</strong> e
+          guarda come goKlient è già pronta per te: i clienti, le scadenze, il listino e le tre lettere. Non lo trovi?{' '}
+          <span class="solo-touch">Tocca</span><span class="solo-mouse">Clicca</span> <strong>Il tuo mestiere</strong>,
+          l'ultima tessera.
+        </span>
+      </p>
+
       <ul class="tiles">
         {mestieri.map((m) => (
           <li>
@@ -625,6 +636,15 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
 
   /* ---------- 1.4 Mestieri ---------- */
   .mest-breve { color: var(--ink-2); margin: 0; }
+  .mest-invito {
+    display: flex; align-items: flex-start; gap: 12px; max-width: 760px; margin: 0 auto clamp(20px, 3vw, 28px);
+    padding: 14px 18px; border-radius: var(--radius-sm); background: var(--brand-soft); color: var(--ink);
+    font-size: 1.08rem; line-height: 1.45;
+  }
+  .mest-invito :global(svg) { flex: none; margin-top: 2px; color: var(--brand-ink); transform: rotate(90deg); }
+  /* "Tocca" sui telefoni, "Clicca" con il mouse */
+  .solo-mouse { display: none; }
+  @media (hover: hover) and (pointer: fine) { .solo-mouse { display: inline; } .solo-touch { display: none; } }
   .tiles {
     list-style: none; padding: 0; margin: 0;
     display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.5rem), 1fr));
