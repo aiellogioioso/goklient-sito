@@ -732,7 +732,7 @@ export const mestieri: Mestiere[] = [
     ordini: ["Ordine in negozio", "Ordine per telefono", "Ordine dal sito", "Ordine in fiera", "Offerta accettata"],
     lettere: ["Listino tisane e cosmetici", "Presentazione del laboratorio", "Invito al laboratorio di erbe spontanee"],
     seoTitle: "CRM per erboristerie - goKlient",
-    seoDescription: "Clienti abituali, lotti in scadenza e prodotti di stagione, cliente per cliente. Listino, proposte d'ordine e email ai clienti in un'app. Prova gratis 30 giorni.",
+    seoDescription: "Clienti abituali, lotti in scadenza e prodotti di stagione, cliente per cliente. Listino, proposte d'ordine ed email ai clienti in un'app. Prova gratis 30 giorni.",
     immagine: "/img/scene/erbe.svg",
     vicini: ["ceramica", "sport", "miele"],
   },
