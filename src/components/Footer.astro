@@ -42,7 +42,7 @@ const anno = 2026;
     </div>
     <div class="site-footer__legal small">
       {s ? (
-        <p>{s.ragioneSociale} · {s.sede} · P.IVA {s.partitaIva} · C.F. {s.codiceFiscale} · REA {s.rea} · Capitale sociale {s.capitale} · PEC {s.pec}</p>
+        <p>{s.ragioneSociale} · {s.sede} · {s.codiceFiscale === s.partitaIva ? `C.F. e P.IVA ${s.partitaIva}` : `P.IVA ${s.partitaIva} · C.F. ${s.codiceFiscale}`} · REA {s.rea} · Capitale sociale {s.capitale} · PEC <a href={`mailto:${s.pec}`}>{s.pec}</a></p>
       ) : (
         <p class="placeholder">[goKlient s.r.l. in costituzione: ragione sociale, sede, partita IVA, codice fiscale, REA, capitale, PEC da inserire appena disponibili]</p>
       )}

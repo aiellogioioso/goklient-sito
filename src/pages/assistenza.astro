@@ -139,8 +139,9 @@ const email = config.emailAssistenza;
         <dl class="card as-company">
           <div><dt>Ragione sociale</dt><dd>{s.ragioneSociale}</dd></div>
           <div><dt>Sede</dt><dd>{s.sede}</dd></div>
-          <div><dt>Partita IVA</dt><dd>{s.partitaIva}</dd></div>
-          <div><dt>Codice fiscale</dt><dd>{s.codiceFiscale}</dd></div>
+          {s.codiceFiscale === s.partitaIva
+            ? <div><dt>Codice fiscale e partita IVA</dt><dd>{s.partitaIva}</dd></div>
+            : <><div><dt>Partita IVA</dt><dd>{s.partitaIva}</dd></div><div><dt>Codice fiscale</dt><dd>{s.codiceFiscale}</dd></div></>}
           <div><dt>REA</dt><dd>{s.rea}</dd></div>
           <div><dt>Capitale sociale</dt><dd>{s.capitale}</dd></div>
           <div><dt>PEC</dt><dd>{s.pec}</dd></div>

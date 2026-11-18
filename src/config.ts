@@ -47,8 +47,18 @@ export const config = {
     apparecchi: 4, // decisione del 10/11/2026: fino a 4 apparecchi, sostituibili dall'app
   },
 
-  /** Dati della societa': goKlient s.r.l. in costituzione. null = mostra il segnaposto. */
-  societa: null as null | {
+  /** Dati della societa' (visura del Registro delle Imprese della Venezia Giulia del 17/11/2026; nome scritto
+   *  "goKlient S.R.L." su indicazione di Eugenio). Il capitale va indicato come versato (art. 2250 c.c.).
+   *  null = mostra il segnaposto. */
+  societa: {
+    ragioneSociale: 'goKlient S.R.L.',
+    sede: 'Via Borgo Nuovo 3, 34070 Capriva del Friuli (GO)',
+    partitaIva: '01294300312',
+    codiceFiscale: '01294300312',
+    rea: 'GO\u2011218723', // trattino che non va a capo
+    capitale: '€ 10.000,00 (versato € 2.500,00)',
+    pec: 'goklientsrl@pec.it',
+  } as null | {
     ragioneSociale: string;
     sede: string;
     partitaIva: string;
