@@ -1,9 +1,10 @@
 ---
 // Informativa sulla privacy. Indirizzo fisso gia' dato a Google Play: /privacy (non cambiare).
 // Il testo definitivo e' in revisione (brief, sez. 8). Il riassunto usa solo frasi gia' presenti nel brief
-// (1.6 "I tuoi dati restano tuoi" e domande frequenti 7-10).
+// (1.6 "I tuoi dati restano tuoi" e domande frequenti 7-10; "Che cosa ci arriva" = domanda 9 del brief 16/11).
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import { config } from '../config';
 ---
 <Base
   title="Informativa sulla privacy - goKlient"
@@ -51,11 +52,13 @@ import Icon from '../components/Icon.astro';
         <li class="card">
           <span class="icon-dot"><Icon name="aiuto" /></span>
           <div>
-            <h3>Segnalazioni tecniche</h3>
+            <h3>Che cosa ci arriva</h3>
             <p>
-              Quando l'app si blocca, ci arriva in automatico una segnalazione tecnica (che cosa si è bloccato, versione
-              dell'app, modello dell'apparecchio), senza dati personali e senza dati dei tuoi clienti. Se usi
-              "Segnala via email", sei tu a mandarci il messaggio.
+              I dati dei tuoi clienti no, a meno che tu non attivi il cloud. Ci arrivano l'email del tuo account e, per
+              ogni apparecchio che usi, marca, modello, versione dell'app e data dell'ultimo uso: servono per la licenza e
+              per il limite di {config.prezzi.apparecchi} apparecchi. Quando l'app si blocca, ci arriva in automatico una
+              segnalazione tecnica (che cosa si è bloccato, versione dell'app, modello dell'apparecchio), senza dati dei
+              tuoi clienti. Se usi "Segnala via email", sei tu a mandarci il messaggio.
             </p>
           </div>
         </li>

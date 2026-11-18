@@ -2,7 +2,18 @@
    Colori presi dall'app: turchese #0F9E97, sfondo menta -> sabbia, schede bianche arrotondate, pulsanti a pillola.
    Per i testi e i pulsanti si usa un turchese piu' scuro (#0A7C76) che ha contrasto sufficiente sul bianco. */
 
-@import '@fontsource-variable/manrope';
+/* Manrope: solo il sottoinsieme latin (copre italiano, accenti, virgolette e trattini). Gli altri sottoinsiemi
+   del pacchetto (cirillico, greco, vietnamita, latin-ext) non servono e appesantivano il CSS che blocca la pagina.
+   Lo stesso file e' precaricato in Base.astro. */
+@font-face {
+  font-family: 'Manrope Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url('@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 :root {
   --brand: #0f9e97;          /* colore del marchio: icone, dettagli, illustrazioni */
@@ -65,6 +76,9 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+/* I salti alle ancore (#mestieri, #scrivici, "Vai al contenuto"...) si fermano sotto l'intestazione fissa (72 px).
+   :where() ha specificita' zero: le pagine che hanno gia' un loro scroll-margin-top lo tengono. */
+:where([id]) { scroll-margin-top: 88px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
@@ -79,6 +93,9 @@ body {
   color: var(--ink);
   background: var(--bg);
   overflow-x: clip;
+  /* Con i caratteri grandi del telefono una parola o un indirizzo lungo (goklient.app/account) va a capo invece di
+     uscire dallo schermo. Agisce solo quando la parola non ci sta. */
+  overflow-wrap: break-word;
 }
 
 img, svg { max-width: 100%; height: auto; display: block; }
@@ -130,8 +147,9 @@ a:hover { color: var(--brand-ink); }
 .grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
 .grid-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
 
-/* Testo + immagine affiancati; .split--reverse mette l'immagine a sinistra */
-.split { display: grid; gap: clamp(32px, 6vw, 80px); align-items: center; grid-template-columns: 1fr; }
+/* Testo + immagine affiancati; .split--reverse mette l'immagine a sinistra.
+   minmax(0, 1fr): con i caratteri grandi del telefono una parola lunga non allarga la colonna oltre lo schermo. */
+.split { display: grid; gap: clamp(32px, 6vw, 80px); align-items: center; grid-template-columns: minmax(0, 1fr); }
 @media (min-width: 900px) {
   .split { grid-template-columns: 1.1fr 0.9fr; }
   .split--reverse > :first-child { order: 2; }
