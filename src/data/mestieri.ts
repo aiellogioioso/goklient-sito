@@ -126,7 +126,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["È arrivato l'olio nuovo", "Molitura per conto terzi", "Confezioni regalo"],
     seoTitle: "CRM per frantoi e produttori di olio - goKlient",
     seoDescription: "L'olio nuovo, le confezioni regalo, la molitura per conto terzi: clienti, proposte d'ordine e scadenze sul telefono. Preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/olio.webp",
+    immagine: "/img/scene/olio.svg",
     vicini: ["vino", "aceto", "conserve"],
   },
   {
@@ -156,7 +156,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Listino del pescato", "Presentazione a un nuovo cliente", "Prenotazioni per le feste"],
     seoTitle: "CRM per pesca e prodotti ittici - goKlient",
     seoDescription: "Ristoranti, pescherie e grande distribuzione: il listino del giorno, gli ordini e le consegne del mattino in un'app. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/pesca.webp",
+    immagine: "/img/scene/pesca.svg",
     vicini: ["agente", "salumi", "formaggi"],
   },
   {
@@ -428,7 +428,7 @@ export const mestieri: Mestiere[] = [
     inPiu: "lavoro senza rete e stesso archivio su telefono e tablet; dalla proposta d'ordine in visita al preventivo in PDF",
     seoTitle: "CRM per agenti di commercio alimentare - goKlient",
     seoDescription: "Il giro dei clienti, i campioni delle novità, le proposte d'ordine prese in visita anche senza rete. Preventivi in PDF ed email. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/agente.webp",
+    immagine: "/img/scene/agente.svg",
     vicini: ["formaggi", "salumi", "vino"],
   },
   {
@@ -548,7 +548,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Manutenzione caldaia e controllo dei fumi", "Preventivo rifacimento impianto", "Presentazione a condomini e aziende"],
     seoTitle: "CRM per idraulici e termoidraulici - goKlient",
     seoDescription: "Sopralluoghi, preventivi in PDF e manutenzioni delle caldaie, senza dimenticarne una. Clienti e scadenze sul telefono. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/impianti.webp",
+    immagine: "/img/scene/impianti.svg",
     vicini: ["elettricisti", "legno", "verde"],
   },
   {
@@ -609,7 +609,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Sopralluogo e preventivo su misura", "Preventivo arredo su misura", "Restauro e manutenzione infissi"],
     seoTitle: "CRM per falegnami e arredi su misura - goKlient",
     seoDescription: "Dalle misure al montaggio, ogni lavoro con i suoi passi. Clienti, scadenze, listino e preventivi in PDF in un'app. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/legno.webp",
+    immagine: "/img/scene/legno.svg",
     vicini: ["impianti", "elettricisti", "stampa"],
   },
   {
@@ -640,7 +640,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Promemoria revisione e tagliando", "Preventivo di riparazione", "Proposta per aziende con parco auto"],
     seoTitle: "CRM per officine e autoriparazione - goKlient",
     seoDescription: "Revisioni, tagliandi e cambi gomme: avvisi il cliente prima che se ne dimentichi. Scadenze, listino e preventivi in PDF. Prova gratis 30 giorni.",
-    immagine: "/img/scene/auto.webp",
+    immagine: "/img/scene/auto.svg",
     vicini: ["elettricisti", "impianti", "stampa"],
   },
   {
@@ -671,7 +671,7 @@ export const mestieri: Mestiere[] = [
     lettere: ["Contratto di manutenzione stagionale", "Potature e trattamenti", "Preventivo realizzazione giardino"],
     seoTitle: "CRM per giardinieri e manutenzione del verde - goKlient",
     seoDescription: "Tagli, potature e trattamenti, cliente per cliente e stagione per stagione. Scadenze, listino e preventivi in PDF. Prova gratis per 30 giorni.",
-    immagine: "/img/scene/verde.webp",
+    immagine: "/img/scene/verde.svg",
     vicini: ["impianti", "legno", "elettricisti"],
   },
   {
