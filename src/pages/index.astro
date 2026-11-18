@@ -7,7 +7,7 @@ import PhoneFrame from '../components/PhoneFrame.astro';
 import DownloadButtons from '../components/DownloadButtons.astro';
 import Icon from '../components/Icon.astro';
 import Testimonianze from '../components/Testimonianze.astro';
-import { config, testoWindows } from '../config';
+import { config, testoWindows, rigaRequisiti } from '../config';
 import { mestieri } from '../data/mestieri';
 import { trovaFaq, faqHome, type Faq } from '../data/faq';
 
@@ -134,11 +134,16 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
           <p class="small hero__cta-note">Subito la demo, senza account. Poi {config.prezzi.giorniProva} giorni gratis, senza carta.</p>
           <a class="btn btn--ghost hero__btn2" href="#mestieri">Trova il tuo mestiere fra 25 pronti <Icon name="freccia" /></a>
         </div>
+      </div>
+
+      {/* Sul telefono le tre frasi stanno sotto le schermate, cosi' la lettera si vede gia' nella prima schermata. */}
+      <div class="hero__extra">
         <ul class="hero__trust">
           <li><Icon name="lucchetto" size={20} /> Dati su server in Italia</li>
-          <li><Icon name="offline" size={20} /> Funziona anche senza rete</li>
+          <li><Icon name="senzarete" size={20} /> Funziona anche senza rete</li>
           <li><Icon name="mestiere" size={20} /> 25 mestieri già pronti</li>
         </ul>
+        <p class="small hero__req">{rigaRequisiti}</p>
       </div>
 
       {/* Tre schermate: sul computer a ventaglio (lettera al centro, contatti a sinistra, Home a destra);
@@ -496,39 +501,64 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
 
 <style>
   /* ---------- 1.1 Apertura ---------- */
-  .hero { padding-block: clamp(32px, 6vw, 88px) clamp(40px, 6vw, 88px); overflow: hidden; }
-  .hero__grid { display: grid; gap: 36px; align-items: center; }
-  .hero h1 { max-width: 14ch; margin-top: 8px; }
-  .hero__sub { margin-bottom: 1.2em; max-width: 30em; }
+  .hero { padding-block: clamp(20px, 6vw, 88px) clamp(32px, 6vw, 88px); overflow: hidden; }
+  /* Telefono: testo, poi le tre schermate, poi le tre frasi. Computer: testo e frasi a sinistra, ventaglio a destra. */
+  .hero__grid { display: grid; gap: 20px; grid-template-areas: "text" "fan" "extra"; }
+  .hero__text { grid-area: text; }
+  .hero__fan { grid-area: fan; }
+  .hero__extra { grid-area: extra; }
+  .hero h1 { margin-top: 6px; }
+  .hero__sub { margin-bottom: 1em; max-width: 30em; }
   .hero__cta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
   .hero__btn { min-height: 56px; font-size: 1.1rem; }
-  .hero__cta-note { margin: 0 0 6px 4px; }
+  .hero__cta-note { margin: 0 0 4px 4px; }
   .hero__btn2 { min-height: 48px; }
-  @media (max-width: 520px) { .hero__btn, .hero__btn2 { width: 100%; justify-content: center; } }
-  .hero__trust { list-style: none; padding: 0; margin: 24px 0 0; display: flex; flex-wrap: wrap; gap: 10px 20px; }
+  .hero__trust { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 20px; }
   .hero__trust li { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 600; }
+  .hero__req { margin: 12px 0 0; }
+  @media (max-width: 520px) {
+    .hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.06em; }
+    .hero h1 { font-size: clamp(1.75rem, 8.2vw, 2.2rem); }
+    .hero__sub { font-size: 1.02rem; margin-bottom: 0.8em; }
+    .hero__btn, .hero__btn2 { width: 100%; justify-content: center; padding-inline: 14px; }
+    .hero__btn { font-size: 1rem; min-height: 52px; }
+    .hero__btn2 { font-size: 0.95rem; min-height: 46px; }
+  }
+  @media (min-width: 521px) { .hero h1 { max-width: 14ch; } }
 
   /* Telefono: le tre schermate scorrono col dito */
   .hero__fan {
     display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 12px;
-    margin-inline: -4px; scrollbar-width: none;
+    margin-inline: -4px; scrollbar-width: none; align-items: flex-start;
   }
   .hero__fan::-webkit-scrollbar { display: none; }
-  .hero__slide { flex: 0 0 78%; max-width: 280px; margin: 0; scroll-snap-align: center; display: flex; flex-direction: column; gap: 10px; }
+  .hero__slide { flex: 0 0 74%; max-width: 270px; margin: 0; scroll-snap-align: center; display: flex; flex-direction: column; gap: 10px; }
   .hero__slide figcaption { text-align: center; font-weight: 700; }
   .hero__slide :global(.device--phone) { max-width: none; }
-  .hero__slide :global(.device__screen) { aspect-ratio: 9 / 19.5; background: var(--surface); }
+  /* Fondo chiaro come lo schermo dell'app (le catture sono in tema chiaro), anche col tema scuro del sito */
+  .hero__slide :global(.device__screen) { aspect-ratio: 9 / 19.5; background: #f4f7f6; }
   .hero__slide :global(.device__screen img) { display: block; }
+  /* La cattura della Home e' piu' corta delle altre: il telefono prende la sua altezza invece di restare vuoto in fondo */
+  .hero__slide--right :global(.device__screen) { aspect-ratio: auto; }
 
   /* Computer: ventaglio, la lettera in primo piano */
   @media (min-width: 900px) {
-    .hero__grid { grid-template-columns: 1fr 1.1fr; gap: clamp(24px, 4vw, 56px); }
+    .hero__grid {
+      grid-template-columns: 1fr 1.1fr; grid-template-areas: "text fan" "extra fan"; column-gap: clamp(24px, 4vw, 56px);
+      row-gap: 24px; align-items: start;
+    }
+    .hero__text { align-self: end; }
     .hero__fan { position: relative; display: block; overflow: visible; height: 600px; padding: 0; margin: 0; }
-    .hero__slide { position: absolute; width: 240px; max-width: none; }
+    .hero__slide { position: absolute; width: clamp(184px, 17vw, 236px); max-width: none; }
     .hero__slide figcaption { font-size: 0.9rem; color: var(--ink-2); }
-    .hero__slide--center { left: 50%; top: 0; width: 262px; transform: translateX(-50%); z-index: 2; }
-    .hero__slide--left { left: 0; top: 64px; transform: rotate(-7deg) scale(0.88); transform-origin: bottom center; }
-    .hero__slide--right { right: 0; top: 64px; transform: rotate(7deg) scale(0.88); transform-origin: bottom center; }
+    /* Sul computer la scritta del telefono centrale si toglie (come nel modello): si accavallava a quella di destra */
+    .hero__slide--center figcaption { display: none; }
+    /* Le scritte dei telefoni laterali stanno sul lato esterno, lontano dal telefono centrale che le coprirebbe */
+    .hero__slide--left figcaption { margin-top: 24px; padding-right: 32%; text-align: left; }
+    .hero__slide--right figcaption { margin-top: 24px; padding-left: 32%; text-align: right; }
+    .hero__slide--center { left: 50%; top: 0; width: clamp(210px, 19vw, 262px); transform: translateX(-50%); z-index: 2; }
+    .hero__slide--left { left: 2%; top: 64px; transform: rotate(-7deg) scale(0.88); transform-origin: bottom center; }
+    .hero__slide--right { right: 2%; top: 64px; transform: rotate(7deg) scale(0.88); transform-origin: bottom center; }
   }
 
   /* ---------- 1.2 Ti riconosci? ---------- */
@@ -624,7 +654,12 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
     display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
     border: 2px solid var(--brand-strong); font-size: 2rem; font-weight: 700; line-height: 1;
   }
-  @media (min-width: 900px) { .tile__plus { width: 64px; height: 64px; } }
+  @media (min-width: 900px) {
+    .tile__plus { width: 64px; height: 64px; }
+    /* Sul computer la 26a tessera occupa tutta la riga, invece di restare sola in un angolo */
+    .tiles li:last-child { grid-column: 1 / -1; }
+    .tile--tuo { flex-direction: row; justify-content: center; gap: 16px; padding-block: 16px; }
+  }
   .mest-more { max-width: 760px; margin: clamp(28px, 4vw, 40px) auto 0; }
 
   /* ---------- 1.5 Apparecchi ---------- */
