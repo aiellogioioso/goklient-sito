@@ -7,13 +7,13 @@ import PhoneFrame from '../components/PhoneFrame.astro';
 import DownloadButtons from '../components/DownloadButtons.astro';
 import Icon from '../components/Icon.astro';
 import Testimonianze from '../components/Testimonianze.astro';
-import { config, testoWindows } from '../config';
+import { config, testoWindows, rigaRequisiti } from '../config';
 import { mestieri } from '../data/mestieri';
 import { trovaFaq, faqHome, type Faq } from '../data/faq';
 
-const title = 'goKlient - Clienti, ordini e preventivi per chi lavora in proprio';
+const title = "goKlient - Clienti, proposte d'ordine e preventivi per chi lavora in proprio";
 const description =
-  "L'app per artigiani, produttori, commercianti e professionisti: clienti, scadenze, listino, ordini, preventivi in PDF ed email. Prova gratis 30 giorni.";
+  "L'app per artigiani, produttori, commercianti e professionisti: clienti, scadenze, listino, proposte d'ordine, preventivi in PDF ed email. Prova gratis 30 giorni.";
 
 const w = config.windowsDisponibile;
 const apparecchi = w ? 'telefono, tablet e computer' : 'telefono e tablet';
@@ -49,10 +49,10 @@ const cinque = [
   },
   {
     icon: 'ordini',
-    titolo: 'Gli ordini dal tuo listino',
+    titolo: "Le proposte d'ordine dal tuo listino",
     breve: 'Scegli il prodotto dal listino, metti quantità e sconto: il totale si fa da solo.',
     completo:
-      'Il listino è il tuo catalogo: codice, descrizione, categoria, prezzo. Quando un cliente ordina, scegli dal listino invece di riscrivere. Quantità, sconto e spunta "Consegnato"; l\'app calcola il totale. Per ogni prodotto vedi chi l\'ha ordinato e quando.',
+      'Il listino è il tuo catalogo: codice, descrizione, categoria, prezzo. Quando prepari la proposta d\'ordine di un cliente, scegli dal listino invece di riscrivere. Quantità, sconto e spunta "Consegnato"; l\'app calcola il totale. Per ogni prodotto vedi chi l\'ha ordinato e quando.',
     img: {
       src: '/img/schermate/p2-evento-preventivo.webp',
       h: 1407,
@@ -77,7 +77,7 @@ const cinque = [
     breve:
       "Dalla proposta d'ordine del cliente nasce il preventivo: lo correggi, diventa un PDF numerato e lo mandi per email.",
     completo:
-      "Inserisci una volta i dati della tua azienda. Poi, dalla scheda di un evento con un ordine, tocchi Preventivo: il foglio è già composto, con la tua intestazione, il cliente, i prodotti, l'imponibile, l'IVA e il totale. Lo correggi come vuoi, poi lo trasformi in un PDF con il suo numero, per esempio 2026/011, e lo mandi per email. Se il cliente chiede una modifica, fai una nuova revisione: tiene lo stesso numero con una lettera, per esempio 2026/011 a, e lo storico resta nella scheda dell'evento.",
+      "Inserisci una volta i dati della tua azienda. Poi, dalla scheda di un evento con una proposta d'ordine, tocchi Preventivo: il foglio è già composto, con la tua intestazione, il cliente, i prodotti, l'imponibile, l'IVA e il totale. Lo correggi come vuoi, poi lo trasformi in un PDF con il suo numero, per esempio 2026/011, e lo mandi per email. Se il cliente chiede una modifica, fai una nuova revisione: tiene lo stesso numero con una lettera, per esempio 2026/011 a, e lo storico resta nella scheda dell'evento.",
     img: {
       src: '/img/schermate/p4-preventivo-numerato.webp',
       h: 1407,
@@ -117,55 +117,125 @@ function pezzi(f: Faq): Pezzo[] {
 const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(f));
 ---
 <Base title={title} description={description}>
-  <!-- 1.1 Apertura -->
+  <!-- 1.1 Apertura (nuova prima schermata del 13/11/2026) -->
   <section class="section section--brand hero" aria-labelledby="hero-title">
     <div class="container hero__grid">
       <div class="hero__text">
-        <span class="badge hero__badge">Prova gratis per {config.prezzi.giorniProva} giorni</span>
+        <span class="eyebrow">Per artigiani, produttori, negozi e agenti</span>
         <h1 id="hero-title">I tuoi clienti, sempre a portata di mano.</h1>
         <p class="lead hero__sub">
-          Contatti, scadenze, ordini, preventivi ed email in un posto solo.{' '}
-          {w ?'Sul telefono, sul tablet e sul computer.' : 'Sul telefono e sul tablet.'}
+          Contatti, scadenze, proposte d'ordine, preventivi ed email in una sola app.{' '}
+          {w ? 'Sul telefono, sul tablet e sul computer.' : 'Sul telefono e sul tablet.'}
         </p>
-        <p class="hero__breve">
-          goKlient è l'app per chi lavora in proprio. Tieni la scheda di ogni cliente, ricordi le scadenze, segni gli
-          ordini, prepari i preventivi e mandi le email. Anche senza rete.
-        </p>
-        <details class="more hero__more">
-          <summary>Leggi di più</summary>
-          <div>
-            <p>
-              goKlient nasce per una cosa sola: tenerti vicino ai tuoi clienti. Raccogli i loro contatti, ricordi cosa
-              avete concordato, prepari gli ordini e i preventivi e mandi le email, tutto da un unico posto. È fatta per
-              artigiani, piccoli produttori, negozi e agenti. Funziona su telefono e tablet Android. {testoWindows} Non ti
-              lascia a piedi quando manca la rete.
-            </p>
-          </div>
-        </details>
-        <DownloadButtons secondary={{ href: '/come-funziona', label: 'Guarda come funziona' }} />
+        <div class="hero__cta">
+          {config.googlePlay
+            ? <a class="btn btn--primary hero__btn" href={config.googlePlayUrl}>Scarica goKlient e provala gratis</a>
+            : <a class="btn btn--primary hero__btn" href="/scarica"><Icon name="scarica" /> Scarica goKlient e provala gratis</a>}
+          <p class="small hero__cta-note">Subito la demo, senza account. Poi {config.prezzi.giorniProva} giorni gratis, senza carta.</p>
+          <a class="btn btn--ghost hero__btn2" href="#mestieri">Trova il tuo mestiere fra 25 pronti <Icon name="freccia" /></a>
+        </div>
       </div>
 
-      <div class="hero__visual">
-        {/* Home PROVVISORIA (versione di prova con la R, numeri di prova): da sostituire con la cattura della versione
-            pubblicata. La riga della versione in alto e' nascosta dal ritaglio in CSS (.hero__main). */}
-        <div class="hero__main">
+      {/* Sul telefono le tre frasi stanno sotto le schermate, cosi' la lettera si vede gia' nella prima schermata. */}
+      <div class="hero__extra">
+        <ul class="hero__trust">
+          <li><Icon name="lucchetto" size={20} /> Dati su server in Italia</li>
+          <li><Icon name="senzarete" size={20} /> Funziona anche senza rete</li>
+          <li><Icon name="mestiere" size={20} /> 25 mestieri già pronti</li>
+        </ul>
+        <p class="small hero__req">{rigaRequisiti}</p>
+      </div>
+
+      {/* Tre schermate: sul computer a ventaglio (lettera al centro, contatti a sinistra, Home a destra);
+          sul telefono scorrono col dito, una alla volta, prima la lettera. Catture H1 del 12/11/2026, solo dati demo. */}
+      <div class="hero__fan" role="group" aria-label="Tre schermate dell'app: scorri per vederle tutte">
+        <figure class="hero__slide hero__slide--center">
           <PhoneFrame
-            src="/img/schermate/h1-home-provvisoria.webp"
-            alt="La Home di goKlient sul telefono: i contatori di contatti, eventi e prodotti, la striscia rossa delle scadenze e i riquadri I tuoi contatti, I tuoi prodotti e Le tue email."
+            src="/img/schermate/h1-lettera-vino-foto.webp"
+            alt="Una lettera della demo del vino nel Word Processor dell'app: testo con una frase in grassetto colorato e la foto di un vigneto in autunno."
             width={720}
-            height={1488}
+            height={1470}
             eager
           />
-        </div>
-        <div class="hero__back">
+          <figcaption>Lettere ai tuoi clienti, con foto</figcaption>
+        </figure>
+        <figure class="hero__slide hero__slide--left">
           <PhoneFrame
-            src="/img/schermate/p2-evento-preventivo.webp"
-            alt="La scheda di un evento con due prodotti ordinati e i pulsanti Prodotto + e Preventivo."
+            src="/img/schermate/h1-contatti-demo.webp"
+            alt="La lista dei contatti della dimostrazione, con la ricerca e i filtri per tipo di cliente."
             width={720}
-            height={1407}
+            height={1482}
           />
-        </div>
+          <figcaption>I tuoi clienti</figcaption>
+        </figure>
+        <figure class="hero__slide hero__slide--right">
+          <PhoneFrame
+            src="/img/schermate/h1-home-demo.webp"
+            alt="La Home dell'app con i contatori di contatti, eventi e prodotti e la striscia delle scadenze."
+            width={720}
+            height={1059}
+          />
+          <figcaption>Le scadenze, prima che scadano</figcaption>
+        </figure>
       </div>
+    </div>
+  </section>
+
+  <!-- 1.4 Gia' pronta per il tuo mestiere -->
+  <section id="mestieri" class="section" aria-labelledby="mest-title">
+    <div class="container">
+      <div class="section-head section-head--center">
+        <span class="eyebrow">25 mestieri, ognuno con le sue parole</span>
+        <h2 id="mest-title">Funziona per ogni lavoro. Per 25 mestieri è già pronta.</h2>
+        <p class="lead">
+          Il tuo mestiere non è fra questi? goKlient funziona lo stesso: parti dalle tipologie standard e dai ai
+          clienti, alle scadenze e al listino i nomi che usi tu.
+        </p>
+        <p class="mest-breve">
+          I 25 mestieri sono esempi già pronti: scegli il tuo e goKlient crea i tipi di cliente, le scadenze e le
+          categorie del listino che usi davvero. Se non c'è, scegli le tipologie standard.
+        </p>
+      </div>
+
+      {/* Richiesta di Eugenio del 18/11/2026: deve essere chiaro che le tessere si aprono */}
+      <p class="mest-invito">
+        <Icon name="freccia" size={22} />
+        <span>
+          <strong><span class="solo-touch">Tocca</span><span class="solo-mouse">Clicca</span> il tuo mestiere</strong> e
+          guarda come goKlient è già pronta per te: i clienti, le scadenze, il listino e le tre lettere. Non lo trovi?{' '}
+          <span class="solo-touch">Tocca</span><span class="solo-mouse">Clicca</span> <strong>Il tuo mestiere</strong>,
+          l'ultima tessera.
+        </span>
+      </p>
+
+      <ul class="tiles">
+        {mestieri.map((m) => (
+          <li>
+            <a class="tile" href={`/mestieri/${m.slug}`}>
+              <img src={`/img/mestieri/${m.key}.svg`} alt="" width="64" height="64" loading="lazy" decoding="async" />
+              <span class="tile__name">{m.tessera}</span>
+            </a>
+          </li>
+        ))}
+        <li>
+          <a class="tile tile--tuo" href="/mestieri#il-tuo-mestiere">
+            <span class="tile__plus" aria-hidden="true">+</span>
+            <span class="tile__name">Il tuo mestiere</span>
+          </a>
+        </li>
+      </ul>
+
+      <details class="more mest-more">
+        <summary>Leggi di più</summary>
+        <div>
+          <p>
+            La prima volta che inserisci un cliente, goKlient ti chiede che lavoro fai. Un tocco, e trovi già pronti i
+            tipi di cliente (per l'idraulico: Privato, Condominio, Impresa edile...), i tipi di evento (Manutenzione
+            caldaia, Controllo dei fumi...) e le categorie del listino. Se nessun mestiere ti somiglia, scegli le
+            tipologie standard e le adatti tu.
+          </p>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -266,43 +336,6 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
     </section>
   )}
 
-  <!-- 1.4 Gia' pronta per il tuo mestiere -->
-  <section class="section" aria-labelledby="mest-title">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <span class="eyebrow">25 mestieri, ognuno con le sue parole</span>
-        <h2 id="mest-title">Già pronta per il tuo mestiere</h2>
-        <p class="lead">Artigiano, produttore, commerciante o professionista: goKlient parla la tua lingua.</p>
-        <p class="mest-breve">
-          Scegli il tuo lavoro: goKlient crea i tipi di cliente, le scadenze e le categorie del listino che usi davvero.
-        </p>
-      </div>
-
-      <ul class="tiles">
-        {mestieri.map((m) => (
-          <li>
-            <a class="tile" href={`/mestieri/${m.slug}`}>
-              <img src={`/img/mestieri/${m.key}.svg`} alt="" width="64" height="64" loading="lazy" decoding="async" />
-              <span class="tile__name">{m.tessera}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-
-      <details class="more mest-more">
-        <summary>Leggi di più</summary>
-        <div>
-          <p>
-            La prima volta che inserisci un cliente, goKlient ti chiede che lavoro fai. Un tocco, e trovi già pronti i
-            tipi di cliente (per l'idraulico: Privato, Condominio, Impresa edile...), i tipi di evento (Manutenzione
-            caldaia, Controllo dei fumi...) e le categorie del listino. Se nessun mestiere ti somiglia, scegli le
-            tipologie standard e le adatti tu.
-          </p>
-        </div>
-      </details>
-    </div>
-  </section>
-
   <!-- 1.5 Telefono e tablet (computer quando Windows sara' disponibile: config.windowsDisponibile) -->
   <section class="section section--alt" aria-labelledby="dev-title">
     <div class="container split">
@@ -319,7 +352,7 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
             <p>
               Con il tuo accesso goKlient colleghi {apparecchi} allo stesso archivio: registri un cliente in fiera e la
               sera lo ritrovi {w ? 'sugli altri apparecchi' : 'sul tablet'}, senza fare nulla. In cantina o in galleria il
-              telefono non prende? Inserisci, modifichi, prendi ordini: tutto resta salvato e si allinea quando torna la
+              telefono non prende? Inserisci, modifichi, prepari le proposte d'ordine: tutto resta salvato e si allinea quando torna la
               rete, mentre goKlient è aperta sullo schermo.
             </p>
             <p>
@@ -479,34 +512,64 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
 
 <style>
   /* ---------- 1.1 Apertura ---------- */
-  .hero { padding-block: clamp(32px, 6vw, 88px) 0; overflow: hidden; }
-  .hero__grid { display: grid; gap: 40px; align-items: center; }
-  .hero__badge { margin-bottom: 18px; background: var(--surface); border: 1px solid var(--line); }
-  .hero h1 { max-width: 14ch; }
-  .hero__sub { margin-bottom: 0.8em; }
-  .hero__breve { max-width: 34em; margin-bottom: 0.6em; }
-  .hero__more { max-width: 34em; margin: 0 0 1.6em; }
-
-  .hero__visual {
-    position: relative; width: 100%; max-width: 360px; margin-inline: auto;
-    padding: 0 24px; max-height: 420px; overflow: hidden; /* sul telefono il telefono "esce" dal fondo della sezione */
+  .hero { padding-block: clamp(20px, 6vw, 88px) clamp(32px, 6vw, 88px); overflow: hidden; }
+  /* Telefono: testo, poi le tre schermate, poi le tre frasi. Computer: testo e frasi a sinistra, ventaglio a destra. */
+  .hero__grid { display: grid; gap: 20px; grid-template-areas: "text" "fan" "extra"; }
+  .hero__text { grid-area: text; }
+  .hero__fan { grid-area: fan; }
+  .hero__extra { grid-area: extra; }
+  .hero h1 { margin-top: 6px; }
+  .hero__sub { margin-bottom: 1em; max-width: 30em; }
+  .hero__cta { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .hero__btn { min-height: 56px; font-size: 1.1rem; }
+  .hero__cta-note { margin: 0 0 4px 4px; }
+  .hero__btn2 { min-height: 48px; }
+  .hero__trust { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 20px; }
+  .hero__trust li { display: flex; align-items: center; gap: 8px; margin: 0; font-weight: 600; }
+  .hero__req { margin: 12px 0 0; }
+  @media (max-width: 520px) {
+    .hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.06em; }
+    .hero h1 { font-size: clamp(1.75rem, 8.2vw, 2.2rem); }
+    .hero__sub { font-size: 1.02rem; margin-bottom: 0.8em; }
+    .hero__btn, .hero__btn2 { width: 100%; justify-content: center; padding-inline: 14px; }
+    .hero__btn { font-size: 1rem; min-height: 52px; }
+    .hero__btn2 { font-size: 0.95rem; min-height: 46px; }
   }
-  .hero__main { position: relative; z-index: 2; width: 66%; margin-left: auto; }
-  .hero__back { position: absolute; z-index: 1; left: 24px; top: 70px; width: 46%; transform: rotate(-5deg); }
-  .hero__main :global(.device--phone),
-  .hero__back :global(.device--phone) { max-width: none; }
-  .hero__back :global(.device--phone) { border-radius: 26px; padding: 7px; }
-  .hero__back :global(.device--phone::before) { display: none; }
-  .hero__back :global(.device__screen) { border-radius: 20px; padding-top: 0; }
-  /* Nasconde la riga della versione di prova in cima alla Home provvisoria. */
-  .hero__main :global(.device__screen img) { margin-top: calc(-8.5% - 22px); }
+  @media (min-width: 521px) { .hero h1 { max-width: 14ch; } }
 
+  /* Telefono: le tre schermate scorrono col dito */
+  .hero__fan {
+    display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 4px 12px;
+    margin-inline: -4px; scrollbar-width: none; align-items: flex-start;
+  }
+  .hero__fan::-webkit-scrollbar { display: none; }
+  .hero__slide { flex: 0 0 74%; max-width: 270px; margin: 0; scroll-snap-align: center; display: flex; flex-direction: column; gap: 10px; }
+  .hero__slide figcaption { text-align: center; font-weight: 700; }
+  .hero__slide :global(.device--phone) { max-width: none; }
+  /* Fondo chiaro come lo schermo dell'app (le catture sono in tema chiaro), anche col tema scuro del sito */
+  .hero__slide :global(.device__screen) { aspect-ratio: 9 / 19.5; background: #f4f7f6; }
+  .hero__slide :global(.device__screen img) { display: block; }
+  /* La cattura della Home e' piu' corta delle altre: il telefono prende la sua altezza invece di restare vuoto in fondo */
+  .hero__slide--right :global(.device__screen) { aspect-ratio: auto; }
+
+  /* Computer: ventaglio, la lettera in primo piano */
   @media (min-width: 900px) {
-    .hero { padding-bottom: clamp(56px, 8vw, 96px); }
-    .hero__grid { grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 72px); }
-    .hero__visual { max-width: 460px; max-height: none; overflow: visible; padding: 0; }
-    .hero__main { width: 64%; margin-right: 4%; }
-    .hero__back { left: 0; top: auto; bottom: 10%; width: 44%; }
+    .hero__grid {
+      grid-template-columns: 1fr 1.1fr; grid-template-areas: "text fan" "extra fan"; column-gap: clamp(24px, 4vw, 56px);
+      row-gap: 24px; align-items: start;
+    }
+    .hero__text { align-self: end; }
+    .hero__fan { position: relative; display: block; overflow: visible; height: 600px; padding: 0; margin: 0; }
+    .hero__slide { position: absolute; width: clamp(184px, 17vw, 236px); max-width: none; }
+    .hero__slide figcaption { font-size: 0.9rem; color: var(--ink-2); }
+    /* Sul computer la scritta del telefono centrale si toglie (come nel modello): si accavallava a quella di destra */
+    .hero__slide--center figcaption { display: none; }
+    /* Le scritte dei telefoni laterali stanno sul lato esterno, lontano dal telefono centrale che le coprirebbe */
+    .hero__slide--left figcaption { margin-top: 24px; padding-right: 32%; text-align: left; }
+    .hero__slide--right figcaption { margin-top: 24px; padding-left: 32%; text-align: right; }
+    .hero__slide--center { left: 50%; top: 0; width: clamp(210px, 19vw, 262px); transform: translateX(-50%); z-index: 2; }
+    .hero__slide--left { left: 2%; top: 64px; transform: rotate(-7deg) scale(0.88); transform-origin: bottom center; }
+    .hero__slide--right { right: 2%; top: 64px; transform: rotate(7deg) scale(0.88); transform-origin: bottom center; }
   }
 
   /* ---------- 1.2 Ti riconosci? ---------- */
@@ -573,6 +636,15 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
 
   /* ---------- 1.4 Mestieri ---------- */
   .mest-breve { color: var(--ink-2); margin: 0; }
+  .mest-invito {
+    display: flex; align-items: flex-start; gap: 12px; max-width: 760px; margin: 0 auto clamp(20px, 3vw, 28px);
+    padding: 14px 18px; border-radius: var(--radius-sm); background: var(--brand-soft); color: var(--ink);
+    font-size: 1.08rem; line-height: 1.45;
+  }
+  .mest-invito :global(svg) { flex: none; margin-top: 2px; color: var(--brand-ink); transform: rotate(90deg); }
+  /* "Tocca" sui telefoni, "Clicca" con il mouse */
+  .solo-mouse { display: none; }
+  @media (hover: hover) and (pointer: fine) { .solo-mouse { display: inline; } .solo-touch { display: none; } }
   .tiles {
     list-style: none; padding: 0; margin: 0;
     display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 8.5rem), 1fr));
@@ -595,6 +667,18 @@ const domande = faqHome.map((n) => trovaFaq(n)).filter((f): f is Faq => Boolean(
     .tile { padding: 20px 10px 16px; }
     .tile img { width: 64px; height: 64px; }
     .tile__name { font-size: 1rem; }
+  }
+  /* 26a tessera: bordo invece del riempimento, segno + (richiesta di Eugenio del 12/11/2026) */
+  .tile--tuo { background: transparent; border: 2px dashed var(--brand-strong); box-shadow: none; color: var(--brand-ink); }
+  .tile__plus {
+    display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%;
+    border: 2px solid var(--brand-strong); font-size: 2rem; font-weight: 700; line-height: 1;
+  }
+  @media (min-width: 900px) {
+    .tile__plus { width: 64px; height: 64px; }
+    /* Sul computer la 26a tessera occupa tutta la riga, invece di restare sola in un angolo */
+    .tiles li:last-child { grid-column: 1 / -1; }
+    .tile--tuo { flex-direction: row; justify-content: center; gap: 16px; padding-block: 16px; }
   }
   .mest-more { max-width: 760px; margin: clamp(28px, 4vw, 40px) auto 0; }
 
