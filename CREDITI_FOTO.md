@@ -1,34 +1,39 @@
-# Crediti delle fotografie delle pagine dei mestieri
+# Crediti delle fotografie
 
-Le foto `public/img/scene/<mestiere>.webp` sono le stesse delle lettere della demo nell'app (repository
-dell'app, `_docs/_img_settori/CREDITI_FOTO.txt`). Vengono da Unsplash, con la licenza Unsplash
-(https://unsplash.com/license): uso commerciale consentito, modifica consentita, attribuzione non
-obbligatoria. Scelte senza persone riconoscibili, volti o marchi. Ritaglio 900x620.
+Nelle pagine dei mestieri l'immagine di apertura e' la lettera vera della demo (`public/img/lettere/<mestiere>.webp`),
+che contiene una fotografia. Le foto sono le stesse delle lettere dell'app e vengono da Unsplash, con la licenza
+Unsplash (https://unsplash.com/license): uso commerciale consentito, modifica consentita, attribuzione non
+obbligatoria. Nessuna persona riconoscibile, nessun marchio leggibile.
 
-| Mestiere | File | Autore (Unsplash) | Pagina della foto | Verifica |
+Verifica: il 19/11/2026 Eugenio ha rivisto le 24 foto una per una e ogni pagina e' stata aperta: tutte hanno il
+titolo "Foto gratuita su Unsplash", nessuna e' Unsplash+ (nota 28 della sessione dell'app, repository dell'app,
+`_docs/sito/28_nota_sessione_app_foto_riviste_19_11.md`). Nelle lettere per il sito telefoni e partite IVA sono
+azzerati; azienda, nomi e indirizzi sono di fantasia.
+
+| Mestiere | Chiave | Foto | Autore (Unsplash) | Pagina della foto |
 |---|---|---|---|---|
-| Formaggi | `scene/formaggi.webp` | silkesfotos | https://unsplash.com/it/foto/un-gran-numero-di-formaggi-sono-impilati-sugli-scaffali-gW8WNdmGymA | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Tipografia | `scene/stampa.webp` | bank_phrom | https://unsplash.com/it/foto/printing-machine-Tzm3Oyu_6sk | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Floricoltori | `scene/fiori.webp` | caribou15 | https://unsplash.com/it/foto/fiori-su-cesti-TtKZyFJ7XC0 | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Acetificio | `scene/aceto.webp` | fotodruk | https://unsplash.com/it/foto/cantina-ad-arco-in-mattoni-con-file-di-botti-di-legno-invecchiati-hxe1hwMwMoo | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Agricoltura | `scene/agri.webp` | farmsteadphoto | https://unsplash.com/it/foto/cestello-del-raccolto-con-pomodori-e-verdure-hmoDcZnB7uw | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Birrificio | `scene/birra.webp` | logichom | https://unsplash.com/it/foto/serbatoi-industriali-in-acciaio-inox-in-un-lungo-corridoio-clLHgqSV3Pw | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Torrefazione | `scene/caffe.webp` | asthetik | https://unsplash.com/it/foto/lotto-di-chicchi-di-caffe-TD4DBagg2wE | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Ceramica | `scene/ceramica.webp` | jessiemaxwellphotography | https://unsplash.com/it/foto/pile-di-ciotole-di-ceramica-colorata-su-una-mensola-di-legno-bZqKUYZlEIY | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Conserve | `scene/conserve.webp` | robwicks | https://unsplash.com/it/foto/un-tavolo-sormontato-da-un-sacco-di-barattoli-pieni-di-liquido-JpLEd-XG5js | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Distilleria | `scene/distilleria.webp` | fhoppet | https://unsplash.com/it/foto/alambicchi-dorati-in-una-distilleria-rzvBp1sEHaw | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Pasticceria | `scene/dolci.webp` | foxfox | https://unsplash.com/it/foto/pasticcini-in-vetrina-o9kswzHrvMs | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Elettricisti | `scene/elettricisti.webp` | nina_mercado | https://unsplash.com/it/foto/filo-blu-e-verde-su-ripiano-in-legno-marrone-ygl027z_Iw0 | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Erboristeria | `scene/erbe.webp` | landis_brown | https://unsplash.com/it/foto/piante-assortite-appese-a-gancio-in-metallo-bianco-e-nero-gvDfl_814_c | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Apicoltori | `scene/miele.webp` | bermixstudio | https://unsplash.com/it/foto/un-barattolo-di-miele-si-trova-accanto-a-una-ciotola-di-miele-X7d2jpGtiZM | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Salumificio | `scene/salumi.webp` | supernov | https://unsplash.com/it/foto/carni-crude-appese-Wp3qbHlw1mI | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Sport | `scene/sport.webp` | tami171091 | https://unsplash.com/it/foto/palle-da-tennis-sparse-in-un-campo-vicino-alla-rete-wja47SF8NPc | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Vivai | `scene/vivai.webp` | anniespratt | https://unsplash.com/it/foto/varie-piante-in-vaso-esposte-allinterno-di-una-serra-TLaK2RKOsgs | link aperto il 18/11/2026 (controllo di Giovanni sulla PR #6): foto gratuita, autore corrispondente |
-| Vino | `scene/vino.webp` | foto di proprieta' (vigneto delle lettere storiche, ripulito dai riferimenti aziendali) | - | - |
-
-## Mestieri ancora con il disegno
-
-Pesca, olio, falegnameria (`legno`), officina (`auto`), idraulici (`impianti`), giardinaggio (`verde`) e agente
-alimentare (`agente`) restano con il disegno `scene/<mestiere>.svg`: i link alla fonte delle loro foto non si
-aprono (controllo del 18/11/2026), quindi la licenza non e' verificabile. Si sostituiscono quando ci sara' una foto
-con la pagina della fonte che si apre e la licenza gratuita confermata.
+| Pesca | `pesca` | nuova il 19/11 | niloufarmirhadi | https://unsplash.com/it/foto/orata-fresca-sul-ghiaccio-8UTehqZLdp8 |
+| Formaggi | `formaggi` | confermata il 19/11 | silkesfotos | https://unsplash.com/it/foto/un-gran-numero-di-formaggi-sono-impilati-sugli-scaffali-gW8WNdmGymA |
+| Olio | `olio` | confermata il 19/11 | john_cameron | https://unsplash.com/it/foto/un-mucchio-di-olive-verdi-e-olive-una-accanto-allaltra-RD0iQoLCkPo |
+| Falegnameria | `legno` | nuova il 19/11 | clemono | https://unsplash.com/it/foto/segatura-fotografica-selettiva-su-tavola-hdW4rZPHe2g |
+| Officina | `auto` | nuova il 19/11 | fotograw | https://unsplash.com/it/foto/un-gruppo-di-chiavi-disposte-in-cerchio-iuuJC_pjLU0 |
+| Idraulici | `impianti` | nuova il 19/11 | tinkerman | https://unsplash.com/it/foto/tubi-e-valvole-in-una-stanza-con-tavolo-arancione-U0jpGKtMtWE |
+| Tipografia | `stampa` | confermata il 19/11 | bank_phrom | https://unsplash.com/it/foto/printing-machine-Tzm3Oyu_6sk |
+| Giardinaggio | `verde` | confermata il 19/11 | itscakefortea | https://unsplash.com/it/foto/un-lungo-prato-verde-fiancheggiato-da-alberi-e-cespugli-JMWqAmRnXUg |
+| Agente alimentare | `agente` | nuova il 19/11 | vania_zhu1 | https://unsplash.com/it/foto/taccuino-bianco-vicino-borsa-nera-7ZC4qO3Gj6g |
+| Floricoltori | `fiori` | confermata il 19/11 | caribou15 | https://unsplash.com/it/foto/fiori-su-cesti-TtKZyFJ7XC0 |
+| Acetificio | `aceto` | nuova il 19/11 | erwanhesry | https://unsplash.com/it/foto/vecchie-botti-di-legno-allineati-in-una-cantina-gnIF5wfTvP0 |
+| Agricoltura | `agri` | confermata il 19/11 | farmsteadphoto | https://unsplash.com/it/foto/cestello-del-raccolto-con-pomodori-e-verdure-hmoDcZnB7uw |
+| Birrificio | `birra` | nuova il 19/11 | missyfant | https://unsplash.com/it/foto/tre-bicchieri-pieni-su-superficie-grigia-OMIgwm1i_NY |
+| Torrefazione | `caffe` | confermata il 19/11 | asthetik | https://unsplash.com/it/foto/lotto-di-chicchi-di-caffe-TD4DBagg2wE |
+| Ceramica | `ceramica` | confermata il 19/11 | jessiemaxwellphotography | https://unsplash.com/it/foto/pile-di-ciotole-di-ceramica-colorata-su-una-mensola-di-legno-bZqKUYZlEIY |
+| Conserve | `conserve` | confermata il 19/11 | robwicks | https://unsplash.com/it/foto/un-tavolo-sormontato-da-un-sacco-di-barattoli-pieni-di-liquido-JpLEd-XG5js |
+| Distilleria | `distilleria` | nuova il 19/11 | alexanderphotography | https://unsplash.com/it/foto/una-grande-pentola-di-rame-seduta-allinterno-di-un-edificio-kri6srV6C7A |
+| Pasticceria | `dolci` | confermata il 19/11 | foxfox | https://unsplash.com/it/foto/pasticcini-in-vetrina-o9kswzHrvMs |
+| Elettricisti | `elettricisti` | confermata il 19/11 | nina_mercado | https://unsplash.com/it/foto/filo-blu-e-verde-su-ripiano-in-legno-marrone-ygl027z_Iw0 |
+| Erboristeria | `erbe` | confermata il 19/11 | landis_brown | https://unsplash.com/it/foto/piante-assortite-appese-a-gancio-in-metallo-bianco-e-nero-gvDfl_814_c |
+| Apicoltori | `miele` | confermata il 19/11 | bermixstudio | https://unsplash.com/it/foto/un-barattolo-di-miele-si-trova-accanto-a-una-ciotola-di-miele-X7d2jpGtiZM |
+| Salumificio | `salumi` | confermata il 19/11 | supernov | https://unsplash.com/it/foto/carni-crude-appese-Wp3qbHlw1mI |
+| Sport | `sport` | nuova il 19/11 | greg_rosenke | https://unsplash.com/it/foto/manubri-neri-e-grigi-sul-pavimento-8DcwvlVXIVw |
+| Vivai | `vivai` | confermata il 19/11 | anniespratt | https://unsplash.com/it/foto/varie-piante-in-vaso-esposte-allinterno-di-una-serra-TLaK2RKOsgs |
+| Vino | `vino` | foto di proprieta' (vigneto delle lettere storiche, ripulito dai riferimenti aziendali) | - | - |
