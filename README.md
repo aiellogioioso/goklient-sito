@@ -87,15 +87,18 @@ Schermate (`schermate/`, 720 px di larghezza, barra di stato già tolta):
 | `h8-demo-25-mestieri.webp` | 1488 | Dimostrazione: griglia dei mestieri | provvisoria pulita |
 | `h12-demo-due-mestieri.webp` | 1488 | Dimostrazione: due mestieri scelti | provvisoria pulita |
 
-Mestieri: `mestieri/<chiave>.svg` (stemma del mestiere, 25, per le tessere) e `scene/<chiave>.svg`
-(illustrazione 900×620, 24; per il vino `scene/vino.webp`, foto 1000×750). Chiavi: agente, aceto, agri, auto, birra,
+Mestieri: `mestieri/<chiave>.svg` (stemma del mestiere, 25, per le tessere) e, come immagine di apertura di ogni
+pagina di mestiere, la lettera vera della demo `lettere/<chiave>.webp` (1000×1395, 25, con la foto del mestiere
+dentro; decisione di Eugenio del 19/11/2026). Le lettere le prepara la sessione dell'app (repository dell'app,
+`_docs/_img_settori/lettere_sito/`, script `_docs/gen_lettere_sito.py`). Crediti delle foto in
+[CREDITI_FOTO.md](CREDITI_FOTO.md). I disegni `scene/<chiave>.svg` restano come ripiego. Chiavi: agente, aceto, agri, auto, birra,
 caffe, ceramica, conserve, distilleria, dolci, elettricisti, erbe, fiori, formaggi, impianti, legno, miele, olio, pesca,
 salumi, sport, stampa, verde, vino, vivai.
 
 Foto e loghi della cantina Cecchini (`../goKlient_immagini_per_Giovanni/1_marchio/`): autorizzati (Marco Cecchini è
 di famiglia), ma sono piccoli e tutti sul vino: semmai solo nella pagina del vino o come futura testimonianza.
 
-**Non usare**: le foto Unsplash con link non verificati, le schermate con email o dati che sembrano veri.
+**Non usare**: foto senza una riga in [CREDITI_FOTO.md](CREDITI_FOTO.md) con il link alla fonte aperto e la licenza gratuita verificata (non Unsplash+); le schermate con email o dati che sembrano veri.
 
 ## Ancora da fare prima della pubblicazione
 

@@ -27,40 +27,12 @@ const inPiu = m.inPiu ? adattaWindows(m.inPiu) : null;
 const frase = (s: { nome: string; esempio?: string }) =>
   !s.esempio ? null : /^[a-zàèéìòù]/.test(s.esempio) ? `${s.nome} ${s.esempio}` : s.esempio;
 
-// Immagine di apertura: illustrazione 900x620, per il vino una foto 1000x750.
-const isFoto = m.immagine.endsWith('.webp');
-const imgW = isFoto ? 1000 : 900;
-const imgH = isFoto ? 750 : 620;
-
-// Testo alternativo: che cosa si vede in ogni immagine di apertura.
-const altScena: Record<string, string> = {
-  vino: 'Un vigneto in collina in autunno, con i filari e le foglie gialle e rosse',
-  formaggi: 'Illustrazione: forme di formaggio stagionato sugli scaffali di un caseificio, con un coltello e un tagliere',
-  olio: "Illustrazione: una latta e due bottiglie di olio d'oliva, con un ramo di olivo",
-  pesca: 'Illustrazione: il banco di una pescheria con orata, branzino e sogliola sotto il cartello «Pescato del giorno»',
-  birra: 'Illustrazione: i serbatoi di un birrificio, la spina e un boccale di birra sul bancone',
-  salumi: 'Illustrazione: salami e prosciutti appesi sopra il banco di un salumificio',
-  miele: 'Illustrazione: arnie in un prato fiorito, con le api e un favo di miele',
-  caffe: 'Illustrazione: una macchina per il caffè espresso, un tostatore e sacchetti di caffè in grani',
-  conserve: 'Illustrazione: scaffali pieni di vasetti di conserve e marmellate, una pentola sul fuoco e una cassetta di pomodori',
-  distilleria: 'Illustrazione: un alambicco di rame in una distilleria, con le bottiglie sul bancone',
-  dolci: 'Illustrazione: la vetrina di una pasticceria con torte e pasticcini',
-  aceto: "Illustrazione: una fila di botti nel sottotetto di un'acetaia, con il cartello «Batteria»",
-  agente: 'Illustrazione: uno scaffale di prodotti alimentari con bottiglie, vasetti, formaggi e salumi',
-  agri: 'Illustrazione: campi coltivati in collina, un trattore e cassette di verdura appena raccolta',
-  fiori: 'Illustrazione: il banco di un fioraio con vasi di fiori e una composizione pronta',
-  vivai: 'Illustrazione: una serra con file di piante fiorite in vaso e alberelli',
-  impianti: 'Illustrazione: una caldaia con il manometro, un termosifone e una cassetta degli attrezzi',
-  elettricisti: 'Illustrazione: un quadro elettrico, una lampadina accesa, un tester e una bobina di cavo',
-  legno: 'Illustrazione: un banco da falegname con assi di legno e gli attrezzi appesi al muro',
-  auto: "Illustrazione: un'auto sul ponte sollevatore di un'officina, con le gomme e gli attrezzi",
-  verde: 'Illustrazione: un giardino con una siepe tagliata, un tosaerba rosso, un albero e un’aiuola fiorita',
-  stampa: 'Illustrazione: una macchina da stampa con fogli stampati e barattoli di inchiostro',
-  erbe: 'Illustrazione: erbe appese a seccare, barattoli di tisane, un mortaio e piantine in vaso',
-  ceramica: 'Illustrazione: scaffali con vasi di ceramica colorati, un tornio e un forno',
-  sport: 'Illustrazione: palloni appesi alla parete di un negozio di articoli sportivi, una bicicletta, pesi e scarpe da corsa',
-};
-const alt = altScena[m.key] ?? `Illustrazione del lavoro: ${m.nome}`;
+// Immagine di apertura: la lettera vera della demo per questo mestiere, con la sua foto (richiesta di Eugenio del
+// 19/11/2026). Immagini preparate dalla sessione dell'app (A4 a 200 dpi, recapiti azzerati), WebP 1000x1395.
+// Crediti delle foto dentro le lettere in CREDITI_FOTO.md.
+const imgW = 1000;
+const imgH = 1395;
+const alt = `Una delle tre lettere che la demo prepara per ${m.nome}: intestazione con lo stemma del mestiere, testo con titoli e colori e una fotografia. Azienda e recapiti sono di fantasia.`;
 
 const vicini = m.vicini.map(perKey);
 
@@ -87,12 +59,10 @@ const testimonianze = config.testimonianze.filter((t) =>
           <DownloadButtons />
         </div>
         <figure class="scena">
-          <div class="scena__card">
+          <div class="scena__foglio">
             <img src={m.immagine} alt={alt} width={imgW} height={imgH} loading="eager" decoding="async" />
           </div>
-          <span class="scena__stemma">
-            <img src={`/img/mestieri/${m.key}.svg`} alt="" width="64" height="64" />
-          </span>
+          <figcaption class="small">Una delle tre lettere pronte nella demo per {m.tessera}: la mandi a te stesso per email e vedi come arriva a un cliente.</figcaption>
         </figure>
       </div>
     </div>
@@ -204,10 +174,11 @@ const testimonianze = config.testimonianze.filter((t) =>
         <span class="eyebrow">Demo</span>
         <h2 id="demo-titolo">Prova la demo di questo mestiere</h2>
         <p class="lead">
-          Installa goKlient, rispondi Sì alla proposta della dimostrazione e scegli “{m.tessera}”. Trovi clienti,
-          prodotti, scadenze e le tre lettere d'esempio. Puoi combinarlo con altri due mestieri.
+          Installa goKlient, scegli la dimostrazione, anche senza account, e il mestiere “{m.tessera}”. Trovi
+          clienti, prodotti, scadenze e le tre lettere d'esempio, da mandare a te stesso per email. Puoi combinarlo
+          con altri due mestieri.
         </p>
-        <p class="small">Dati di prova: nomi inventati, indirizzi @demo.it. Li togli con un pulsante.</p>
+        <p class="small">Dati di prova: nomi inventati, indirizzi @demo.it. Le modifiche fatte nella dimostrazione non restano.</p>
         <div class="btn-row s-demo-btn">
           <a class="btn btn--primary" href="/scarica"><Icon name="demo" /> Prova la demo per {m.tessera}</a>
         </div>
@@ -251,17 +222,15 @@ const testimonianze = config.testimonianze.filter((t) =>
   .s-breve { font-size: 1.2rem; font-weight: 700; color: var(--ink); }
   .s-more { margin: 0 0 28px; }
   .s-testi__h { text-align: center; }
-  .scena { margin: 0; position: relative; padding-bottom: 28px; }
-  .scena__card {
-    border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 6px solid var(--surface);
-    box-shadow: var(--shadow-lg);
+  /* La lettera della demo, come un foglio appoggiato */
+  .scena { margin: 0 auto; max-width: 440px; width: 100%; }
+  .scena__foglio {
+    background: #fff; border-radius: 6px; box-shadow: var(--shadow-lg); overflow: hidden;
+    transform: rotate(1.2deg);
   }
-  .scena__card img { width: 100%; height: auto; border-radius: calc(var(--radius) - 6px); }
-  .scena__stemma {
-    position: absolute; left: 24px; bottom: 0; width: 84px; height: 84px; border-radius: 50%; display: grid;
-    place-items: center; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
-  }
-  .scena__stemma img { width: 60px; height: 60px; }
+  .scena__foglio img { display: block; width: 100%; height: auto; }
+  .scena figcaption { margin: 16px 4px 0; text-align: center; color: var(--ink-2); }
+  @media (max-width: 899px) { .scena { max-width: min(380px, 86vw); } .scena__foglio { transform: none; } }
 
   /* b. Clienti */
   .s-clienti { display: grid; gap: 4px 24px; }
