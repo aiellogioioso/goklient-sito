@@ -59,10 +59,10 @@ const testimonianze = config.testimonianze.filter((t) =>
           <DownloadButtons />
         </div>
         <figure class="scena">
-          <div class="scena__foglio">
+          <a class="scena__foglio" href={m.immagine}>
             <img src={m.immagine} alt={alt} width={imgW} height={imgH} loading="eager" decoding="async" />
-          </div>
-          <figcaption class="small">Una delle tre lettere pronte nella demo per {m.tessera}: la mandi a te stesso per email e vedi come arriva a un cliente.</figcaption>
+          </a>
+          <figcaption class="small">Una delle tre lettere pronte nella demo per {m.tessera}: la mandi a te stesso per email e vedi come arriva a un cliente. <a href={m.immagine}>Apri la lettera a grandezza piena</a>.</figcaption>
         </figure>
       </div>
     </div>
@@ -225,9 +225,10 @@ const testimonianze = config.testimonianze.filter((t) =>
   /* La lettera della demo, come un foglio appoggiato */
   .scena { margin: 0 auto; max-width: 440px; width: 100%; }
   .scena__foglio {
-    background: #fff; border-radius: 6px; box-shadow: var(--shadow-lg); overflow: hidden;
-    transform: rotate(1.2deg);
+    display: block; background: #fff; border-radius: 6px; box-shadow: var(--shadow-lg); overflow: hidden;
+    transform: rotate(1.2deg); cursor: zoom-in;
   }
+  .scena__foglio:focus-visible { outline: 3px solid var(--brand); outline-offset: 4px; }
   .scena__foglio img { display: block; width: 100%; height: auto; }
   .scena figcaption { margin: 16px 4px 0; text-align: center; color: var(--ink-2); }
   @media (max-width: 899px) { .scena { max-width: min(380px, 86vw); } .scena__foglio { transform: none; } }
