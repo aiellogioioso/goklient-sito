@@ -4,6 +4,8 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import PhoneFrame from '../components/PhoneFrame.astro';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { config, testoWindows, rigaRequisiti } from '../config';
 
 const title = 'Scarica goKlient per Android';
@@ -13,6 +15,9 @@ const { apk } = config;
 // Indirizzo da scrivere nel browser del telefono: viene dal dominio del sito (astro.config.mjs), non scritto a mano.
 const indirizzoScarica = Astro.site ? `${Astro.site.host.replace(/^www\./, '')}/scarica` : '/scarica';
 const haDatiFile = Boolean(apk.versione || apk.data || apk.sha256);
+// Il pulsante compare solo se il file c'e' davvero in public/ (controllo fatto alla build): finche' manca, un link
+// con l'attributo download farebbe salvare al telefono la pagina "non trovata" come se fosse goKlient.apk.
+const apkPresente = existsSync(join(process.cwd(), 'public', apk.url));
 
 const passi = [
   {
@@ -59,9 +64,13 @@ const passi = [
           ) : (
             <>
               <p>Scarica il file di installazione e segui i passi qui sotto.</p>
-              <a class="btn btn--primary dl-card__btn" href={apk.url} download="goKlient.apk" type="application/vnd.android.package-archive">
-                <Icon name="scarica" /> Scarica goKlient per Android
-              </a>
+              {apkPresente ? (
+                <a class="btn btn--primary dl-card__btn" href={apk.url} download="goKlient.apk" type="application/vnd.android.package-archive">
+                  <Icon name="scarica" /> Scarica goKlient per Android
+                </a>
+              ) : (
+                <p class="placeholder dl-card__ph">[Pulsante "Scarica goKlient per Android": compare da solo quando il file goKlient.apk è caricato nel sito.]</p>
+              )}
               <p class="small dl-card__file">File di installazione goKlient.apk</p>
               {haDatiFile ? (
                 <ul class="small dl-card__meta">

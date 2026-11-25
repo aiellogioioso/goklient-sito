@@ -29,6 +29,25 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
   </div>
 </header>
 
+<script is:inline>
+  // Menu del telefono: si chiude con Esc, toccando fuori o quando il focus esce dal menu.
+  // Senza JavaScript il <details> continua ad aprirsi e chiudersi da solo.
+  (function () {
+    var d = document.querySelector('.nav-mobile');
+    if (!d) return;
+    var s = d.querySelector('summary');
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && d.open) { d.open = false; s.focus(); }
+    });
+    document.addEventListener('click', function (e) {
+      if (d.open && !d.contains(e.target)) d.open = false;
+    });
+    d.addEventListener('focusout', function (e) {
+      if (d.open && e.relatedTarget && !d.contains(e.relatedTarget)) d.open = false;
+    });
+  })();
+</script>
+
 <style>
   .site-header {
     position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -36,7 +55,7 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
     border-bottom: 1px solid var(--line);
   }
   .site-header__bar { display: flex; align-items: center; justify-content: space-between; min-height: 72px; gap: 24px; }
-  .site-header__logo { text-decoration: none; display: inline-flex; }
+  .site-header__logo { text-decoration: none; display: inline-flex; align-items: center; min-height: 44px; }
 
   .nav-desktop { display: none; align-items: center; gap: 20px; }
   .nav-desktop ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
@@ -46,7 +65,8 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
     font-weight: 700; font-size: 1rem;
   }
   .nav-desktop ul a:hover { background: var(--surface-2); color: var(--brand-ink); }
-  .nav-desktop ul a[aria-current='page'] { color: var(--brand-strong); background: var(--brand-soft); }
+  /* brand-ink su brand-soft: contrasto 6,2:1 (brand-strong si fermava a 4,2:1) */
+  .nav-desktop ul a[aria-current='page'] { color: var(--brand-ink); background: var(--brand-soft); }
 
   .nav-mobile summary {
     list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px;
@@ -66,11 +86,16 @@ const isActive = (href: string) => path === href || path.startsWith(href + '/');
   .nav-mobile nav {
     position: absolute; left: 0; right: 0; top: 100%; background: var(--bg); border-bottom: 1px solid var(--line);
     padding: 12px var(--gutter) 24px; box-shadow: var(--shadow-lg);
+    /* Telefono in orizzontale o caratteri grandi: il menu scorre al suo interno, cosi' tutte le voci si raggiungono */
+    max-height: calc(100dvh - 73px); overflow-y: auto; overscroll-behavior: contain;
   }
   .nav-mobile ul { list-style: none; padding: 0; margin: 0 0 16px; }
   .nav-mobile li { margin: 0; border-bottom: 1px solid var(--line); }
   .nav-mobile li a { display: block; padding: 16px 4px; font-size: 1.2rem; font-weight: 700; text-decoration: none; color: var(--ink); }
-  .nav-mobile li a[aria-current='page'] { color: var(--brand-strong); }
+  /* La pagina in cui sei: colore e barra a sinistra, non solo il colore */
+  .nav-mobile li a[aria-current='page'] {
+    color: var(--brand-strong); border-left: 4px solid var(--brand-strong); padding-left: 12px;
+  }
   .nav-mobile .btn { width: 100%; }
 
   @media (min-width: 1100px) {

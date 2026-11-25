@@ -8,9 +8,19 @@
 [build.environment]
   NODE_VERSION = "22.23.4"
 
-# Finche' config.anteprima e' true: nessuna indicizzazione (oltre a meta noindex e robots.txt).
-# Da togliere al lancio vero.
+# Il noindex dell'anteprima non sta piu' qui: lo scrive la build in dist/_headers finche' config.anteprima e' true
+# (vedi astro.config.mjs). Sulle anteprime delle PR Netlify aggiunge comunque un suo noindex.
+
+# File con l'impronta nel nome (CSS, JavaScript, caratteri): cambiano nome a ogni modifica, quindi il browser
+# puo' tenerli per un anno senza ricontrollarli.
 [[headers]]
-  for = "/*"
+  for = "/_astro/*"
   [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Immagini: il nome resta uguale anche quando si sostituisce il file, quindi cache breve (un giorno),
+# poi il browser le ricontrolla in sottofondo.
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"

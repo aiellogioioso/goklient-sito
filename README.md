@@ -33,6 +33,21 @@ for d in node_modules dist .astro; do mkdir -p $d && xattr -w 'com.apple.filepro
 
 Indirizzi fissi già dati a Google Play, da non cambiare: `/privacy`, `/elimina-account`, `/condizioni`.
 
+## Anteprima e lancio
+
+- Finché `config.anteprima` è `true` nessuna pagina va su Google: meta robots `noindex` in ogni pagina, `robots.txt`
+  che blocca tutto e, scritto dalla build, il file `dist/_headers` con `X-Robots-Tag: noindex, nofollow`
+  (vedi `astro.config.mjs`). Sulle anteprime delle PR Netlify aggiunge anche un suo `noindex`.
+- **Al lancio su goklient.app** basta mettere `anteprima: false` in `src/config.ts`: spariscono il `noindex` e il file
+  `_headers`, e `robots.txt` indica la mappa del sito `sitemap.xml` (generata da `src/pages/sitemap.xml.ts`).
+  Poi controllare con `curl -I https://goklient.app/` che non ci sia `X-Robots-Tag` e inviare la sitemap a Google
+  Search Console.
+- Il pulsante "Scarica goKlient per Android" compare da solo quando il file indicato in `config.apk.url`
+  (oggi `/scarica/goklient.apk`) esiste in `public/`. Finché manca, al suo posto c'è un segnaposto.
+- Cache (`netlify.toml`): `/_astro/*` per un anno, perché i nomi hanno l'impronta; `/img/*` per un giorno. Chi
+  sostituisce un'immagine tenendo lo stesso nome la vede aggiornata entro un giorno: per vederla subito, cambiare nome.
+- `public/og.png` è l'immagine che compare quando si condivide un link (WhatsApp, Facebook): 1200×630.
+
 ## Regole dei testi (dal brief)
 
 - I testi del brief si possono **accorciare**, ma non si aggiungono funzioni, numeri o promesse che non ci sono.
