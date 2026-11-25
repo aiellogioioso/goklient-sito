@@ -118,7 +118,13 @@ export const sezioniFaq: { id: string; titolo: string; domande: Faq[] }[] = [
       faq('25', `Posso scrivere a tanti clienti insieme?`,
         `Sì. Scegli un gruppo o una selezione di clienti: goKlient spedisce una email separata a ciascuno, con una pausa di circa cinque secondi tra l'una e l'altra, quindi un invio lungo richiede qualche minuto. Se superi il limite prudente del tuo fornitore (circa 400 destinatari per Gmail, 1000 per Microsoft, 300 per gli altri) l'app ti avvisa prima.`),
       faq('26', `Le mie email finiscono nella posta indesiderata dei clienti. Perché?`,
-        `Con Gmail e Outlook di solito non succede. Se spedisci da un indirizzo della tua azienda, la consegna dipende dal dominio: chi lo gestisce deve pubblicare i record SPF e DKIM del tuo fornitore di posta. È una configurazione gratuita, da fare una volta.`),
+        `Se spedisci da un indirizzo Gmail, Outlook o Hotmail, di solito arrivano bene. Se usi l'indirizzo della tua azienda, per esempio info@latuaazienda.it, il tuo indirizzo deve farsi riconoscere dalle caselle dei clienti: altrimenti le tue email sembrano sospette, da qualunque programma le mandi, non solo da goKlient.
+
+Che cosa fare:
+
+1. Chiedi a chi ti gestisce l'indirizzo dell'azienda (chi ti ha fatto il sito, o il fornitore della posta, per esempio Aruba) di "attivare SPF e DKIM per la posta del dominio". Basta questa frase: chi se ne occupa sa che cosa vuol dire. Si fa una volta sola e di solito non costa niente.
+
+2. Chiedi ai clienti che trovano la tua email fra la posta indesiderata di segnarla come "Non è posta indesiderata": aiuta anche per le email successive.`),
     ],
   },
   {

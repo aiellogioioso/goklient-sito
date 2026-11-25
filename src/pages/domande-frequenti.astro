@@ -58,13 +58,14 @@ const schermate: Record<string, { src: string; alt: string; width: number; heigh
 const esc = (s: string) =>
   s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** La risposta e' testo semplice: qui si protegge e si rendono cliccabili i pezzi indicati in `link`. */
+/** La risposta e' testo semplice: qui si protegge e si rendono cliccabili i pezzi indicati in `link`.
+    Una riga vuota nel testo (\n\n) separa i paragrafi. */
 function rispostaHtml(f: Faq): string {
   let html = esc(f.risposta);
   for (const l of f.link ?? []) {
     html = html.replace(esc(l.testo), `<a href="${esc(l.href)}">${esc(l.testo)}</a>`);
   }
-  return html;
+  return html.split(/\n\s*\n/).map((p) => `<p>${p.trim()}</p>`).join('');
 }
 
 // Dati strutturati per Google (FAQPage): domande e risposte in testo semplice.
@@ -118,7 +119,7 @@ const jsonLd = JSON.stringify({
                 <details id={f.id}>
                   <summary>{f.domanda}</summary>
                   <div class:list={['faq-answer', { 'faq-answer--img': img }]}>
-                    <p set:html={rispostaHtml(f)} />
+                    <div class="faq-text" set:html={rispostaHtml(f)} />
                     {img && (img.cornice === false
                       ? <img class="faq-shot--flat" src={img.src} alt={img.alt} width={img.width} height={img.height} loading="lazy" decoding="async" />
                       : <PhoneFrame class="faq-shot" src={img.src} alt={img.alt} width={img.width} height={img.height} />)}
@@ -184,7 +185,8 @@ const jsonLd = JSON.stringify({
   }
 
   .faq details { scroll-margin-top: 96px; }
-  .faq-answer p { margin: 0; }
+  .faq-answer :global(.faq-text p) { margin: 0 0 0.75em; }
+  .faq-answer :global(.faq-text p:last-child) { margin-bottom: 0; }
   .faq-answer--img { display: grid; gap: 20px; }
   .faq-answer :global(.faq-shot) { width: 100%; max-width: 230px; margin: 0 auto; }
   .faq-shot--flat {
